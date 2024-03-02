@@ -1,0 +1,744 @@
+# depslib dependency file v1.0
+1709212610 source:c:\users\my pc\desktop\test_game\main.cpp
+	<SDL2/SDL.h>
+	<time.h>
+	"Game.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_gamecontroller.h"
+	"SDL_guid.h"
+	"SDL_haptic.h"
+	"SDL_hidapi.h"
+	"SDL_hints.h"
+	"SDL_joystick.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_metal.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_sensor.h"
+	"SDL_shape.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"SDL_locale.h"
+	"SDL_misc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<wchar.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	<sal.h>
+	"begin_code.h"
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+	<winsdkver.h>
+	<sdkddkver.h>
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_platform.h
+	<AvailabilityMacros.h>
+	<TargetConditionals.h>
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\begin_code.h
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\close_code.h
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_assert.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	<sys/cpuinline.h>
+	<mbarrier.h>
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<endian.h>
+	<endian.h>
+	<sys/endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	<process.h>
+	<process.h>
+	<stdlib.h>
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<arm_neon.h>
+	<altivec.h>
+	<arm_neon.h>
+	<armintr.h>
+	<arm_neon.h>
+	<arm64intr.h>
+	<arm64_neon.h>
+	<mm3dnow.h>
+	<lsxintrin.h>
+	<lasxintrin.h>
+	<immintrin.h>
+	<mmintrin.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	<pmmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_pixels.h
+	"SDL_stdinc.h"
+	"SDL_endian.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_guid.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_guid.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_sensor.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_sensor.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_hidapi.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_metal.h
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_shape.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_locale.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1698944750 c:\users\my pc\desktop\test_game\sdl file\sdl2-2.28.5\x86_64-w64-mingw32\include\sdl2\sdl_misc.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1709298431 source:c:\users\my pc\desktop\test_game\game.cpp
+	"Game.h"
+
+1706613707 source:c:\users\my pc\desktop\test_game\item.cpp
+
+1706614155 source:c:\users\my pc\desktop\test_game\menu.cpp
+
+1709298651 source:c:\users\my pc\desktop\test_game\player.cpp
+	"Player.h"
+	"SDL_GameObject.h"
+
+1706691848 source:c:\users\my pc\desktop\test_game\render.cpp
+
+1706546162 c:\users\my pc\desktop\test_game\sdl file\sdl2_image-2.8.2\x86_64-w64-mingw32\include\sdl2\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1706625883 c:\users\my pc\desktop\test_game\render.hpp
+	<iostream>
+	<string>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+
+1706613764 source:c:\users\my pc\desktop\test_game\shop.cpp
+
+1709224261 source:c:\users\my pc\desktop\test_game\soldier.cpp
+	"Soldier.h"
+
+1705857752 c:\users\my pc\desktop\test_game\sdl file\sdl2_mixer-2.8.0\x86_64-w64-mingw32\include\sdl2\sdl_mixer.h
+	"SDL_stdinc.h"
+	"SDL_rwops.h"
+	"SDL_audio.h"
+	"SDL_endian.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1707057677 source:c:\users\my pc\desktop\test_game\baseobject.cpp
+	"BaseObject.h"
+
+1707057451 c:\users\my pc\desktop\test_game\baseobject.h
+	<iostream>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	"Render.h"
+
+1707059191 c:\users\my pc\desktop\test_game\render.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<iostream>
+
+1707049725 c:\users\my pc\desktop\test_game\mainobject.h
+	"BaseObject.h"
+
+1708872439 c:\users\my pc\desktop\test_game\game.h
+	<iostream>
+	<vector>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<SDL2/SDL_mixer.h>
+	"ManageTexture.h"
+	"GameObject.h"
+	"Player.h"
+	"Soldier.h"
+	"HandleInput.h"
+	"GameState.h"
+	"GameStateMachine.h"
+	"MenuState.h"
+	"PlayState.h"
+
+1708607929 c:\users\my pc\desktop\test_game\managetexture.h
+	<iostream>
+	<map>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+
+1708590574 source:c:\users\my pc\desktop\test_game\managetexture.cpp
+	"ManageTexture.h"
+
+1709223812 c:\users\my pc\desktop\test_game\player.h
+	<iostream>
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"HandleInput.h"
+	"Vector2D.h"
+	"PlayState.h"
+	"dart.h"
+	"Eskill.h"
+	"Grass.h"
+	"ManageTexture.h"
+
+1708832754 c:\users\my pc\desktop\test_game\gameobject.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	<iostream>
+	"LoaderParams.h"
+
+1708440549 source:c:\users\my pc\desktop\test_game\gameobject.cpp
+
+1709187488 c:\users\my pc\desktop\test_game\soldier.h
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+
+1708832786 c:\users\my pc\desktop\test_game\loaderparams.h
+	<iostream>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+
+1708832754 source:c:\users\my pc\desktop\test_game\loaderparams.cpp
+	"LoaderParams.h"
+
+1708932945 c:\users\my pc\desktop\test_game\sdl_gameobject.h
+	<iostream>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+	"GameObject.h"
+	"LoaderParams.h"
+	"Vector2D.h"
+
+1708932945 source:c:\users\my pc\desktop\test_game\sdl_gameobject.cpp
+	"SDL_GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+	"GameObject.h"
+
+1708506078 c:\users\my pc\desktop\test_game\vector2d.h
+	<math.h>
+
+1708497505 source:c:\users\my pc\desktop\test_game\vector2d.cpp
+	"Vector2D.h"
+
+1708667144 c:\users\my pc\desktop\test_game\handleinput.h
+	<vector>
+	<iostream>
+	<SDL2/SDL.h>
+	"Vector2D.h"
+
+1708667144 source:c:\users\my pc\desktop\test_game\handleinput.cpp
+	"HandleInput.h"
+	"Game.h"
+
+1708601377 c:\users\my pc\desktop\test_game\gamestate.h
+	<string>
+	<iostream>
+
+1708596152 source:c:\users\my pc\desktop\test_game\gamestate.cpp
+
+1709298431 source:c:\users\my pc\desktop\test_game\gamestatemachine.cpp
+	"GameStateMachine.h"
+
+1709298431 c:\users\my pc\desktop\test_game\gamestatemachine.h
+	"GameState.h"
+	<vector>
+
+1709218274 source:c:\users\my pc\desktop\test_game\menustate.cpp
+	"MenuState.h"
+	"MenuBG.h"
+
+1708698643 c:\users\my pc\desktop\test_game\menustate.h
+	"GameState.h"
+	"GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+	"MenuButton.h"
+	"OptionsState.h"
+	"SureState.h"
+	"InstructionState.h"
+	<vector>
+	<iostream>
+
+1709298525 source:c:\users\my pc\desktop\test_game\playstate.cpp
+	"PlayState.h"
+
+1709280041 c:\users\my pc\desktop\test_game\playstate.h
+	<vector>
+	<iostream>
+	<map>
+	<algorithm>
+	"GameState.h"
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+	"PauseState.h"
+	"Grass.h"
+	"GameOverState.h"
+	"PlayState_2.h"
+
+1708832808 source:c:\users\my pc\desktop\test_game\menubutton.cpp
+	"MenuButton.h"
+
+1708832754 c:\users\my pc\desktop\test_game\menubutton.h
+	"SDL_GameObject.h"
+	"HandleInput.h"
+	"LoaderParams.h"
+
+1709206138 c:\users\my pc\desktop\test_game\pausestate.h
+	"GameObject.h"
+	"GameState.h"
+	"Game.h"
+	"ManageTexture.h"
+	"MenuButton.h"
+	"LoaderParams.h"
+	"MenuState.h"
+	"HandleInput.h"
+	"OptionsState.h"
+	<iostream>
+	<string>
+	<vector>
+	<SDL2/SDL.h>
+	<SDL2/SDL_image.h>
+
+1709213812 source:c:\users\my pc\desktop\test_game\pausestate.cpp
+	"PauseState.h"
+
+1708671800 source:c:\users\my pc\desktop\test_game\menubg.cpp
+	"MenuBG.h"
+
+1708669776 c:\users\my pc\desktop\test_game\menubg.h
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"HandleInput.h"
+	"Vector2D.h"
+	"LoaderParams.h"
+
+1708684495 c:\users\my pc\desktop\test_game\optionsstate.h
+	<vector>
+	<iostream>
+	"GameState.h"
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+
+1708683948 source:c:\users\my pc\desktop\test_game\optionsstate.cpp
+	"OptionsState.h"
+
+1708693760 c:\users\my pc\desktop\test_game\surestate.h
+	"GameState.h"
+	"GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+	"MenuButton.h"
+	"OptionsState.h"
+	"MenuBG.h"
+	<vector>
+	<iostream>
+
+1708694379 source:c:\users\my pc\desktop\test_game\surestate.cpp
+	"SureState.h"
+
+1708698515 c:\users\my pc\desktop\test_game\instructionstate.h
+	"GameState.h"
+	"GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+	"MenuButton.h"
+	<vector>
+	<iostream>
+
+1708698522 source:c:\users\my pc\desktop\test_game\instructionstate.cpp
+	"InstructionState.h"
+
+1708758888 source:c:\users\my pc\desktop\test_game\dart.cpp
+	"dart.h"
+
+1708766665 c:\users\my pc\desktop\test_game\dart.h
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"HandleInput.h"
+	"Vector2D.h"
+	"PlayState.h"
+
+1708766665 c:\users\my pc\desktop\test_game\eskill.h
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"HandleInput.h"
+	"Vector2D.h"
+	"PlayState.h"
+
+1708778578 source:c:\users\my pc\desktop\test_game\eskill.cpp
+	"Eskill.h"
+
+1709021695 source:c:\users\my pc\desktop\test_game\grass.cpp
+	"Grass.h"
+	"SDL_GameObject.h"
+	"Vector2D.h"
+
+1709021695 c:\users\my pc\desktop\test_game\grass.h
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"HandleInput.h"
+	"Vector2D.h"
+	"PlayState.h"
+
+1709017145 source:c:\users\my pc\desktop\test_game\playbg.cpp
+
+1709297759 source:c:\users\my pc\desktop\test_game\gameoverstate.cpp
+	"GameOverState.h"
+
+1709216873 c:\users\my pc\desktop\test_game\gameoverstate.h
+	"GameState.h"
+	"Game.h"
+	"ManageTexture.h"
+	"HandleInput.h"
+	"MenuButton.h"
+	"LoaderParams.h"
+	"MenuState.h"
+	"PlayState.h"
+	<iostream>
+	<vector>
+
+1709300345 source:c:\users\my pc\desktop\test_game\boss.cpp
+	"Boss.h"
+
+1709299801 c:\users\my pc\desktop\test_game\boss.h
+	<vector>
+	<iostream>
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+
+1709300438 source:c:\users\my pc\desktop\test_game\playstate_2.cpp
+	"PlayState_2.h"
+
+1709280013 c:\users\my pc\desktop\test_game\playstate_2.h
+	<vector>
+	<iostream>
+	<map>
+	<algorithm>
+	"GameState.h"
+	"GameObject.h"
+	"SDL_GameObject.h"
+	"ManageTexture.h"
+	"Game.h"
+	"PauseState.h"
+	"Grass.h"
+	"GameOverState.h"
+	"Boss.h"
+

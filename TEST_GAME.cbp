@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="TEST_GAME" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/TEST_GAME" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="$(SolutionDir)SDL file/SDL2-2.28.5/x86_64-w64-mingw32/include" />
+					<Add directory="$(SolutionDir)SDL file/SDL2_image-2.8.2/x86_64-w64-mingw32/include" />
+					<Add directory="$(SolutionDir)SDL file/SDL2_mixer-2.8.0/x86_64-w64-mingw32/include" />
+					<Add directory="$(SolutionDir)SDL file/SDL2_ttf-2.22.0/x86_64-w64-mingw32/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
+					<Add option="-lSDL2_ttf -lSDL2_mixer" />
+					<Add directory="$(SolutionDir)SDL file/SDL2-2.28.5/x86_64-w64-mingw32/lib" />
+					<Add directory="$(SolutionDir)SDL file/SDL2_image-2.8.2/x86_64-w64-mingw32/lib" />
+					<Add directory="$(SolutionDir)SDL file/SDL2_mixer-2.8.0/x86_64-w64-mingw32/lib" />
+					<Add directory="$(SolutionDir)SDL file/SDL2_ttf-2.22.0/x86_64-w64-mingw32/lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/TEST_GAME" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="$(SolutionDir)SDL file/SDL2-2.28.5/x86_64-w64-mingw32/include/SDL2" />
+			<Add directory="$(SolutionDir)SDL file/SDL2_mixer-2.8.0/x86_64-w64-mingw32/include/SDL2" />
+			<Add directory="$(SolutionDir)SDL file/SDL2_image-2.8.2/x86_64-w64-mingw32/include/SDL2" />
+			<Add directory="$(SolutionDir)SDL file/SDL2_ttf-2.22.0/x86_64-w64-mingw32/include/SDL2" />
+		</Compiler>
+		<Linker>
+			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_image" />
+			<Add option="-lSDL2_ttf -lSDL2_mixer" />
+			<Add directory="$(SolutionDir)SDL file/SDL2-2.28.5/x86_64-w64-mingw32/lib" />
+			<Add directory="$(SolutionDir)SDL file/SDL2_image-2.8.2/x86_64-w64-mingw32/lib" />
+			<Add directory="$(SolutionDir)SDL file/SDL2_mixer-2.8.0/x86_64-w64-mingw32/lib" />
+			<Add directory="$(SolutionDir)SDL file/SDL2_ttf-2.22.0/x86_64-w64-mingw32/lib" />
+		</Linker>
+		<Unit filename="Boss.cpp" />
+		<Unit filename="Boss.h" />
+		<Unit filename="Eskill.cpp" />
+		<Unit filename="Eskill.h" />
+		<Unit filename="Game.cpp" />
+		<Unit filename="Game.h" />
+		<Unit filename="GameObject.cpp" />
+		<Unit filename="GameObject.h" />
+		<Unit filename="GameOverState.cpp" />
+		<Unit filename="GameOverState.h" />
+		<Unit filename="GameState.cpp" />
+		<Unit filename="GameState.h" />
+		<Unit filename="GameStateMachine.cpp" />
+		<Unit filename="GameStateMachine.h" />
+		<Unit filename="Grass.cpp" />
+		<Unit filename="Grass.h" />
+		<Unit filename="HandleInput.cpp" />
+		<Unit filename="HandleInput.h" />
+		<Unit filename="InstructionState.cpp" />
+		<Unit filename="InstructionState.h" />
+		<Unit filename="LoaderParams.cpp" />
+		<Unit filename="LoaderParams.h" />
+		<Unit filename="ManageFont.cpp" />
+		<Unit filename="ManageFont.h" />
+		<Unit filename="ManageSound.cpp" />
+		<Unit filename="ManageSound.h" />
+		<Unit filename="ManageTexture.cpp" />
+		<Unit filename="ManageTexture.h" />
+		<Unit filename="MenuBG.cpp" />
+		<Unit filename="MenuBG.h" />
+		<Unit filename="MenuButton.cpp" />
+		<Unit filename="MenuButton.h" />
+		<Unit filename="MenuState.cpp" />
+		<Unit filename="MenuState.h" />
+		<Unit filename="NPC.cpp" />
+		<Unit filename="NPC.h" />
+		<Unit filename="OptionsState.cpp" />
+		<Unit filename="OptionsState.h" />
+		<Unit filename="PauseState.cpp" />
+		<Unit filename="PauseState.h" />
+		<Unit filename="PlayBG.cpp" />
+		<Unit filename="PlayBG.h" />
+		<Unit filename="PlayState.cpp" />
+		<Unit filename="PlayState.h" />
+		<Unit filename="PlayState_2.cpp" />
+		<Unit filename="PlayState_2.h" />
+		<Unit filename="Player.cpp" />
+		<Unit filename="Player.h" />
+		<Unit filename="SDL_GameObject.cpp" />
+		<Unit filename="SDL_GameObject.h" />
+		<Unit filename="Soldier.cpp" />
+		<Unit filename="Soldier.h" />
+		<Unit filename="SureState.cpp" />
+		<Unit filename="SureState.h" />
+		<Unit filename="Vector2D.cpp" />
+		<Unit filename="Vector2D.h" />
+		<Unit filename="dart.cpp" />
+		<Unit filename="dart.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="main.h" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
