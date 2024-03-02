@@ -1,6 +1,8 @@
 #include "ManageSound.h"
 
 
+ManageSound* ManageSound::Instance=NULL;
+
 ManageSound* ManageSound::GetInstance()
 {
     if(Instance==NULL)
@@ -25,7 +27,7 @@ bool ManageSound::load(std::string fileName,std::string id,sound_type type)
             std::cout<<"Error1:"<<Mix_GetError();
             return false;
         }
-        Musix_Map[id]=p_Music;
+        Music_Map[id]=p_Music;
         return true;
     }
     else if(type==SOUND_SFX)
@@ -44,12 +46,12 @@ bool ManageSound::load(std::string fileName,std::string id,sound_type type)
 
 void ManageSound::playMusic(std::string id,int loop)
 {
-    Mix_PlayMusic(Musix_Map[id],loop);
+    Mix_PlayMusic(Music_Map[id],loop);
 }
 
 void ManageSound::playSound(std::string id,int loop)
 {
-    Mix_PlayChannel(SFX_Map[id],loop);
+    Mix_PlayChannel(-1,SFX_Map[id],loop);
 }
 
 ManageSound::~ManageSound()

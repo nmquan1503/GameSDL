@@ -67,6 +67,7 @@ Boss::Boss(const LoaderParams* Params,int x_pl,int y_pl):SDLGameObject(Params)
     p_pos_x=Params->GetX();
     p_pos_y=Params->GetY();
     p_BossPos=Posk2(p_pos_x,p_pos_y);
+    p_Frame=0;
 }
 
 
@@ -85,10 +86,32 @@ void Boss::draw()
     SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),255,0,0,255);
     dst={tmp_x,tmp_y,std::max(0,hp*200)/10000,20};
     SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
+
+    /*if(hp_lose!=0)
+    {
+        std::string tmp=std::to_string(hp_lose);
+        SDL_Color myColor = {255, 255, 0, 255};
+        ManageFont::GetInstance()->drawTextBlended("font1",tmp,myColor,p_pos.GetX()+p_w/2-15,p_pos.Get,Game::GetInstance()->GetRenderer());
+        hp_lose=0;
+    }*/
+    for(int i:hp_lose)
+    {
+        std::string tmp=std::to_string(i);
+        int t1=rand()%20-10;
+        int t2=rand()%8-4;
+        ManageFont::GetInstance()->drawTextBlended("font1",tmp,{255,255,0,255},p_pos.GetX()+p_w/2+t1,p_pos.GetY()-20+t2,Game::GetInstance()->GetRenderer());
+    }
+    hp_lose.clear();
+
 }
 
 void Boss::update()
 {
+    /*for(int i=0;i<hp_lose.size();i++)
+    {
+        hp+=hp_lose[i];
+    }*/
+
     p_ATK_nor=false;
 
     for(int i=0; i<p_eskill.size(); i++)
@@ -100,7 +123,6 @@ void Boss::update()
         }
     }
 
-    std::cout<<p_pos_x<<" "<<p_pos_y<<std::endl;
     p_BossPos=Posk2(p_pos_x,p_pos_y);
 
     SetToaDo2(p_PlayerPos,p_grass_x2,p_grass_y2,p_grass_w2);

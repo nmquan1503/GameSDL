@@ -27,6 +27,12 @@ Game::~Game()
 
 bool Game::init(const char* title,int width,int height)
 {
+    if(TTF_Init()==-1)
+    {
+        std::cout<<"NODD"<<" "<<TTF_GetError();
+        return false;
+    }
+
     if(SDL_Init(SDL_INIT_EVERYTHING)==0)
     {
         p_window=SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,width,height,SDL_WINDOW_SHOWN);

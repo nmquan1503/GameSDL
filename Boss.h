@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <iostream>
+#include <string.h>
+#include <string>
 
 #include "GameObject.h"
 #include "SDL_GameObject.h"
@@ -31,6 +33,7 @@ public:
 
     std::vector<GameObject*> GetEskill(){return p_eskill;}
     void SetEskill(std::vector<GameObject*>es){p_eskill=es;}
+    void push_hp_lose(int t){hp_lose.push_back(t);}
 private:
     int pos_in_map_x=0;
     int pos_in_map_y=0;
@@ -55,9 +58,12 @@ private:
     int hp=10000;
     int mana=200;
 
+
     std::vector<GameObject*>p_eskill;
     bool p_ATK_nor=false;
     bool p_ATK_eskill=false;
+
+    std::vector<int>hp_lose;
 };
 
 #endif // _Boss_h_

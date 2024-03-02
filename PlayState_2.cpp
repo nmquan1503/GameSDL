@@ -98,6 +98,41 @@ int Pos2(int x,int y)
     return 7;
 }
 
+void PlayState2::drawOnBoard(std::string id,std::string text)
+{
+    SDL_Texture* tex=ManageFont::GetInstance()->createTex(id,text, {0,0,0,255},Game::GetInstance()->GetRenderer());
+    int w;
+    int h;
+    SDL_QueryTexture(tex,NULL,NULL,&w,&h);
+    SDL_Surface* sur=IMG_Load("Image/bogoc.png");
+    SDL_Texture* tex2=SDL_CreateTextureFromSurface(Game::GetInstance()->GetRenderer(),sur);
+    SDL_FreeSurface(sur);
+    int x=(1020-w)/2-50;
+    int y=300;
+    SDL_Rect dst= {x,y,1020-2*x,150};
+    SDL_RenderCopy(Game::GetInstance()->GetRenderer(),tex2,NULL,&dst);
+    dst= {(1020-w)/2,350,w,h};
+    SDL_RenderCopy(Game::GetInstance()->GetRenderer(),tex,NULL,&dst);
+}
+
+std::string GetSL(std::string tmp,int k)
+{
+    if(k>tmp.size())k=tmp.size();
+    std::string n="";
+    for(int i=0; i<k; i++)n+=tmp[i];
+    return n;
+}
+
+/*void PlayState2::talk1()
+{
+    Talking1=true;
+//    p_play=new MenuButton(new LoaderParams(450,600,250,60,"menu_home"),start_play);
+}
+void PlayState2::start_play()
+{
+    p_start=true;
+}*/
+
 void PlayState2::update()
 {
     if(static_cast<Player*>(p_player)->GetTimeDie()==20)
@@ -112,151 +147,193 @@ void PlayState2::update()
         Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex2(Game::GetInstance()->GetRenderer())));
     }
 
-    // for(GameObject* i:p_gameObjects)
-    //{
-    //    i->update();
-    //}
-
-    static_cast<Player*>(p_player)->SetDart(p_darts);
-    static_cast<Boss*>(p_boss)->SetEskill(p_eskill_boss);
-
-    int t_l=15,t_r=15;
-    int x1=static_cast<Player*>(p_player)->GetPosInMapX();
-    int y1=static_cast<Player*>(p_player)->GetPosInMapY();
-    for(GameObject* i:p_grass_1)
+    if(p_start==false&&p_end==false)
     {
-        int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
-        int y2=static_cast<Grass*>(i)->GetFirY(),h2=static_cast<Grass*>(i)->GetH();
-        if(y1<y2+h2&&y1+75>y2)
+        Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
+        if(vec->GetX()<=200&&vec->GetY()<=845&&vec->GetY()<=1150 && HandleInput::GetInstance()->GetMouse(0))
         {
-            if(x1-(x2+w2)>=0)t_l=std::min(t_l,x1-(x2+w2));
-            if(x2-(x1+50)>=0)t_r=std::min(t_r,x2-(x1+50));
-        }
-    }
-    static_cast<Player*>(p_player)->SetRightCan(t_r);
-    static_cast<Player*>(p_player)->SetLeftCan(t_l);
-
-    int t_d=std::min(100,10*static_cast<Player*>(p_player)->GetTimeJump());
-    for(GameObject* i:p_grass_1)
-    {
-        int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
-        int y2=static_cast<Grass*>(i)->GetFirY();//h2=static_cast<Grass*>(i)->GetH();
-        if(x1<x2+w2&&x1+50>x2)
-        {
-            if(y2-(y1+75)>=0)t_d=std::min(t_d,y2-(y1+75));
-        }
-    }
-    for(GameObject* i:p_grass_2)
-    {
-        int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
-        int y2=static_cast<Grass*>(i)->GetFirY();//h2=static_cast<Grass*>(i)->GetH();
-        if(x1<x2+w2&&x1+50>x2)
-        {
-            if(y2-(y1+75)>=0)t_d=std::min(t_d,y2-(y1+75));
-        }
-    }
-    static_cast<Player*>(p_player)->SetDownCan(t_d);
-
-    p_player->update();
-
-    for(GameObject* i: p_grass_1)
-    {
-        if(CollisionPlayer(i)==1)
-        {
-            int t=static_cast<Grass*>(i)->GetFirY();
-            static_cast<Player*>(p_player)->fixDown(t);
-            static_cast<Player*>(p_player)->SetJumped(false);
-            static_cast<Player*>(p_player)->SetTimeJump(0);
-            break;
+            longText=0;
+            IsTalking1=true;
         }
     }
 
-    p_darts=static_cast<Player*>(p_player)->GetDarts();
-    p_eskill_player=static_cast<Player*>(p_player)->GetEskill();
-    //p_eskill_boss=static_cast<Boss*>(p_boss)->GetEskill();
-
-    for(GameObject* i:p_darts)
+    if(IsTalking1==true&&longText>=text1.size()&&HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_SPACE))
     {
-        i->update();
+        p_start=true;
+        IsTalking1=false;
     }
 
-    for(GameObject* i:p_eskill_player)
-        i->update();
-
-    // for(GameObject* i:p_eskill_boss)
-    //   i->update();
-
-    /* int t=Pos(static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapX());
-     for(GameObject* i:p_soldiers)
-     {
-         static_cast<Soldier*>(i)->SetPlayerPos(t);
-     }*/
-
-    /*if(numSoldier<=200&&p_soldiers.size()<20)
+    if(static_cast<Boss*>(p_boss)->GetHP()<=0)
     {
-        numSoldier++;
-        int k=rand()%2040+1;
-        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY()));
-    }*/
-    int t=Pos2(static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY ());
-
-    /*for(GameObject* i:p_soldiers)
-    {
-        static_cast<Soldier*>(i)->SetPlayerPos(Pos_Map[ {static_cast<Soldier*>(i)->GetPosMap(),t}]);
-        static_cast<Soldier*>(i)->SetMapX(static_cast<Player*>(p_player)->GetPosInMapX());
-        static_cast<Soldier*>(i)->SetMapY(static_cast<Player*>(p_player)->GetPosInMapY());
-        i->update();
+        p_end=true;
+        p_start=false;
     }
-
-    for(GameObject* i:p_soldiers)
+    if(p_end==true)
     {
-        if(Collission(i,p_player))
+        Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
+        if(vec->GetX()<=200&&vec->GetY()<=845&&vec->GetY()<=1150 && HandleInput::GetInstance()->GetMouse(0))
         {
+            longText=0;
+            IsTalking2=true;
+        }
+    }
+    if(IsTalking2==true&&longText>=text2.size()&&HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_SPACE))
+    {
+        p_end=false;
+        IsTalking2=false;
+        win=true;
+    }
+
+
+
+
+
+
+
+
+    if(IsTalking1==false && IsTalking2==false)
+    {
+
+
+        static_cast<Player*>(p_player)->SetDart(p_darts);
+        //static_cast<Boss*>(p_boss)->SetEskill(p_eskill_boss);
+
+        int t_l=15,t_r=15;
+        int x1=static_cast<Player*>(p_player)->GetPosInMapX();
+        int y1=static_cast<Player*>(p_player)->GetPosInMapY();
+        for(GameObject* i:p_grass_1)
+        {
+            int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
+            int y2=static_cast<Grass*>(i)->GetFirY(),h2=static_cast<Grass*>(i)->GetH();
+            if(y1<y2+h2&&y1+75>y2)
+            {
+                if(x1-(x2+w2)>=0)t_l=std::min(t_l,x1-(x2+w2));
+                if(x2-(x1+50)>=0)t_r=std::min(t_r,x2-(x1+50));
+            }
+        }
+        static_cast<Player*>(p_player)->SetRightCan(t_r);
+        static_cast<Player*>(p_player)->SetLeftCan(t_l);
+
+        int t_d=std::min(100,10*static_cast<Player*>(p_player)->GetTimeJump());
+        for(GameObject* i:p_grass_1)
+        {
+            int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
+            int y2=static_cast<Grass*>(i)->GetFirY();//h2=static_cast<Grass*>(i)->GetH();
+            if(x1<x2+w2&&x1+50>x2)
+            {
+                if(y2-(y1+75)>=0)t_d=std::min(t_d,y2-(y1+75));
+            }
+        }
+        for(GameObject* i:p_grass_2)
+        {
+            int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
+            int y2=static_cast<Grass*>(i)->GetFirY();//h2=static_cast<Grass*>(i)->GetH();
+            if(x1<x2+w2&&x1+50>x2)
+            {
+                if(y2-(y1+75)>=0)t_d=std::min(t_d,y2-(y1+75));
+            }
+        }
+        static_cast<Player*>(p_player)->SetDownCan(t_d);
+
+        /*  if(p_npc->GetTalk()==false)*/p_player->update();
+
+        for(GameObject* i: p_grass_1)
+        {
+            if(CollisionPlayer(i)==1)
+            {
+                int t=static_cast<Grass*>(i)->GetFirY();
+                static_cast<Player*>(p_player)->fixDown(t);
+                static_cast<Player*>(p_player)->SetJumped(false);
+                static_cast<Player*>(p_player)->SetTimeJump(0);
+                break;
+            }
+        }
+
+        p_darts=static_cast<Player*>(p_player)->GetDarts();
+        p_eskill_player=static_cast<Player*>(p_player)->GetEskill();
+        //p_eskill_boss=static_cast<Boss*>(p_boss)->GetEskill();
+
+        for(GameObject* i:p_darts)
+        {
+            i->update();
+        }
+
+        for(GameObject* i:p_eskill_player)
+            i->update();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if(p_start==true&&p_end==false)
+    {
+
+        int t=Pos2(static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY ());
+
+
+        static_cast<Boss*>(p_boss)->SetEskill(p_eskill_boss);
+        static_cast<Boss*>(p_boss)->SetPlayerPos(Pos_Map[ {static_cast<Boss*>(p_boss)->GetPosMap(),t}]);
+        static_cast<Boss*>(p_boss)->SetMapX(static_cast<Player*>(p_player)->GetPosInMapX());
+        static_cast<Boss*>(p_boss)->SetMapY(static_cast<Player*>(p_player)->GetPosInMapY());
+        static_cast<Boss*>(p_boss)->update();
+
+        p_eskill_boss=static_cast<Boss*>(p_boss)->GetEskill();
+        for(GameObject* i:p_eskill_boss)
+            i->update();
+
+        //if(Collission(p_player,p_boss))
+
+        for(int i=0; i<p_darts.size(); i++)
+        {
+            if(Collission2(p_darts[i],p_boss))
+            {
+                p_darts.erase(p_darts.begin()+i);
+                i--;
+                int t=rand()%7+47;
+                static_cast<Boss*>(p_boss)->SetHP(-t);
+                static_cast<Boss*>(p_boss)->push_hp_lose(-t);
+            }
+        }
+
+        for(int i=0; i<p_eskill_player.size(); i++)
+        {
+            if(Collission2(p_eskill_player[i],p_boss))
+            {
+                int t=rand()%100+500;
+                static_cast<Boss*>(p_boss)->SetHP(-t);
+                static_cast<Boss*>(p_boss)->push_hp_lose(-t);
+            }
+        }
+
+        for(int i=0; i<p_eskill_boss.size(); i++)
+        {
+            if(Collission2(p_eskill_boss[i],p_player))
+            {
+                int t=rand()%10+50;
+                static_cast<Player*>(p_player)->SetHP(-t);
+            }
+        }
+        if(Collission2(p_boss,p_player)&&static_cast<Boss*>(p_boss)->GetATK())
             static_cast<Player*>(p_player)->SetHP(-3);
-        }
-    }*/
-
-    static_cast<Boss*>(p_boss)->SetPlayerPos(Pos_Map[ {static_cast<Boss*>(p_boss)->GetPosMap(),t}]);
-    static_cast<Boss*>(p_boss)->SetMapX(static_cast<Player*>(p_player)->GetPosInMapX());
-    static_cast<Boss*>(p_boss)->SetMapY(static_cast<Player*>(p_player)->GetPosInMapY());
-    static_cast<Boss*>(p_boss)->update();
-
-    p_eskill_boss=static_cast<Boss*>(p_boss)->GetEskill();
-    for(GameObject* i:p_eskill_boss)
-        i->update();
-
-    //if(Collission(p_player,p_boss))
-
-    for(int i=0; i<p_darts.size(); i++)
-    {
-        if(Collission2(p_darts[i],p_boss))
-        {
-            p_darts.erase(p_darts.begin()+i);
-            i--;
-            int t=rand()%7+47;
-            static_cast<Boss*>(p_boss)->SetHP(-t);
-        }
     }
 
-    for(int i=0; i<p_eskill_player.size(); i++)
-    {
-        if(Collission2(p_eskill_player[i],p_boss))
-        {
-            int t=rand()%100+500;
-            static_cast<Boss*>(p_boss)->SetHP(-t);
-        }
-    }
 
-    for(int i=0; i<p_eskill_boss.size(); i++)
-    {
-        if(Collission2(p_eskill_boss[i],p_player))
-        {
-            int t=rand()%10+50;
-            static_cast<Player*>(p_player)->SetHP(-t);
-        }
-    }
-    if(Collission2(p_boss,p_player)&&static_cast<Boss*>(p_boss)->GetATK())
-        static_cast<Player*>(p_player)->SetHP(-3);
+
+
+
+
+
+
+
 
 
 
@@ -278,6 +355,12 @@ void PlayState2::update()
         static_cast<Grass*>(i)->SetMap_Y(static_cast<Player*>(p_player)->GetPosInMapY());
         i->update();
     }
+
+
+    //  p_npc->SetPosInMapX(static_cast<Player*>(p_player)->GetPosInMapX());
+    // p_npc->SetPosInMapY(static_cast<Player*>(p_player)->GetPosInMapY());
+
+//    p_npc->update();
 }
 
 void PlayState2::render()
@@ -293,6 +376,8 @@ void PlayState2::render()
     for(GameObject* i:p_grass_3)
         i->draw();
 
+    //  p_npc->draw();
+
     p_boss->draw();
     p_player->draw();
     for(GameObject* i:p_darts)
@@ -302,6 +387,21 @@ void PlayState2::render()
         i->draw();
     for(GameObject* i:p_eskill_boss)
         i->draw();
+
+
+    if(IsTalking1==true)
+    {
+        longText++;
+        std::string tmp=GetSL(text1,longText);
+        drawOnBoard("font1",tmp);
+    }
+    else if(IsTalking2==true)
+    {
+        longText++;
+        std::string tmp=GetSL(text2,longText);
+        drawOnBoard("font1",tmp);
+    }
+
 }
 
 bool PlayState2::onEnter()
@@ -340,6 +440,12 @@ bool PlayState2::onEnter()
     ManageTexture::GetInstance()->load("Image/cold2.png","cold2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/cold3.png","cold3",Game::GetInstance()->GetRenderer());
 
+    //  ManageTexture::GetInstance()->load("Image/sugar1.png","sugar",Game::GetInstance()->GetRenderer());
+
+
+
+    ManageFont::GetInstance()->load("Font/SuperSquadItalic.ttf","font1",30);
+
 
 
     p_grass_1.push_back(new Grass(new LoaderParams(0,1050,1240,150,"cold1"),0));
@@ -351,7 +457,9 @@ bool PlayState2::onEnter()
     p_grass_2.push_back(new Grass(new LoaderParams(450,920,600,50,"cold2"),0));
 
 
-    p_boss=new Boss(new LoaderParams(0,1050,110,150,"boss_nor"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY());
+    p_boss=new Boss(new LoaderParams(900,900,110,150,"boss_nor"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY());
+
+//   p_npc=new NPC(new LoaderParams(50,945,50,105,"sugar1"),talk1,0,975);
 
     return true;
 
@@ -361,6 +469,8 @@ bool PlayState2::onExit()
 {
     p_boss->clean();
     p_player->clean();
+
+//    p_npc->clean();
 
     for(GameObject* i:p_grass_1)
         i->clean();
@@ -410,6 +520,10 @@ bool PlayState2::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("cold1");
     ManageTexture::GetInstance()->clearFromTexMap("cold2");
     ManageTexture::GetInstance()->clearFromTexMap("cold3");
+    // ManageTexture::GetInstance()->clearFromTexMap("sugar1");
+
+
+    ManageFont::GetInstance()->clearFromFontMap("font1");
 
     return true;
 }

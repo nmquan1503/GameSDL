@@ -18,11 +18,11 @@ enum sound_type
 class ManageSound
 {
 private:
-    static ManageSound* Instance=NULL;
+    static ManageSound* Instance;
     ManageSound();
     ~ManageSound();
     std::map<std::string,Mix_Chunk*>SFX_Map;
-    std::map<std::string,Mix_Music*>Musix_Map;
+    std::map<std::string,Mix_Music*>Music_Map;
 
     ManageSound(const ManageSound&);
     ManageSound &operator=(const ManageSound&);

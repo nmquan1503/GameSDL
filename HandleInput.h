@@ -32,7 +32,7 @@ public:
     Vector2D* GetMousePos(){return p_MousePos;}
     bool IsKeyDown(SDL_Scancode key);
     bool IsKeyUp(SDL_Scancode key);
-
+   // bool DoubleMouse(int butNum);
 };
 
 #endif // _HandleInput_h_

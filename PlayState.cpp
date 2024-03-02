@@ -129,11 +129,6 @@ void PlayState::update()
         Game::GetInstance()->GetGameStateMachine()->pushState(new PlayState2(p_player));
     }
 
-    // for(GameObject* i:p_gameObjects)
-    //{
-    //    i->update();
-    //}
-
     static_cast<Player*>(p_player)->SetDart(p_darts);
 
     int t_l=15,t_r=15;
