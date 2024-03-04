@@ -52,6 +52,16 @@ void Player::draw()
     ManageTexture::GetInstance()->draw("hp2",48,23,hp*2/10,20,Game::GetInstance()->GetRenderer(),true);
     ManageTexture::GetInstance()->draw("mana1",0,55,202,45,Game::GetInstance()->GetRenderer(),true);
     ManageTexture::GetInstance()->draw("mana2",48,68,mana*150/200,20,Game::GetInstance()->GetRenderer(),true);
+
+
+
+    for(int i:hp_lose)
+    {
+        int t1=rand()%20-10;
+        int t2=rand()%8-4;
+        ManageFont::GetInstance()->drawTextBlended("font1",std::to_string(i),{255,255,0,255},p_pos.GetX()+p_w/2+t1,p_pos.GetY()-15+t2,Game::GetInstance()->GetRenderer());
+    }
+    hp_lose.clear();
 }
 
 void Player::update()

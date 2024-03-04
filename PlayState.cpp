@@ -215,6 +215,7 @@ void PlayState::update()
          static_cast<Soldier*>(i)->SetPlayerPos(t);
      }*/
 
+
     if(numSoldier<200&&p_soldiers.size()<20)
     {
         numSoldier++;
@@ -235,7 +236,18 @@ void PlayState::update()
     {
         if(Collission(i,p_player))
         {
-            static_cast<Player*>(p_player)->SetHP(-3);
+            int t=rand()%2+2;
+            static_cast<Player*>(p_player)->SetHP(-t);
+            static_cast<Player*>(p_player)->push_hp_lose(-t);
+        }
+    }
+
+    for(int i=0; i<p_soldiers.size(); i++)
+    {
+        if(static_cast<Soldier*>(p_soldiers[i])->GetHP()<=0)
+        {
+            p_soldiers.erase(p_soldiers.begin()+i);
+            i--;
         }
     }
 
@@ -243,17 +255,13 @@ void PlayState::update()
     {
         for(int j=0; j<p_soldiers.size(); j++)
         {
-            if(Collission(p_darts[i],p_soldiers[j]))
+            if(Collission(p_darts[i],p_soldiers[j]) && static_cast<Soldier*>(p_soldiers[j])->GetHP()>0)
             {
                 p_darts.erase(p_darts.begin()+i);
                 i--;
                 int t=rand()%7+47;
                 static_cast<Soldier*>(p_soldiers[j])->SetHP(-t);
-                if(static_cast<Soldier*>(p_soldiers[j])->GetHP()<=0)
-                {
-                    p_soldiers.erase(p_soldiers.begin()+j);
-                    j--;
-                }
+                static_cast<Soldier*>(p_soldiers[j])->push_hp_lose(-t);
                 break;
             }
         }
@@ -263,15 +271,11 @@ void PlayState::update()
     {
         for(int j=0; j<p_soldiers.size(); j++)
         {
-            if(Collission(p_eskill[i],p_soldiers[j]))
+            if(Collission(p_eskill[i],p_soldiers[j])&& static_cast<Soldier*>(p_soldiers[j])->GetHP()>0)
             {
                 int t=rand()%100+500;
                 static_cast<Soldier*>(p_soldiers[j])->SetHP(-t);
-                if(static_cast<Soldier*>(p_soldiers[j])->GetHP()<=0)
-                {
-                    p_soldiers.erase(p_soldiers.begin()+j);
-                    j--;
-                }
+                static_cast<Soldier*>(p_soldiers[j])->push_hp_lose(-t);
                 break;
             }
         }

@@ -2,6 +2,7 @@
 #define _Player_
 
 #include <iostream>
+#include <vector>
 
 #include "GameObject.h"
 #include "SDL_GameObject.h"
@@ -50,6 +51,10 @@ public:
 
     void SetDart(std::vector<GameObject*> Dart){p_Darts=Dart;}
     int GetTimeDie(){return timeDie;}
+
+
+    void push_hp_lose(int t){hp_lose.push_back(t);}
+
 private:
     bool p_IsJump=false;
     bool p_Jumped=false;
@@ -67,6 +72,8 @@ private:
     int hp=1000;
     int mana=200;
     int timeDie=0;
+
+    std::vector<int> hp_lose;
 };
 
 #endif // _Player_

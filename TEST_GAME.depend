@@ -1208,8 +1208,9 @@
 	"begin_code.h"
 	"close_code.h"
 
-1709480520 c:\users\my pc\documents\github\gamesdl\player.h
+1709519486 c:\users\my pc\documents\github\gamesdl\player.h
 	<iostream>
+	<vector>
 	"GameObject.h"
 	"SDL_GameObject.h"
 	"HandleInput.h"
@@ -1370,13 +1371,14 @@
 	"Vector2D.h"
 	"PlayState.h"
 
-1709489157 c:\users\my pc\documents\github\gamesdl\soldier.h
+1709519952 c:\users\my pc\documents\github\gamesdl\soldier.h
 	<iostream>
 	<vector>
 	"GameObject.h"
 	"SDL_GameObject.h"
 	"ManageTexture.h"
 	"Game.h"
+	"ManageFont.h"
 
 1709298431 c:\users\my pc\documents\github\gamesdl\gamestatemachine.h
 	"GameState.h"
@@ -1442,11 +1444,11 @@
 
 1709017145 source:c:\users\my pc\documents\github\gamesdl\playbg.cpp
 
-1709298651 source:c:\users\my pc\documents\github\gamesdl\player.cpp
+1709519523 source:c:\users\my pc\documents\github\gamesdl\player.cpp
 	"Player.h"
 	"SDL_GameObject.h"
 
-1709490915 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
+1709519486 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
 	"PlayState.h"
 
 1709478394 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
@@ -1458,7 +1460,7 @@
 	"Game.h"
 	"GameObject.h"
 
-1709514602 source:c:\users\my pc\documents\github\gamesdl\soldier.cpp
+1709518783 source:c:\users\my pc\documents\github\gamesdl\soldier.cpp
 	"Soldier.h"
 
 1708694379 source:c:\users\my pc\documents\github\gamesdl\surestate.cpp

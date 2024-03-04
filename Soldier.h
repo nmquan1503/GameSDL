@@ -9,7 +9,7 @@
 #include "SDL_GameObject.h"
 #include "ManageTexture.h"
 #include "Game.h"
-//#include "ManageFont.h"
+#include "ManageFont.h"
 
 class Soldier : public SDLGameObject
 {
@@ -26,13 +26,13 @@ public:
 
     bool GetATK(){return p_ATKING;}
 
-    void SetHP(int t){hp+=t;}
+    void SetHP(int t){hp=std::max(0,std::min(100,hp+t));}
 
     int GetHP(){return hp;}
 
     //Vector2D GetPos(){return p_pos;}
 
-    //void push_hp_lose(int t){hp_lose.push_back(t);}
+    void push_hp_lose(int t){hp_lose.push_back(t);}
 
 private:
     int pos_in_map_x=0;
@@ -59,7 +59,7 @@ private:
 
     bool p_ATKING=false;
 
- //   std::vector<int>hp_lose;
+    std::vector<int>hp_lose;
 };
 
 #endif // _Soldier_h_
