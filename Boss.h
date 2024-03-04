@@ -19,6 +19,8 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
+
+    void update2();
     int GetPosMap(){return p_BossPos;}
     void SetBossPos(int s){p_BossPos=s;}
     void SetPlayerPos(int s){p_PlayerPos=s;}

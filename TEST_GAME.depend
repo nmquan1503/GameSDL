@@ -742,10 +742,10 @@
 	"GameOverState.h"
 	"Boss.h"
 
-1709391341 source:c:\users\my pc\documents\github\gamesdl\boss.cpp
+1709514940 source:c:\users\my pc\documents\github\gamesdl\boss.cpp
 	"Boss.h"
 
-1709391287 c:\users\my pc\documents\github\gamesdl\boss.h
+1709473584 c:\users\my pc\documents\github\gamesdl\boss.h
 	<vector>
 	<iostream>
 	<string.h>
@@ -1208,7 +1208,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1709223812 c:\users\my pc\documents\github\gamesdl\player.h
+1709480520 c:\users\my pc\documents\github\gamesdl\player.h
 	<iostream>
 	"GameObject.h"
 	"SDL_GameObject.h"
@@ -1219,6 +1219,8 @@
 	"Eskill.h"
 	"Grass.h"
 	"ManageTexture.h"
+	"ManageFont.h"
+	"ManageSound.h"
 
 1709363535 c:\users\my pc\documents\github\gamesdl\handleinput.h
 	<vector>
@@ -1226,7 +1228,7 @@
 	<SDL2/SDL.h>
 	"Vector2D.h"
 
-1709280041 c:\users\my pc\documents\github\gamesdl\playstate.h
+1709490317 c:\users\my pc\documents\github\gamesdl\playstate.h
 	<vector>
 	<iostream>
 	<map>
@@ -1240,6 +1242,8 @@
 	"Grass.h"
 	"GameOverState.h"
 	"PlayState_2.h"
+	"ManageFont.h"
+	"ManageSound.h"
 
 1708601377 c:\users\my pc\documents\github\gamesdl\gamestate.h
 	<string>
@@ -1314,14 +1318,14 @@
 	<vector>
 	<iostream>
 
-1709021695 c:\users\my pc\documents\github\gamesdl\grass.h
+1709470625 c:\users\my pc\documents\github\gamesdl\grass.h
 	"GameObject.h"
 	"SDL_GameObject.h"
 	"HandleInput.h"
 	"Vector2D.h"
 	"PlayState.h"
 
-1709216873 c:\users\my pc\documents\github\gamesdl\gameoverstate.h
+1709475141 c:\users\my pc\documents\github\gamesdl\gameoverstate.h
 	"GameState.h"
 	"Game.h"
 	"ManageTexture.h"
@@ -1333,7 +1337,7 @@
 	<iostream>
 	<vector>
 
-1709402880 c:\users\my pc\documents\github\gamesdl\playstate_2.h
+1709478079 c:\users\my pc\documents\github\gamesdl\playstate_2.h
 	<vector>
 	<iostream>
 	<map>
@@ -1366,7 +1370,9 @@
 	"Vector2D.h"
 	"PlayState.h"
 
-1709187488 c:\users\my pc\documents\github\gamesdl\soldier.h
+1709489157 c:\users\my pc\documents\github\gamesdl\soldier.h
+	<iostream>
+	<vector>
 	"GameObject.h"
 	"SDL_GameObject.h"
 	"ManageTexture.h"
@@ -1387,7 +1393,7 @@
 
 1708440549 source:c:\users\my pc\documents\github\gamesdl\gameobject.cpp
 
-1709297759 source:c:\users\my pc\documents\github\gamesdl\gameoverstate.cpp
+1709475141 source:c:\users\my pc\documents\github\gamesdl\gameoverstate.cpp
 	"GameOverState.h"
 
 1708596152 source:c:\users\my pc\documents\github\gamesdl\gamestate.cpp
@@ -1440,10 +1446,10 @@
 	"Player.h"
 	"SDL_GameObject.h"
 
-1709380294 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
+1709490915 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
 	"PlayState.h"
 
-1709403294 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
+1709478394 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
 	"PlayState_2.h"
 
 1708932945 source:c:\users\my pc\documents\github\gamesdl\sdl_gameobject.cpp
@@ -1452,7 +1458,7 @@
 	"Game.h"
 	"GameObject.h"
 
-1709224261 source:c:\users\my pc\documents\github\gamesdl\soldier.cpp
+1709514602 source:c:\users\my pc\documents\github\gamesdl\soldier.cpp
 	"Soldier.h"
 
 1708694379 source:c:\users\my pc\documents\github\gamesdl\surestate.cpp

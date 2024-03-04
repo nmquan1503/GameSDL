@@ -140,6 +140,8 @@ void Soldier::draw()
     SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),255,0,0,255);
     dst={tmp_x,tmp_y,hp*80/100,10};
     SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
+
+
 }
 
 void Soldier::update()

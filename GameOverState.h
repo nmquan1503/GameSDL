@@ -24,9 +24,11 @@ private:
     static void p_toRestart();
     static void p_toHome();
 
+    std::string p_TexID;
+    int p_w,p_h;
     SDL_Texture* p_tex;
 public:
-    GameOverState(SDL_Texture* tex);
+    GameOverState(SDL_Texture* tex,std::string texID,int w,int h);
     virtual void update();
     virtual void render();
     virtual bool onEnter();

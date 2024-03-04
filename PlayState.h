@@ -15,6 +15,8 @@
 #include "Grass.h"
 #include "GameOverState.h"
 #include "PlayState_2.h"
+#include "ManageFont.h"
+#include "ManageSound.h"
 
 class GameObject;
 
@@ -32,6 +34,8 @@ public:
     }
     //int Pos(GameObject* g);
 private:
+
+    bool win=false;
     static std::string p_PlayID;
     GameObject* p_player;
     std::vector<GameObject*>p_soldiers;

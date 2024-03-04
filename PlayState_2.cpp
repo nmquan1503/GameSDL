@@ -137,7 +137,7 @@ void PlayState2::update()
 {
     if(static_cast<Player*>(p_player)->GetTimeDie()==20)
     {
-        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex2(Game::GetInstance()->GetRenderer())));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex2(Game::GetInstance()->GetRenderer()),"gameover",588,60));
     }
 
 
@@ -161,12 +161,14 @@ void PlayState2::update()
     {
         p_start=true;
         IsTalking1=false;
+        static_cast<Grass*>(p_grass_3[0])->SetTexID("sugar1");
     }
 
     if(static_cast<Boss*>(p_boss)->GetHP()<=0)
     {
         p_end=true;
         p_start=false;
+        static_cast<Grass*>(p_grass_3[0])->SetTexID("sugar2");
     }
     if(p_end==true)
     {
@@ -182,6 +184,14 @@ void PlayState2::update()
         p_end=false;
         IsTalking2=false;
         win=true;
+    }
+    if(win==true)
+    {
+        timeWin++;
+    }
+    if(timeWin==20)
+    {
+        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex2(Game::GetInstance()->GetRenderer()),"victory",600,145));
     }
 
 
@@ -331,6 +341,14 @@ void PlayState2::update()
 
 
 
+    if(static_cast<Boss*>(p_boss)->GetHP()<=0)
+    {
+        static_cast<Boss*>(p_boss)->SetMapX(static_cast<Player*>(p_player)->GetPosInMapX());
+        static_cast<Boss*>(p_boss)->SetMapY(static_cast<Player*>(p_player)->GetPosInMapY());
+        static_cast<Boss*>(p_boss)->update2();
+        p_eskill_boss.clear();
+    }
+
 
 
 
@@ -391,15 +409,21 @@ void PlayState2::render()
 
     if(IsTalking1==true)
     {
+        ManageTexture::GetInstance()->draw("duongtang",100,200,334,400,Game::GetInstance()->GetRenderer(),true);
         longText++;
         std::string tmp=GetSL(text1,longText);
         drawOnBoard("font1",tmp);
+        if(longText>=text1.size())
+            ManageTexture::GetInstance()->draw("talk1",435,450,150,137,Game::GetInstance()->GetRenderer(),true);
     }
     else if(IsTalking2==true)
     {
+        ManageTexture::GetInstance()->draw("duongtang",100,200,334,400,Game::GetInstance()->GetRenderer(),true);
         longText++;
         std::string tmp=GetSL(text2,longText);
         drawOnBoard("font1",tmp);
+        if(longText>=text2.size())
+            ManageTexture::GetInstance()->draw("talk2",435,450,150,137,Game::GetInstance()->GetRenderer(),true);
     }
 
 }
@@ -433,6 +457,7 @@ bool PlayState2::onEnter()
     ManageTexture::GetInstance()->load("Image/boss_jumpup.png","boss_jumpup",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/boss_nor.png","boss_nor",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/boss_run.png","boss_run",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/boss_die.png","boss_die",Game::GetInstance()->GetRenderer());
 
     ManageTexture::GetInstance()->load("Image/eskill2.png","eskill2",Game::GetInstance()->GetRenderer());
 
@@ -440,7 +465,17 @@ bool PlayState2::onEnter()
     ManageTexture::GetInstance()->load("Image/cold2.png","cold2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/cold3.png","cold3",Game::GetInstance()->GetRenderer());
 
-    //  ManageTexture::GetInstance()->load("Image/sugar1.png","sugar",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/duongtang.png","duongtang",Game::GetInstance()->GetRenderer());
+
+    ManageTexture::GetInstance()->load("Image/sugar1.png","sugar1",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/sugar2.png","sugar2",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/talk1.png","talk1",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/talk2.png","talk2",Game::GetInstance()->GetRenderer());
+
+    ManageTexture::GetInstance()->load("Image/mai2.png","mai2",Game::GetInstance()->GetRenderer());
+
+    ManageTexture::GetInstance()->load("Image/gameover.png","gameover",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/victory.png","victory",Game::GetInstance()->GetRenderer());
 
 
 
@@ -455,6 +490,9 @@ bool PlayState2::onEnter()
     p_grass_1.push_back(new Grass(new LoaderParams(1840,650,200,550,"cold3"),0));
 
     p_grass_2.push_back(new Grass(new LoaderParams(450,920,600,50,"cold2"),0));
+
+    p_grass_3.push_back(new Grass(new LoaderParams(50,900,80,150,"sugar2"),1));
+    p_grass_3.push_back(new Grass(new LoaderParams(0,800,250,250,"mai2"),0));
 
 
     p_boss=new Boss(new LoaderParams(900,900,110,150,"boss_nor"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY());
@@ -520,7 +558,14 @@ bool PlayState2::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("cold1");
     ManageTexture::GetInstance()->clearFromTexMap("cold2");
     ManageTexture::GetInstance()->clearFromTexMap("cold3");
-    // ManageTexture::GetInstance()->clearFromTexMap("sugar1");
+    ManageTexture::GetInstance()->clearFromTexMap("duongtang");
+    ManageTexture::GetInstance()->clearFromTexMap("sugar1");
+    ManageTexture::GetInstance()->clearFromTexMap("sugar2");
+    ManageTexture::GetInstance()->clearFromTexMap("talk1");
+    ManageTexture::GetInstance()->clearFromTexMap("talk2");
+    ManageTexture::GetInstance()->clearFromTexMap("mai2");
+    ManageTexture::GetInstance()->clearFromTexMap("gameover");
+    ManageTexture::GetInstance()->clearFromTexMap("victory");
 
 
     ManageFont::GetInstance()->clearFromFontMap("font1");

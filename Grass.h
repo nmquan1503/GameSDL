@@ -18,6 +18,8 @@ public:
     int GetFirY(){return fir_y;}
     void SetMap_X(int x){pos_in_map_x=x;}
     void SetMap_Y(int y){pos_in_map_y=y;}
+
+    void SetTexID(std::string id){p_TexID=id;}
 private:
     void handle();
     int fir_x;

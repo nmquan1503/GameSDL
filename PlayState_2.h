@@ -46,6 +46,7 @@ public:
 private:
 
     bool win=false;
+    int timeWin=0;
 
     bool p_start=false;
     bool p_end=false;

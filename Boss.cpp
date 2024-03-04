@@ -76,33 +76,76 @@ void Boss::draw()
 {
     SDLGameObject::draw();
 
-    int tmp_x=p_pos.GetX()+p_w/2-100;
-    int tmp_y=p_pos.GetY()-30;
 
-    SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),128,128,128,255);
-    SDL_Rect dst={tmp_x,tmp_y,200,20};
-    SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
 
-    SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),255,0,0,255);
-    dst={tmp_x,tmp_y,std::max(0,hp*200)/10000,20};
-    SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
-
-    /*if(hp_lose!=0)
+    if(hp>0)
     {
-        std::string tmp=std::to_string(hp_lose);
-        SDL_Color myColor = {255, 255, 0, 255};
-        ManageFont::GetInstance()->drawTextBlended("font1",tmp,myColor,p_pos.GetX()+p_w/2-15,p_pos.Get,Game::GetInstance()->GetRenderer());
-        hp_lose=0;
-    }*/
-    for(int i:hp_lose)
-    {
-        std::string tmp=std::to_string(i);
-        int t1=rand()%20-10;
-        int t2=rand()%8-4;
-        ManageFont::GetInstance()->drawTextBlended("font1",tmp,{255,255,0,255},p_pos.GetX()+p_w/2+t1,p_pos.GetY()-20+t2,Game::GetInstance()->GetRenderer());
+
+
+        int tmp_x=p_pos.GetX()+p_w/2-100;
+        int tmp_y=p_pos.GetY()-30;
+
+        SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),128,128,128,255);
+        SDL_Rect dst= {tmp_x,tmp_y,200,20};
+        SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
+
+        SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),255,0,0,255);
+        dst= {tmp_x,tmp_y,std::max(0,hp*200)/10000,20};
+        SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
+
+        /*if(hp_lose!=0)
+        {
+            std::string tmp=std::to_string(hp_lose);
+            SDL_Color myColor = {255, 255, 0, 255};
+            ManageFont::GetInstance()->drawTextBlended("font1",tmp,myColor,p_pos.GetX()+p_w/2-15,p_pos.Get,Game::GetInstance()->GetRenderer());
+            hp_lose=0;
+        }*/
+
+        for(int i:hp_lose)
+        {
+            std::string tmp=std::to_string(i);
+            int t1=rand()%20-10;
+            int t2=rand()%8-4;
+            ManageFont::GetInstance()->drawTextBlended("font1",tmp, {255,255,0,255},p_pos.GetX()+p_w/2+t1,p_pos.GetY()-20+t2,Game::GetInstance()->GetRenderer());
+        }
+        hp_lose.clear();
     }
-    hp_lose.clear();
 
+
+}
+
+void Boss::update2()
+{
+    p_TexID="boss_die";
+    p_Frame=0;
+    p_w=140;
+    p_h=100;
+    p_pos_y+=std::max(0,p_grass_y1-(p_pos_y+60));
+    if(pos_in_map_x<=485)
+    {
+        p_pos.SetX(p_pos_x);
+    }
+    else if(pos_in_map_x>485 &&pos_in_map_x<1505)
+    {
+        p_pos.SetX(485-(pos_in_map_x-p_pos_x));
+    }
+    else
+    {
+        p_pos.SetX(p_pos_x-1020);
+    }
+
+    if(pos_in_map_y<=262)
+    {
+        p_pos.SetY(p_pos_y);
+    }
+    else if(pos_in_map_y>262&&pos_in_map_y<862)
+    {
+        p_pos.SetY(262-(pos_in_map_y-p_pos_y));
+    }
+    else
+    {
+        p_pos.SetY(p_pos_y-600);
+    }
 }
 
 void Boss::update()
@@ -111,6 +154,8 @@ void Boss::update()
     {
         hp+=hp_lose[i];
     }*/
+
+
 
     p_ATK_nor=false;
 
@@ -299,6 +344,8 @@ void Boss::update()
 
     timeMove=(++timeMove)%1000;
     mana=std::min(++mana,200);
+
+
     if(pos_in_map_x<=485)
     {
         p_pos.SetX(p_pos_x);

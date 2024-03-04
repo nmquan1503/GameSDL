@@ -112,7 +112,7 @@ void PlayState::update()
 {
     if(static_cast<Player*>(p_player)->GetTimeDie()==20)
     {
-        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer())));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60));
     }
 
 
@@ -122,12 +122,27 @@ void PlayState::update()
         Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer())));
     }
 
-    if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_SPACE))
+
+    if(numSoldier==200 && p_soldiers.size()==0)
+    {
+        p_grass_3.push_back(new Grass(new LoaderParams(1950,1000,50,20,"entrance"),1));
+        win=true;
+        numSoldier++;
+    }
+
+    if(win==true && static_cast<Player*>(p_player)->GetPosInMapX()>=1940&&static_cast<Player*>(p_player)->GetPosInMapY()>=850)
     {
         static_cast<Player*>(p_player)->SetPosInMapX(0);
         static_cast<Player*>(p_player)->SetPosInMapY(975);
         Game::GetInstance()->GetGameStateMachine()->pushState(new PlayState2(p_player));
     }
+
+
+
+
+
+
+
 
     static_cast<Player*>(p_player)->SetDart(p_darts);
 
@@ -200,7 +215,7 @@ void PlayState::update()
          static_cast<Soldier*>(i)->SetPlayerPos(t);
      }*/
 
-    if(numSoldier<=200&&p_soldiers.size()<20)
+    if(numSoldier<200&&p_soldiers.size()<20)
     {
         numSoldier++;
         int k=rand()%2040+1;
@@ -261,7 +276,7 @@ void PlayState::update()
             }
         }
     }
-    for(int i=0;i<p_eskill.size();i++)
+    for(int i=0; i<p_eskill.size(); i++)
     {
         if(static_cast<Eskill*>(p_eskill[i])->GetTime()==8)
         {
@@ -315,7 +330,14 @@ void PlayState::render()
 
     for(GameObject* i:p_eskill)
         i->draw();
+
+
+    if(win==true)
+    {
+        ManageFont::GetInstance()->drawTextBlended("font1","Find the entrance", {255,0,0,255},400,100,Game::GetInstance()->GetRenderer());
+    }
 }
+
 
 bool PlayState::onEnter()
 {
@@ -371,8 +393,13 @@ bool PlayState::onEnter()
     ManageTexture::GetInstance()->load("Image/mana1.png","mana1",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/mana2.png","mana2",Game::GetInstance()->GetRenderer());
 
+    ManageTexture::GetInstance()->load("Image/gameover.png","gameover",Game::GetInstance()->GetRenderer());
+
+    ManageTexture::GetInstance()->load("Image/entrance.png","entrance",Game::GetInstance()->GetRenderer());
 
 
+
+    ManageFont::GetInstance()->load("Font/SuperSquadItalic.ttf","font1",25);
 
 
 
@@ -401,6 +428,7 @@ bool PlayState::onEnter()
     p_grass_3.push_back(new Grass(new LoaderParams(500,1130,150,30,"kim1"),0));
     p_grass_3.push_back(new Grass(new LoaderParams(1480,0,20,750,"day"),0));
     p_grass_3.push_back(new Grass(new LoaderParams(1660,0,20,750,"day"),0));
+    //p_grass_3.push_back(new Grass(new LoaderParams(0,1000,50,20,"entrance"),1));
 
 
     //p_gameObjects.push_back(new Soldier(new LoaderParams(900,500,40,65,"soldier1")));
@@ -487,6 +515,15 @@ bool PlayState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("hp2");
     ManageTexture::GetInstance()->clearFromTexMap("mana1");
     ManageTexture::GetInstance()->clearFromTexMap("mana2");
+    ManageTexture::GetInstance()->clearFromTexMap("gameover");
+    ManageTexture::GetInstance()->clearFromTexMap("entrance");
+    ManageTexture::GetInstance()->clearFromTexMap("eskill2");
+    ManageTexture::GetInstance()->clearFromTexMap("die");
+
+
+
+
+    ManageFont::GetInstance()->clearFromFontMap("font1");
 
 
     return true;

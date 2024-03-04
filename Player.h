@@ -12,6 +12,8 @@
 #include "Eskill.h"
 #include "Grass.h"
 #include "ManageTexture.h"
+#include "ManageFont.h"
+#include "ManageSound.h"
 
 class Player : public SDLGameObject
 {

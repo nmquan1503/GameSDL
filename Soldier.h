@@ -2,10 +2,14 @@
 #define _Soldier_h_
 
 
+#include <iostream>
+#include <vector>
+
 #include "GameObject.h"
 #include "SDL_GameObject.h"
 #include "ManageTexture.h"
 #include "Game.h"
+//#include "ManageFont.h"
 
 class Soldier : public SDLGameObject
 {
@@ -25,6 +29,10 @@ public:
     void SetHP(int t){hp+=t;}
 
     int GetHP(){return hp;}
+
+    //Vector2D GetPos(){return p_pos;}
+
+    //void push_hp_lose(int t){hp_lose.push_back(t);}
 
 private:
     int pos_in_map_x=0;
@@ -50,6 +58,8 @@ private:
     int hp=100;
 
     bool p_ATKING=false;
+
+ //   std::vector<int>hp_lose;
 };
 
 #endif // _Soldier_h_
