@@ -9,12 +9,15 @@
 #include "SDL_GameObject.h"
 #include "ManageTexture.h"
 #include "Game.h"
+#include "Vector2D.h"
+#include "HandleInput.h"
 
 class GameObject;
 
 class OptionsState : public GameState
 {
 public:
+//    OptionsState()
     virtual void update();
     virtual void render();
     virtual bool onEnter();
@@ -22,6 +25,9 @@ public:
 
     virtual std::string GetStateID()const {return p_OptionsID;}
 private:
+
+    bool sfx_fix=false;
+    bool music_fix=false;
     static std::string p_OptionsID;
     std::vector<GameObject*> p_gameObjects;
 

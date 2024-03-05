@@ -30,7 +30,13 @@ bool MenuState::onEnter()
     ManageTexture::GetInstance()->load("Image/menu_options.png","options",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/menu_instructions.png","instructions",Game::GetInstance()->GetRenderer());
 
-    p_gameObjects.push_back(new MenuBG(new LoaderParams(0,0,2040,600,"bgmenu")));
+
+    ManageSound::GetInstance()->load("Audio/SoundMenu.mp3","soundmenu",SOUND_MUSIC);
+
+
+    ManageSound::GetInstance()->playMusic("soundmenu",-1);
+
+    p_gameObjects.push_back(new MenuBG(new LoaderParams(0,0,2040,600,"bgmenu"),-5));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,270,250,60,"play"),p_menuToPlay));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,340,250,60,"options"),p_menuToOptions));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,410,250,60,"instructions"),p_menuToInstruction));
@@ -46,12 +52,17 @@ bool MenuState::onExit()
     }
     p_gameObjects.clear();
 
+    ManageSound::GetInstance()->stopMusic();
+
     ManageTexture::GetInstance()->clearFromTexMap("bgmenu");
     ManageTexture::GetInstance()->clearFromTexMap("play");
     ManageTexture::GetInstance()->clearFromTexMap("menu");
     ManageTexture::GetInstance()->clearFromTexMap("quit");
     ManageTexture::GetInstance()->clearFromTexMap("options");
     ManageTexture::GetInstance()->clearFromTexMap("instructions");
+
+
+    ManageSound::GetInstance()->clearFromMusicMap("soundmenu");
     return true;
 }
 

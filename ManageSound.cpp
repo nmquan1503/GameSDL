@@ -58,3 +58,28 @@ ManageSound::~ManageSound()
 {
     Mix_CloseAudio();
 }
+
+void ManageSound::clearFromMusicMap(std::string id)
+{
+    Music_Map.erase(id);
+}
+
+void ManageSound::clearFromSFXMap(std::string id)
+{
+    SFX_Map.erase(id);
+}
+
+void ManageSound::fixVolumeMusic(int t)
+{
+    volume_music=std::min(128,std::max(0,t));
+    Mix_VolumeMusic(volume_music);
+}
+
+void ManageSound::fixVolumeSFX(int t)
+{
+    volume_sfx=std::min(128,std::max(0,t));
+    for(std::map<std::string,Mix_Chunk*>::iterator it= SFX_Map.begin();it!=SFX_Map.end();it++)
+    {
+        Mix_VolumeChunk(it->second,volume_sfx);
+    }
+}

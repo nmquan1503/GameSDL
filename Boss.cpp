@@ -150,12 +150,9 @@ void Boss::update2()
 
 void Boss::update()
 {
-    /*for(int i=0;i<hp_lose.size();i++)
-    {
-        hp+=hp_lose[i];
-    }*/
 
 
+    std::cout<<p_BossPos<<" "<<p_PlayerPos<<std::endl;
 
     p_ATK_nor=false;
 
@@ -178,6 +175,7 @@ void Boss::update()
     Vector2D vec2=Vector2D(pos_in_map_x,pos_in_map_y);
     if(mana>=100&&vec.length()<=600&&timeMove%100==0)
     {
+        ManageSound::GetInstance()->playSound("eskill1",0);
         p_ATK_eskill=true;
         p_TexID="boss_atk_eskill";
         p_Frame=(++p_Frame)%2;
@@ -239,9 +237,9 @@ void Boss::update()
     {
         if(p_BossPos==p_PlayerPos)
         {
-            if(vec.length()<100&&mana>=5)
+            if(((vec.length()<100&&vec.GetX()>0)||(vec.length()<90&&vec.GetX()<=0))&&mana>=5)
             {
-                p_ATK_nor=true;
+
                 p_TexID="boss_atk_nor";
                 p_Frame=(++p_Frame)%5;
                 p_w=250;
@@ -253,6 +251,7 @@ void Boss::update()
                 //if(p_pos_y+150>p_grass_y1)p_down=true;
                 if(timeMove%5==0)
                 {
+                    ManageSound::GetInstance()->playSound("boss_atk_nor",0);
                     p_ATK_nor=true;
                     mana-=5;
                 }
@@ -264,14 +263,14 @@ void Boss::update()
                 p_w=150;
                 p_h=150;
                 p_Frame=(++p_Frame)%3;
-                if(pos_in_map_x-50>p_pos_x)
+                if(pos_in_map_x-40>p_pos_x)
                 {
-                    p_pos_x+=std::min(10,pos_in_map_x-50-p_pos_x);
+                    p_pos_x+=std::min(10,pos_in_map_x-40-p_pos_x);
                     flip=true;
                 }
-                else if(p_pos_x-pos_in_map_x>=50)
+                else if(p_pos_x-pos_in_map_x>=-10)
                 {
-                    p_pos_x+=std::max(-10,+pos_in_map_x+50-p_pos_x);
+                    p_pos_x+=std::max(-10,+pos_in_map_x-10-p_pos_x);
                     flip=false;
                 }
             }
@@ -285,24 +284,29 @@ void Boss::update()
             p_Frame=(++p_Frame)%3;
             if(p_grass_y1>p_grass_y2)
             {
-                int t1=std::max(p_grass_x1,p_grass_x2)-110;
-                int t2=std::min(p_grass_x1+p_grass_w1,p_grass_x2+p_grass_w2);
-                if(p_pos_x<t1)
+                if(p_grass_x1<=p_grass_x2)
                 {
-                    p_pos_x+=std::min(10,t1-p_pos_x);
-                    flip=true;
-                }
-                else if(p_pos_x>t2)
-                {
-                    flip=false;
-                    p_pos_x-=std::min(10,p_pos_x-t2);
+                    int t=std::min(p_grass_x2-110,p_grass_x1+p_grass_w1-110);
+                    if(p_pos_x>=t)
+                    {
+                        dst_x=std::max(p_grass_x2,p_pos_x);
+                        dst_y=p_grass_y2-150;
+                        p_up=true;
+                    }
+                    else p_pos_x+=std::min(10,t-p_pos_x);
                 }
                 else
                 {
-                    dst_x=std::min(std::max(p_pos_x,t1+110),t2-110);
-                    dst_y=p_grass_y2-150;
-                    p_up=true;
+                    int t=std::max(p_grass_x2+p_grass_w2,p_grass_x1);
+                    if(p_pos_x<=t)
+                    {
+                        p_up=true;
+                        dst_x=std::min(p_pos_x,p_grass_x2+p_grass_w2-110);
+                        dst_y=p_grass_y2-150;
+                    }
+                    else p_pos_x-=std::min(10,p_pos_x-t);
                 }
+
 
             }
             else
@@ -310,10 +314,10 @@ void Boss::update()
                 if(p_grass_x1>=p_grass_x2)
                 {
                     flip=false;
-                    if(p_pos_x==p_grass_x1)
+                    if(p_pos_x<=p_grass_x1)
                     {
                         p_up=true;
-                        dst_x=p_pos_x-110;
+                        dst_x=p_grass_x1-110;
                         dst_y=p_grass_y2-150;
                     }
                     else p_pos_x-=std::min(10,p_pos_x-p_grass_x1);
@@ -321,14 +325,14 @@ void Boss::update()
                 else
                 {
                     flip=true;
-                    if(p_pos_x==p_grass_x1+p_grass_w1-110)
+
+                    if(p_pos_x>=p_grass_x1+p_grass_w1-110)
                     {
-                        dst_x=p_grass_x2;
+                        dst_x=p_grass_x1+p_grass_w1;
                         dst_y=p_grass_y2-150;
                         p_up=true;
                     }
                     else p_pos_x+=std::min(10,p_grass_x1+p_grass_w1-110-p_pos_x);
-
                 }
             }
         }

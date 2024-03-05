@@ -742,10 +742,10 @@
 	"GameOverState.h"
 	"Boss.h"
 
-1709514940 source:c:\users\my pc\documents\github\gamesdl\boss.cpp
+1709571202 source:c:\users\my pc\documents\github\gamesdl\boss.cpp
 	"Boss.h"
 
-1709473584 c:\users\my pc\documents\github\gamesdl\boss.h
+1709570876 c:\users\my pc\documents\github\gamesdl\boss.h
 	<vector>
 	<iostream>
 	<string.h>
@@ -754,6 +754,8 @@
 	"SDL_GameObject.h"
 	"ManageTexture.h"
 	"Game.h"
+	"ManageSound.h"
+	"ManageFont.h"
 
 1708832754 c:\users\my pc\documents\github\gamesdl\gameobject.h
 	<SDL2/SDL.h>
@@ -1165,7 +1167,7 @@
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 
-1708932945 c:\users\my pc\documents\github\gamesdl\sdl_gameobject.h
+1709640038 c:\users\my pc\documents\github\gamesdl\sdl_gameobject.h
 	<iostream>
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
@@ -1283,7 +1285,7 @@
 	<vector>
 	<iostream>
 
-1708684495 c:\users\my pc\documents\github\gamesdl\optionsstate.h
+1709642284 c:\users\my pc\documents\github\gamesdl\optionsstate.h
 	<vector>
 	<iostream>
 	"GameState.h"
@@ -1291,6 +1293,8 @@
 	"SDL_GameObject.h"
 	"ManageTexture.h"
 	"Game.h"
+	"Vector2D.h"
+	"HandleInput.h"
 
 1708693760 c:\users\my pc\documents\github\gamesdl\surestate.h
 	"GameState.h"
@@ -1303,7 +1307,7 @@
 	<vector>
 	<iostream>
 
-1708669776 c:\users\my pc\documents\github\gamesdl\menubg.h
+1709632217 c:\users\my pc\documents\github\gamesdl\menubg.h
 	"GameObject.h"
 	"SDL_GameObject.h"
 	"HandleInput.h"
@@ -1426,17 +1430,17 @@
 1708590574 source:c:\users\my pc\documents\github\gamesdl\managetexture.cpp
 	"ManageTexture.h"
 
-1708671800 source:c:\users\my pc\documents\github\gamesdl\menubg.cpp
+1709632310 source:c:\users\my pc\documents\github\gamesdl\menubg.cpp
 	"MenuBG.h"
 
 1708832808 source:c:\users\my pc\documents\github\gamesdl\menubutton.cpp
 	"MenuButton.h"
 
-1709218274 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
+1709643940 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
 	"MenuState.h"
 	"MenuBG.h"
 
-1708683948 source:c:\users\my pc\documents\github\gamesdl\optionsstate.cpp
+1709643920 source:c:\users\my pc\documents\github\gamesdl\optionsstate.cpp
 	"OptionsState.h"
 
 1709213812 source:c:\users\my pc\documents\github\gamesdl\pausestate.cpp
@@ -1444,14 +1448,14 @@
 
 1709017145 source:c:\users\my pc\documents\github\gamesdl\playbg.cpp
 
-1709519523 source:c:\users\my pc\documents\github\gamesdl\player.cpp
+1709565805 source:c:\users\my pc\documents\github\gamesdl\player.cpp
 	"Player.h"
 	"SDL_GameObject.h"
 
-1709519486 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
+1709643920 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
 	"PlayState.h"
 
-1709478394 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
+1709643920 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
 	"PlayState_2.h"
 
 1708932945 source:c:\users\my pc\documents\github\gamesdl\sdl_gameobject.cpp
@@ -1463,7 +1467,7 @@
 1709518783 source:c:\users\my pc\documents\github\gamesdl\soldier.cpp
 	"Soldier.h"
 
-1708694379 source:c:\users\my pc\documents\github\gamesdl\surestate.cpp
+1709632340 source:c:\users\my pc\documents\github\gamesdl\surestate.cpp
 	"SureState.h"
 
 1708497505 source:c:\users\my pc\documents\github\gamesdl\vector2d.cpp
@@ -1472,10 +1476,10 @@
 1709398580 source:c:\users\my pc\documents\github\gamesdl\npc.cpp
 	"NPC.h"
 
-1709358492 source:c:\users\my pc\documents\github\gamesdl\managesound.cpp
+1709643920 source:c:\users\my pc\documents\github\gamesdl\managesound.cpp
 	"ManageSound.h"
 
-1709358244 c:\users\my pc\documents\github\gamesdl\managesound.h
+1709643920 c:\users\my pc\documents\github\gamesdl\managesound.h
 	<SDL2/SDL_mixer.h>
 	<SDL2/SDL.h>
 	<iostream>

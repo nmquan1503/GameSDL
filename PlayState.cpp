@@ -123,7 +123,13 @@ void PlayState::update()
     }
 
 
-    if(numSoldier==200 && p_soldiers.size()==0)
+    if(static_cast<Player*>(p_player)->GetPosInMapX()>=500&&static_cast<Player*>(p_player)->GetPosInMapX()<650&&static_cast<Player*>(p_player)->GetPosInMapY()>=1055)
+    {
+        static_cast<Player*>(p_player)->SetHP(-1);
+        static_cast<Player*>(p_player)->push_hp_lose(-1);
+    }
+
+    if(numSoldier==20 && p_soldiers.size()==0)
     {
         p_grass_3.push_back(new Grass(new LoaderParams(1950,1000,50,20,"entrance"),1));
         win=true;
@@ -216,7 +222,7 @@ void PlayState::update()
      }*/
 
 
-    if(numSoldier<200&&p_soldiers.size()<20)
+    if(numSoldier<20&&p_soldiers.size()<20)
     {
         numSoldier++;
         int k=rand()%2040+1;
@@ -257,6 +263,7 @@ void PlayState::update()
         {
             if(Collission(p_darts[i],p_soldiers[j]) && static_cast<Soldier*>(p_soldiers[j])->GetHP()>0)
             {
+                ManageSound::GetInstance()->playSound("atk2",0);
                 p_darts.erase(p_darts.begin()+i);
                 i--;
                 int t=rand()%7+47;
@@ -405,6 +412,10 @@ bool PlayState::onEnter()
 
     ManageFont::GetInstance()->load("Font/SuperSquadItalic.ttf","font1",25);
 
+    ManageSound::GetInstance()->load("Audio/atk1.mp3","atk1",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/atk2.mp3","atk2",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/eskill1.mp3","eskill1",SOUND_SFX);
+
 
 
     p_grass_1.push_back(new Grass(new LoaderParams(0,1050,500,150,"grass1"),0));
@@ -529,6 +540,12 @@ bool PlayState::onExit()
 
     ManageFont::GetInstance()->clearFromFontMap("font1");
 
+
+    ManageSound::GetInstance()->clearFromSFXMap("atk1");
+    ManageSound::GetInstance()->clearFromSFXMap("atk2");
+    ManageSound::GetInstance()->clearFromSFXMap("eskill1");
+
+    //ManageSound::GetInstance()->
 
     return true;
 }

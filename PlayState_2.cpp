@@ -289,6 +289,7 @@ void PlayState2::update()
 
         int t=Pos2(static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY ());
 
+        std::cout<<t<<std::endl;
 
         static_cast<Boss*>(p_boss)->SetEskill(p_eskill_boss);
         static_cast<Boss*>(p_boss)->SetPlayerPos(Pos_Map[ {static_cast<Boss*>(p_boss)->GetPosMap(),t}]);
@@ -306,6 +307,7 @@ void PlayState2::update()
         {
             if(Collission2(p_darts[i],p_boss))
             {
+                ManageSound::GetInstance()->playSound("atk2",0);
                 p_darts.erase(p_darts.begin()+i);
                 i--;
                 int t=rand()%7+47;
@@ -330,10 +332,16 @@ void PlayState2::update()
             {
                 int t=rand()%10+50;
                 static_cast<Player*>(p_player)->SetHP(-t);
+                static_cast<Player*>(p_player)->push_hp_lose(-t);
             }
         }
         if(Collission2(p_boss,p_player)&&static_cast<Boss*>(p_boss)->GetATK())
-            static_cast<Player*>(p_player)->SetHP(-3);
+        {
+            int t=rand()%4+10;
+            static_cast<Player*>(p_player)->SetHP(-t);
+            static_cast<Player*>(p_player)->push_hp_lose(-t);
+        }
+
     }
 
 
@@ -483,6 +491,18 @@ bool PlayState2::onEnter()
 
 
 
+
+
+    ManageSound::GetInstance()->load("Audio/boss_atk_nor.mp3","boss_atk_nor",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/atk1.mp3","atk1",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/atk2.mp3","atk2",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/eskill1.mp3","eskill1",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/SoundPlay2.mp3","soundplay2",SOUND_MUSIC);
+
+    ManageSound::GetInstance()->playMusic("soundplay2",-1);
+
+
+
     p_grass_1.push_back(new Grass(new LoaderParams(0,1050,1240,150,"cold1"),0));
     p_grass_1.push_back(new Grass(new LoaderParams(1240,950,200,250,"cold3"),0));
     p_grass_1.push_back(new Grass(new LoaderParams(1440,850,200,350,"cold3"),0));
@@ -534,6 +554,8 @@ bool PlayState2::onExit()
         i->clean();
     p_eskill_boss.clear();
 
+    ManageSound::GetInstance()->stopMusic();
+
     ManageTexture::GetInstance()->clearFromTexMap("backg2");
     ManageTexture::GetInstance()->clearFromTexMap("run");
     ManageTexture::GetInstance()->clearFromTexMap("die");
@@ -569,6 +591,14 @@ bool PlayState2::onExit()
 
 
     ManageFont::GetInstance()->clearFromFontMap("font1");
+
+
+
+    ManageSound::GetInstance()->clearFromSFXMap("boss_atk_nor");
+    ManageSound::GetInstance()->clearFromSFXMap("atk1");
+    ManageSound::GetInstance()->clearFromSFXMap("atk2");
+    ManageSound::GetInstance()->clearFromSFXMap("eskill1");
+    ManageSound::GetInstance()->clearFromMusicMap("soundplay2");
 
     return true;
 }

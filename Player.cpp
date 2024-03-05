@@ -117,6 +117,7 @@ void Player::handle()
         if((*vec-p_pos).GetX()>0)flip=true;
         else flip=false;
         p_Darts.push_back(new Dart(new LoaderParams(p_pos.GetX()+30,p_pos.GetY()+35,25,25,"dart"),p_pos+Vector2D(20,25),*vec+Vector2D(-14,-14)));
+        ManageSound::GetInstance()->playSound("atk1",0);
     }
     else if(HandleInput::GetInstance()->GetMouse(2)&&mana>=150)
     {
@@ -137,6 +138,7 @@ void Player::handle()
             flip=false;
         }
         p_Eskill.push_back(new Eskill(new LoaderParams(p_pos.GetX()+xp,p_pos.GetY(),270,100,"eskill"),p_pos+Vector2D(20,25),*vec+Vector2D(-14,-14),flip));
+        ManageSound::GetInstance()->playSound("eskill1",0);
     }
     else
     {

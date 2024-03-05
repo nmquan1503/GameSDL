@@ -26,7 +26,7 @@ bool SureState::onEnter()
     ManageTexture::GetInstance()->load("Image/yes.png","yes",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/no.png","no",Game::GetInstance()->GetRenderer());
 
-    p_gameObjects.push_back(new MenuBG(new LoaderParams(0,0,2040,600,"bgmenu")));
+    p_gameObjects.push_back(new MenuBG(new LoaderParams(0,0,2040,600,"bgmenu"),-5));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(320,270,150,80,"yes"),p_exit));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(580,270,150,80,"no"),p_backMenu));
     return true;

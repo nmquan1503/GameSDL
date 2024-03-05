@@ -10,10 +10,12 @@
 class MenuBG : public SDLGameObject
 {
 public:
-    MenuBG(const LoaderParams* Params);
+    MenuBG(const LoaderParams* Params,int Fpls);
     virtual void draw();
     virtual void update();
     virtual void clean();
+private:
+    int p_Fpls;
 };
 
 #endif // _MenuBG_h_

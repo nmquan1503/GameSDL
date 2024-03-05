@@ -20,6 +20,7 @@ public:
     Vector2D GetPos(){return p_pos;}
     int GetW(){return p_w;}
     int GetH(){return p_h;}
+    void SetPos(Vector2D pos){p_pos=pos;}
 protected:
     Vector2D p_pos;
     Vector2D p_vel;

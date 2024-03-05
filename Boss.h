@@ -10,6 +10,8 @@
 #include "SDL_GameObject.h"
 #include "ManageTexture.h"
 #include "Game.h"
+#include "ManageSound.h"
+#include "ManageFont.h"
 
 
 class Boss : public SDLGameObject
