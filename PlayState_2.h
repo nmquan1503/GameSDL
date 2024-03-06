@@ -16,7 +16,6 @@
 #include "Grass.h"
 #include "GameOverState.h"
 #include "Boss.h"
-#include "NPC.h"
 #include "MenuButton.h"
 #include "LoaderParams.h"
 
@@ -36,12 +35,8 @@ public:
     {
         return p_Play2ID;
     }
-    //int Pos(GameObject* g);
     void drawOnBoard(std::string id,std::string text);
 
-/*     void talk1();
-     void talk2();
-     void start_play();*/
 
 private:
 
@@ -57,21 +52,10 @@ private:
    GameObject* p_player;
     GameObject* p_boss;
 
-  //  NPC* p_npc;
-
     std::string text1="Careful! He's coming!";
     std::string text2="Thank you for saving me.";
     int longText=0;
 
- /*   GameObject* p_play;
-    GameObject* P_win;
-    int longText=0;
-    bool Talking1=false;
-    bool Talking2=false;
-    bool IsTalking=false;
-    bool point_npc=false;
-    bool talk_npc=false;
-    GameObject* p_npc;*/
 
 
     std::vector<GameObject*>p_darts;

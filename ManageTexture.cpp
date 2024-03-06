@@ -17,6 +17,16 @@ bool ManageTexture::load(std::string file_name,std::string id,SDL_Renderer* rend
     return false;
 }
 
+bool ManageTexture::loadFromTex(SDL_Texture* tex,std::string id,SDL_Renderer* renderer)
+{
+    if(tex!=0)
+    {
+        TexMap[id]=tex;
+        return true;
+    }
+    return false;
+}
+
 void ManageTexture::draw(std::string id,int x,int y,int w,int h,SDL_Renderer* renderer,bool flip)
 {
     SDL_Rect scr;

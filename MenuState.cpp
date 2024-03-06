@@ -4,7 +4,7 @@
 #include "MenuBG.h"
 
 std::string MenuState::p_MenuID="MENU";
-
+std::vector<GameObject*> MenuState::p_gameObjects;
 void MenuState::update()
 {
     for(GameObject* i:p_gameObjects)
@@ -78,7 +78,8 @@ void MenuState::p_exitFromMenu()
 
 void MenuState::p_menuToOptions()
 {
-    Game::GetInstance()->GetGameStateMachine()->changeState(new OptionsState());
+    GameObject* p_g=(p_gameObjects[0]);
+    Game::GetInstance()->GetGameStateMachine()->pushState(new OptionsState(p_g));
 }
 
 void MenuState::p_menuToInstruction()

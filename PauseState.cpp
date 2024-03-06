@@ -3,7 +3,10 @@
 
 std::string PauseState::p_PauseID="PAUSE";
 
-PauseState::PauseState(SDL_Texture* tex):p_tex(tex){}
+PauseState::PauseState(SDL_Texture* tex):p_tex(tex)
+{
+    ManageTexture::GetInstance()->loadFromTex(p_tex,"blind",Game::GetInstance()->GetRenderer());
+}
 
 void PauseState::p_Pause()
 {
@@ -27,7 +30,7 @@ void PauseState::p_pauseToRestart()
 
 void PauseState::p_pauseToOptions()
 {
-    Game::GetInstance()->GetGameStateMachine()->changeState(new OptionsState());
+    Game::GetInstance()->GetGameStateMachine()->pushState(new OptionsState(new MenuBG(new LoaderParams(0,0,1020,600,"blind"),0)));
 }
 
 void PauseState::update()
@@ -38,7 +41,6 @@ void PauseState::update()
 
 void PauseState::render()
 {
-    //p_gameObjects[0]->draw();
     SDL_RenderCopy(Game::GetInstance()->GetRenderer(),p_tex,NULL,NULL);
     ManageTexture::GetInstance()->draw("pause",0,0,1020,600,Game::GetInstance()->GetRenderer(),true);
     for(GameObject* i:p_gameObjects)
@@ -67,6 +69,12 @@ bool PauseState::onExit()
         i->clean();
     p_gameObjects.clear();
     ManageTexture::GetInstance()->clearFromTexMap("instruction");
+    ManageTexture::GetInstance()->clearFromTexMap("pause");
+    ManageTexture::GetInstance()->clearFromTexMap("restart");
+    ManageTexture::GetInstance()->clearFromTexMap("options");
+    ManageTexture::GetInstance()->clearFromTexMap("home");
+    ManageTexture::GetInstance()->clearFromTexMap("resume");
+    ManageTexture::GetInstance()->clearFromTexMap("blind");
     HandleInput::GetInstance()->reset();
     return true;
 }

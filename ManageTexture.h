@@ -17,6 +17,7 @@ private:
 public:
     static ManageTexture* GetInstance();
     bool load(std::string file_name,std::string id,SDL_Renderer* renderer);
+    bool loadFromTex(SDL_Texture* tex,std::string id,SDL_Renderer* renderer);
     void draw(std::string id,int x,int y,int w,int h,SDL_Renderer* renderer,bool flip);
     void drawFrame(std::string id,int x,int y,int w,int h,int Frame,SDL_Renderer* renderer,bool flip);
     void clearFromTexMap(std::string TexID){TexMap.erase(TexID);}

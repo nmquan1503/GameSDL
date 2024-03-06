@@ -23,7 +23,7 @@ public:
     virtual std::string GetStateID() const {return p_MenuID;}
 private:
     static std::string p_MenuID;
-    std::vector<GameObject*>p_gameObjects;
+    static std::vector<GameObject*>p_gameObjects;
     static void p_menuToPlay();
     static void p_exitFromMenu();
     static void p_menuToOptions();

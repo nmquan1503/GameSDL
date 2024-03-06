@@ -17,15 +17,17 @@ class GameObject;
 class OptionsState : public GameState
 {
 public:
-//    OptionsState()
+    OptionsState(GameObject* p_g);
     virtual void update();
     virtual void render();
     virtual bool onEnter();
     virtual bool onExit();
 
-    virtual std::string GetStateID()const {return p_OptionsID;}
+    virtual std::string GetStateID()const
+    {
+        return p_OptionsID;
+    }
 private:
-
     bool sfx_fix=false;
     bool music_fix=false;
     static std::string p_OptionsID;
