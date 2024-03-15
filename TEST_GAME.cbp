@@ -55,6 +55,8 @@
 			<Add directory="$(SolutionDir)SDL file/SDL2_mixer-2.8.0/x86_64-w64-mingw32/lib" />
 			<Add directory="$(SolutionDir)SDL file/SDL2_ttf-2.22.0/x86_64-w64-mingw32/lib" />
 		</Linker>
+		<Unit filename="Animation.cpp" />
+		<Unit filename="Animation.h" />
 		<Unit filename="Boss.cpp" />
 		<Unit filename="Boss.h" />
 		<Unit filename="Eskill.cpp" />
@@ -94,6 +96,8 @@
 		<Unit filename="MenuButton.h" />
 		<Unit filename="MenuState.cpp" />
 		<Unit filename="MenuState.h" />
+		<Unit filename="Note.cpp" />
+		<Unit filename="Note.h" />
 		<Unit filename="OptionsState.cpp" />
 		<Unit filename="OptionsState.h" />
 		<Unit filename="PauseState.cpp" />

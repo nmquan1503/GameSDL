@@ -1234,7 +1234,7 @@
 	<SDL2/SDL.h>
 	"Vector2D.h"
 
-1709968083 c:\users\my pc\documents\github\gamesdl\playstate.h
+1710521035 c:\users\my pc\documents\github\gamesdl\playstate.h
 	<vector>
 	<iostream>
 	<map>
@@ -1454,7 +1454,7 @@
 
 1709017145 source:c:\users\my pc\documents\github\gamesdl\playbg.cpp
 
-1710489679 source:c:\users\my pc\documents\github\gamesdl\player.cpp
+1710519456 source:c:\users\my pc\documents\github\gamesdl\player.cpp
 	"Player.h"
 	"SDL_GameObject.h"
 	"EspFunction.cpp"
@@ -1648,4 +1648,11 @@
 
 1710515096 source:c:\users\my pc\documents\github\gamesdl\note.cpp
 	"Note.h"
+
+1710520950 source:c:\users\my pc\documents\github\gamesdl\animation.cpp
+	"Animation.h"
+
+1710520855 c:\users\my pc\documents\github\gamesdl\animation.h
+	"SDL_GameObject.h"
+	"LoaderParams.h"
 

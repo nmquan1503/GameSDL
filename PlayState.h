@@ -49,6 +49,7 @@ private:
     std::vector<GameObject*>p_grass_3;
     std::vector<GameObject*>p_item;
 
+
     std::map<std::pair<int,int>,int> Pos_Map;
     int numSoldier=0;
 };
