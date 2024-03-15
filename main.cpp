@@ -6,7 +6,7 @@
 #include "Game.h"
 
 
-const int FPS=14;
+const int FPS=16;
 const int DELAY_TIME = 1000.0f/FPS;
 
 

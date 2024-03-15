@@ -61,6 +61,12 @@ void ManageTexture:: drawFrame(std::string id,int x,int y,int w,int h,int Frame,
     else SDL_RenderCopyEx(renderer,TexMap[id],&scr,&dst,0,0,SDL_FLIP_HORIZONTAL);
 }
 
+void ManageTexture::drawFull(std::string id,int x,int y,int w,int h,SDL_Renderer* renderer)
+{
+    SDL_Rect dst={x,y,w,h};
+    SDL_RenderCopy(renderer,TexMap[id],NULL,&dst);
+}
+
 ManageTexture* ManageTexture::GetInstance()
 {
     if(Instance==NULL)

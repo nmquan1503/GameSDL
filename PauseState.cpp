@@ -20,11 +20,13 @@ void PauseState::p_pauseToResume()
 
 void PauseState::p_pauseToHome()
 {
+    Game::GetInstance()->GetGameStateMachine()->clearAllState();
     Game::GetInstance()->GetGameStateMachine()->changeState(new MenuState());
 }
 
 void PauseState::p_pauseToRestart()
 {
+    Game::GetInstance()->GetGameStateMachine()->clearAllState();
     Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState());
 }
 

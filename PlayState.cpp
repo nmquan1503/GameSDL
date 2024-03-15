@@ -1,71 +1,6 @@
 
 #include "PlayState.h"
-
-
-SDL_Texture* blindTex(SDL_Renderer* renderer)
-{
-    SDL_Surface* screenSurface = SDL_CreateRGBSurface(0, 1020, 600, 32, 0, 0, 0, 0);
-    SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, screenSurface->pixels, screenSurface->pitch);
-    Uint32* pixels = static_cast<Uint32*>(screenSurface->pixels);
-    int pixelCount = screenSurface->w * screenSurface->h;
-
-    for (int i = 0; i < pixelCount; ++i)
-    {
-        Uint8* pixel = reinterpret_cast<Uint8*>(&pixels[i]);
-
-        // Lấy giá trị RGBA của pixel
-        Uint8 r, g, b, a;
-        SDL_GetRGBA(pixels[i], screenSurface->format, &r, &g, &b, &a);
-
-        // Giảm độ sáng (ví dụ giảm 50%)
-        r = static_cast<Uint8>(r * 0.5);
-        g = static_cast<Uint8>(g * 0.5);
-        b = static_cast<Uint8>(b * 0.5);
-
-        // Tạo giá trị RGBA mới
-        pixels[i] = SDL_MapRGBA(screenSurface->format, r, g, b, a);
-    }
-    SDL_Texture* tex=SDL_CreateTextureFromSurface(renderer,screenSurface);
-    SDL_FreeSurface(screenSurface);
-    return tex;
-}
-
-void bfs(std::vector<std::vector<int>> v, int t,std::map<std::pair<int,int>,int>&mp)
-{
-    std::vector<int> q;
-    q.push_back(t);
-    int n = v.size();
-    std::vector<bool> visit(n, false);
-    std::vector<int> par(n, 0);
-    std::vector<bool> check(n, false);
-    visit[t] = true;
-    while (!q.empty())
-    {
-        int u = q[0];
-        q.erase(q.begin());
-        for (int i : v[u])
-        {
-            if (!visit[i])
-            {
-                visit[i] = true;
-                q.push_back(i);
-                par[i] = u;
-                if (check[i] == false)
-                {
-                    std::vector<int> path;
-                    for (int v = i; v != t; v = par[v])
-                    {
-                        path.push_back(v);
-                    }
-                    path.push_back(t);
-                    reverse(path.begin(), path.end());
-                    mp[ {t, i}] = path[1];
-                    check[i] = true;
-                }
-            }
-        }
-    }
-}
+#include "EspFunction.cpp"
 
 
 std::string PlayState::p_PlayID="PLAY";
@@ -80,17 +15,16 @@ int PlayState::CollisionPlayer(GameObject* g)
     return 0;
 }
 
-bool Collission(GameObject* p1,GameObject* p2)
+/*bool Collission(GameObject* p1,GameObject* p2)
 {
     int x1=static_cast<SDLGameObject*>(p1)->GetPos().GetX(),y1=static_cast<SDLGameObject*>(p1)->GetPos().GetY(),w1=static_cast<SDLGameObject*>(p1)->GetW(),h1=static_cast<SDLGameObject*>(p1)->GetH();
     int x2=static_cast<SDLGameObject*>(p2)->GetPos().GetX(),y2=static_cast<SDLGameObject*>(p2)->GetPos().GetY(),w2=static_cast<SDLGameObject*>(p2)->GetW(),h2=static_cast<SDLGameObject*>(p2)->GetH();
     if(x1>=x2+w2||x1+w1<=x2||y1+h1<=y2||y2+h2<=y1)return false;
     return true;
-}
+}*/
 
-int Pos(int x,int y)
+/*int Pos(int x,int y)
 {
-    //int x1=static_cast<Player*>(g)->GetPosInMapX(),y1=static_cast<Player*>(g)->GetPosInMapY();
     if(x>400&&x<900&&y+75<=550)return 12;
     if(x>300&&x<550&&y+75<=650)return 11;
     if(x>300&&x<550&&y+75<=750)return 10;
@@ -106,7 +40,7 @@ int Pos(int x,int y)
     if(x<500&&y+75<=1050)return 1;
     if(x>1465&&y+75<=1050)return 6;
     return 2;
-}
+}*/
 
 void PlayState::update()
 {
@@ -116,14 +50,20 @@ void PlayState::update()
     }
 
 
-    if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_ESCAPE))
+    Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
+    int x_pl=static_cast<Player*>(p_player)->GetPosInMapX();
+    int y_pl=static_cast<Player*>(p_player)->GetPosInMapY();
+    int speed_pl=static_cast<Player*>(p_player)->GetSpeed();
+
+
+    if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_ESCAPE)||(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>955&&vec->GetX()<1015&&vec->GetY()>10&&vec->GetY()<70))
     {
 
         Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer())));
     }
 
 
-    if(static_cast<Player*>(p_player)->GetPosInMapX()>=500&&static_cast<Player*>(p_player)->GetPosInMapX()<650&&static_cast<Player*>(p_player)->GetPosInMapY()>=1055)
+    if(x_pl>=500&&x_pl<650&&y_pl>=1055)
     {
         static_cast<Player*>(p_player)->SetHP(-1);
         static_cast<Player*>(p_player)->push_hp_lose(-1);
@@ -136,7 +76,7 @@ void PlayState::update()
         numSoldier++;
     }
 
-    if(win==true && static_cast<Player*>(p_player)->GetPosInMapX()>=1940&&static_cast<Player*>(p_player)->GetPosInMapY()>=850)
+    if(win==true && x_pl>=1940&&y_pl>=850)
     {
         static_cast<Player*>(p_player)->SetPosInMapX(0);
         static_cast<Player*>(p_player)->SetPosInMapY(975);
@@ -152,17 +92,17 @@ void PlayState::update()
 
     static_cast<Player*>(p_player)->SetDart(p_darts);
 
-    int t_l=15,t_r=15;
-    int x1=static_cast<Player*>(p_player)->GetPosInMapX();
-    int y1=static_cast<Player*>(p_player)->GetPosInMapY();
+
+    int t_l=speed_pl,t_r=speed_pl;
+
     for(GameObject* i:p_grass_1)
     {
         int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
         int y2=static_cast<Grass*>(i)->GetFirY(),h2=static_cast<Grass*>(i)->GetH();
-        if(y1<y2+h2&&y1+75>y2)
+        if(y_pl<y2+h2&&y_pl+75>y2)
         {
-            if(x1-(x2+w2)>=0)t_l=std::min(t_l,x1-(x2+w2));
-            if(x2-(x1+50)>=0)t_r=std::min(t_r,x2-(x1+50));
+            if(x_pl-(x2+w2)>=0)t_l=std::min(t_l,x_pl-(x2+w2));
+            if(x2-(x_pl+50)>=0)t_r=std::min(t_r,x2-(x_pl+50));
         }
     }
     static_cast<Player*>(p_player)->SetRightCan(t_r);
@@ -173,23 +113,29 @@ void PlayState::update()
     {
         int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
         int y2=static_cast<Grass*>(i)->GetFirY();//h2=static_cast<Grass*>(i)->GetH();
-        if(x1<x2+w2&&x1+50>x2)
+        if(x_pl<x2+w2&&x_pl+50>x2)
         {
-            if(y2-(y1+75)>=0)t_d=std::min(t_d,y2-(y1+75));
+            if(y2-(y_pl+75)>=0)t_d=std::min(t_d,y2-(y_pl+75));
         }
     }
     for(GameObject* i:p_grass_2)
     {
         int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
         int y2=static_cast<Grass*>(i)->GetFirY();//h2=static_cast<Grass*>(i)->GetH();
-        if(x1<x2+w2&&x1+50>x2)
+        if(x_pl<x2+w2&&x_pl+50>x2)
         {
-            if(y2-(y1+75)>=0)t_d=std::min(t_d,y2-(y1+75));
+            if(y2-(y_pl+75)>=0)t_d=std::min(t_d,y2-(y_pl+75));
         }
     }
     static_cast<Player*>(p_player)->SetDownCan(t_d);
 
     p_player->update();
+
+
+
+    x_pl=static_cast<Player*>(p_player)->GetPosInMapX();
+    y_pl=static_cast<Player*>(p_player)->GetPosInMapY();
+
 
     for(GameObject* i: p_grass_1)
     {
@@ -226,15 +172,15 @@ void PlayState::update()
     {
         numSoldier++;
         int k=rand()%2040+1;
-        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY()));
+        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),x_pl,y_pl));
     }
-    int t=Pos(static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY ());
+    int t=Pos_Map_1(x_pl,y_pl,50,75);
 
     for(GameObject* i:p_soldiers)
     {
         static_cast<Soldier*>(i)->SetPlayerPos(Pos_Map[ {static_cast<Soldier*>(i)->GetPosMap(),t}]);
-        static_cast<Soldier*>(i)->SetMapX(static_cast<Player*>(p_player)->GetPosInMapX());
-        static_cast<Soldier*>(i)->SetMapY(static_cast<Player*>(p_player)->GetPosInMapY());
+        static_cast<Soldier*>(i)->SetMapX(x_pl);
+        static_cast<Soldier*>(i)->SetMapY(y_pl);
         i->update();
     }
 
@@ -252,10 +198,19 @@ void PlayState::update()
     {
         if(static_cast<Soldier*>(p_soldiers[i])->GetHP()<=0)
         {
+
+            int t=rand()%100+1;
+            if(t==1)p_item.push_back(new Item(new LoaderParams(static_cast<Soldier*>(p_soldiers[i])->GetPosInMapX(),static_cast<Soldier*>(p_soldiers[i])->GetPosInMapY(),35,44,"gem"),x_pl,y_pl,"gem"));
+            else if(t>=2&&t<=100)p_item.push_back(new Item(new LoaderParams(static_cast<Soldier*>(p_soldiers[i])->GetPosInMapX(),static_cast<Soldier*>(p_soldiers[i])->GetPosInMapY(),35,38,"gold"),x_pl,y_pl,"gold"));
             p_soldiers.erase(p_soldiers.begin()+i);
             i--;
         }
     }
+
+
+
+
+    int dmg_pl=static_cast<Player*>(p_player)->GetDamage();
 
     for(int i=0; i<p_darts.size(); i++)
     {
@@ -266,13 +221,14 @@ void PlayState::update()
                 ManageSound::GetInstance()->playSound("atk2",0);
                 p_darts.erase(p_darts.begin()+i);
                 i--;
-                int t=rand()%7+47;
-                static_cast<Soldier*>(p_soldiers[j])->SetHP(-t);
-                static_cast<Soldier*>(p_soldiers[j])->push_hp_lose(-t);
+                int t=rand()%10+95;
+                static_cast<Soldier*>(p_soldiers[j])->SetHP(-(dmg_pl)*t/100);
+                static_cast<Soldier*>(p_soldiers[j])->push_hp_lose(-(dmg_pl)*t/100);
                 break;
             }
         }
     }
+
 
     for(int i=0; i<p_eskill.size(); i++)
     {
@@ -280,9 +236,9 @@ void PlayState::update()
         {
             if(Collission(p_eskill[i],p_soldiers[j])&& static_cast<Soldier*>(p_soldiers[j])->GetHP()>0)
             {
-                int t=rand()%100+500;
-                static_cast<Soldier*>(p_soldiers[j])->SetHP(-t);
-                static_cast<Soldier*>(p_soldiers[j])->push_hp_lose(-t);
+                int t=rand()%20+90;
+                static_cast<Soldier*>(p_soldiers[j])->SetHP(-dmg_pl*t/10);
+                static_cast<Soldier*>(p_soldiers[j])->push_hp_lose(-dmg_pl*t/10);
                 break;
             }
         }
@@ -297,23 +253,43 @@ void PlayState::update()
     }
 
 
+    for(int i=0;i<p_item.size();i++)
+    {
+        if(Collission(p_player,p_item[i]))
+        {
+            if(static_cast<Item*>(p_item[i])->GetID()=="gold")
+                static_cast<Player*>(p_player)->SetGold(1);
+            else if(static_cast<Item*>(p_item[i])->GetID()=="gem")
+                static_cast<Player*>(p_player)->SetGem(1);
+
+            p_item.erase(p_item.begin()+i);
+            i--;
+        }
+    }
+
 
     for(GameObject* i: p_grass_1)
     {
-        static_cast<Grass*>(i)->SetMap_X(static_cast<Player*>(p_player)->GetPosInMapX());
-        static_cast<Grass*>(i)->SetMap_Y(static_cast<Player*>(p_player)->GetPosInMapY());
+        static_cast<Grass*>(i)->SetMap_X(x_pl);
+        static_cast<Grass*>(i)->SetMap_Y(y_pl);
         i->update();
     }
     for(GameObject* i: p_grass_2)
     {
-        static_cast<Grass*>(i)->SetMap_X(static_cast<Player*>(p_player)->GetPosInMapX());
-        static_cast<Grass*>(i)->SetMap_Y(static_cast<Player*>(p_player)->GetPosInMapY());
+        static_cast<Grass*>(i)->SetMap_X(x_pl);
+        static_cast<Grass*>(i)->SetMap_Y(y_pl);
         i->update();
     }
     for(GameObject* i: p_grass_3)
     {
-        static_cast<Grass*>(i)->SetMap_X(static_cast<Player*>(p_player)->GetPosInMapX());
-        static_cast<Grass*>(i)->SetMap_Y(static_cast<Player*>(p_player)->GetPosInMapY());
+        static_cast<Grass*>(i)->SetMap_X(x_pl);
+        static_cast<Grass*>(i)->SetMap_Y(y_pl);
+        i->update();
+    }
+    for(GameObject* i:p_item)
+    {
+        static_cast<Item*>(i)->SetMap_X(x_pl);
+        static_cast<Item*>(i)->SetMap_Y(y_pl);
         i->update();
     }
 }
@@ -342,7 +318,10 @@ void PlayState::render()
     for(GameObject* i:p_eskill)
         i->draw();
 
+    for(GameObject* i:p_item)
+        i->draw();
 
+    ManageTexture::GetInstance()->draw("pause1",955,10,60,65,Game::GetInstance()->GetRenderer(),true);
     if(win==true)
     {
         ManageFont::GetInstance()->drawTextBlended("font1","Find the entrance", {255,0,0,255},400,100,Game::GetInstance()->GetRenderer());
@@ -355,7 +334,7 @@ bool PlayState::onEnter()
     std::vector<std::vector<int>> v = {{}, {2}, {1, 3}, {2, 4}, {3, 7}, {4, 8}, {15}, {4, 10, 1, 3}, {13, 9}, {8, 15}, {7, 11, 1}, {12, 7, 1}, {5, 11}, {8, 14, 5}, {13, 6}, {9, 6}};
     for(int i=1; i<=15; i++)
     {
-        bfs(v,i,Pos_Map);
+        bfs_map(v,i,Pos_Map);
     }
     for(int i=1; i<=15; i++)Pos_Map[ {i,i}]=i;
 
@@ -369,6 +348,8 @@ bool PlayState::onEnter()
     ManageTexture::GetInstance()->load("Image/santo.png","santo",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/atk.png","atk",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/dart.png","dart",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/dart_2.png","dart_2",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/dart_3.png","dart_3",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/eskill.png","eskill",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/eskill2.png","eskil2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/grass1.png","grass1",Game::GetInstance()->GetRenderer());
@@ -405,12 +386,26 @@ bool PlayState::onEnter()
     ManageTexture::GetInstance()->load("Image/mana2.png","mana2",Game::GetInstance()->GetRenderer());
 
     ManageTexture::GetInstance()->load("Image/gameover.png","gameover",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/pause_1.png","pause1",Game::GetInstance()->GetRenderer());
 
     ManageTexture::GetInstance()->load("Image/entrance.png","entrance",Game::GetInstance()->GetRenderer());
+
+    ManageTexture::GetInstance()->load("Image/gold.png","gold",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/gem.png","gem",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/gold_data.png","gold_data",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/gem_data.png","gem_data",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/hp_spell.png","hp_spell",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/mana_spell.png","mana_spell",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/damage_spell.png","damage_spell",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/speed_spell.png","speed_spell",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/hp_x2.png","hp_x2",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/mana_x2.png","mana_x2",Game::GetInstance()->GetRenderer());
 
 
 
     ManageFont::GetInstance()->load("Font/SuperSquadItalic.ttf","font1",25);
+    ManageFont::GetInstance()->load("Font/Fz-Futura-Maxi.ttf","font2",20);
+    ManageFont::GetInstance()->load("Font/Lora-Bold.ttf","font3",20);
 
     ManageSound::GetInstance()->load("Audio/atk1.mp3","atk1",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/atk2.mp3","atk2",SOUND_SFX);
@@ -490,6 +485,9 @@ bool PlayState::onExit()
     }
     p_eskill.clear();
     p_player->clean();
+    for(GameObject* i:p_item)
+        i->clean();
+    p_item.clear();
 
     ManageTexture::GetInstance()->clearFromTexMap("backg");
     ManageTexture::GetInstance()->clearFromTexMap("run");
@@ -499,6 +497,8 @@ bool PlayState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("santo");
     ManageTexture::GetInstance()->clearFromTexMap("atk");
     ManageTexture::GetInstance()->clearFromTexMap("dart");
+    ManageTexture::GetInstance()->clearFromTexMap("dart_2");
+    ManageTexture::GetInstance()->clearFromTexMap("dart_3");
     ManageTexture::GetInstance()->clearFromTexMap("eskill");
     ManageTexture::GetInstance()->clearFromTexMap("grass1");
     ManageTexture::GetInstance()->clearFromTexMap("grass2");
@@ -534,11 +534,25 @@ bool PlayState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("entrance");
     ManageTexture::GetInstance()->clearFromTexMap("eskill2");
     ManageTexture::GetInstance()->clearFromTexMap("die");
+    ManageTexture::GetInstance()->clearFromTexMap("gold");
+    ManageTexture::GetInstance()->clearFromTexMap("gem");
+    ManageTexture::GetInstance()->clearFromTexMap("gold_data");
+    ManageTexture::GetInstance()->clearFromTexMap("gem_data");
+    ManageTexture::GetInstance()->clearFromTexMap("hp_spell");
+    ManageTexture::GetInstance()->clearFromTexMap("mana_spell");
+    ManageTexture::GetInstance()->clearFromTexMap("damage_spell");
+    ManageTexture::GetInstance()->clearFromTexMap("pause1");
+    ManageTexture::GetInstance()->clearFromTexMap("mana_x2");
+    ManageTexture::GetInstance()->clearFromTexMap("hp_x2");
+    ManageTexture::GetInstance()->clearFromTexMap("speed_spell");
 
 
 
 
     ManageFont::GetInstance()->clearFromFontMap("font1");
+    ManageFont::GetInstance()->clearFromFontMap("font2");
+    ManageFont::GetInstance()->clearFromFontMap("font3");
+
 
 
     ManageSound::GetInstance()->clearFromSFXMap("atk1");

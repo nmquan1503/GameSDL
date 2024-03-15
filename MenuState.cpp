@@ -29,6 +29,8 @@ bool MenuState::onEnter()
     ManageTexture::GetInstance()->load("Image/menu_quit.png","quit",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/menu_options.png","options",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/menu_instructions.png","instructions",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/menu_shop.png","shop_menu",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/menu_upgrade.png","menu_upgrade",Game::GetInstance()->GetRenderer());
 
 
     ManageSound::GetInstance()->load("Audio/SoundMenu.mp3","soundmenu",SOUND_MUSIC);
@@ -41,6 +43,8 @@ bool MenuState::onEnter()
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,340,250,60,"options"),p_menuToOptions));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,410,250,60,"instructions"),p_menuToInstruction));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,480,250,60,"quit"),p_exitFromMenu));
+    p_gameObjects.push_back(new MenuButton(new LoaderParams(770,0,200,130,"shop_menu"),p_menuToShop));
+    p_gameObjects.push_back(new MenuButton(new LoaderParams(770,170,200,124,"menu_upgrade"),p_menuToUpgrade));
     return true;
 }
 
@@ -60,6 +64,8 @@ bool MenuState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("quit");
     ManageTexture::GetInstance()->clearFromTexMap("options");
     ManageTexture::GetInstance()->clearFromTexMap("instructions");
+    ManageTexture::GetInstance()->clearFromTexMap("shop_menu");
+    ManageTexture::GetInstance()->clearFromTexMap("menu_upgrade");
 
 
     ManageSound::GetInstance()->clearFromMusicMap("soundmenu");
@@ -85,4 +91,14 @@ void MenuState::p_menuToOptions()
 void MenuState::p_menuToInstruction()
 {
     Game::GetInstance()->GetGameStateMachine()->changeState(new InstructionState());
+}
+
+void MenuState::p_menuToShop()
+{
+    Game::GetInstance()->GetGameStateMachine()->pushState(new ShopState());
+}
+
+void MenuState::p_menuToUpgrade()
+{
+    Game::GetInstance()->GetGameStateMachine()->pushState(new PlayerInfo());
 }

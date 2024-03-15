@@ -19,6 +19,9 @@ public:
     virtual void update();
     virtual void clean();
     int GetPosMap(){return p_SoldierPos;}
+    int GetPosInMapX(){return p_pos_x;}
+    int GetPosInMapY(){return p_pos_y;}
+    int GetGrassY1(){return p_grass_y1;}
     void SetSoldierPos(int s){p_SoldierPos=s;}
     void SetPlayerPos(int s){p_PlayerPos=s;}
     void SetMapX(int t){pos_in_map_x=t;}

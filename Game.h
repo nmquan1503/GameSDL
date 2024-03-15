@@ -18,6 +18,7 @@
 #include "GameStateMachine.h"
 #include "MenuState.h"
 #include "PlayState.h"
+#include "GameData.h"
 
 class Game
 {
@@ -32,6 +33,7 @@ private:
     Game();
     static Game* Instance;
     GameStateMachine* p_GameStateMachine;
+   // GameData* data;
 public:
     static Game* GetInstance();
 
@@ -45,6 +47,7 @@ public:
     bool IsRunning(){return p_Running;}
     SDL_Renderer* GetRenderer() const {return p_renderer;}
     GameStateMachine* GetGameStateMachine(){return p_GameStateMachine;}
+   // GameData* GetData(){return data;}
 
 };
 

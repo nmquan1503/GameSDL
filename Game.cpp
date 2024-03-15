@@ -54,7 +54,8 @@ bool Game::init(const char* title,int width,int height)
                 MTex->load("Image/santo.png","santo",p_renderer);*/
                 p_GameStateMachine=new GameStateMachine();
                 p_GameStateMachine->changeState(new MenuState());
-
+       //         data=new GameData();
+                GameData::GetInstance()->loadData("item_data.xml");
 
                 /*GameObjects.push_back(new Soldier(new LoaderParams(900,500,40,65,"soldier1")));
                 GameObjects.push_back(new Player(new LoaderParams(500,300,50,75,"nor")));*/
@@ -91,10 +92,10 @@ void Game::clean()
 void Game::handleEvents()
 {
     HandleInput::GetInstance()->update();
-    if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_RETURN))
+    /*if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_RETURN))
     {
         p_GameStateMachine->changeState(new PlayState());
-    }
+    }*/
 }
 
 void Game::update()
@@ -125,5 +126,7 @@ void Game::render()
 
 void Game::quit()
 {
+    GameData::GetInstance()->saveData("item_data.xml");
+    TTF_Quit();
     SDL_Quit();
 }

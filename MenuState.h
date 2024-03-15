@@ -9,6 +9,8 @@
 #include "OptionsState.h"
 #include "SureState.h"
 #include "InstructionState.h"
+#include "ShopState.h"
+#include "PlayerInfo.h"
 
 #include <vector>
 #include <iostream>
@@ -28,6 +30,8 @@ private:
     static void p_exitFromMenu();
     static void p_menuToOptions();
     static void p_menuToInstruction();
+    static void p_menuToShop();
+    static void p_menuToUpgrade();
 };
 
 

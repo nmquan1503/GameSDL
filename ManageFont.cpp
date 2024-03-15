@@ -57,6 +57,19 @@ void ManageFont::drawTextBlended(std::string id,std::string text,SDL_Color color
     SDL_DestroyTexture(tex);
 }
 
+void ManageFont::drawInfo(std::string id,std::string text,SDL_Color color,int x,int y,int w_max,SDL_Renderer* renderer)
+{
+    SDL_Surface* sur=TTF_RenderText_Blended_Wrapped(Font_Map[id],text.c_str(),color,w_max);
+    SDL_Texture* tex=SDL_CreateTextureFromSurface(renderer,sur);
+    int w,h;
+    SDL_QueryTexture(tex,NULL,NULL,&w,&h);
+    SDL_Rect dst={x+50,y+30,w,h};
+    ManageTexture::GetInstance()->drawFull("bogoc2",x,y,w_max+100,h+60,renderer);
+    SDL_RenderCopy(renderer,tex,NULL,&dst);
+    SDL_FreeSurface(sur);
+    SDL_DestroyTexture(tex);
+}
+
 SDL_Texture* ManageFont::createTex(std::string id,std::string text,SDL_Color color,SDL_Renderer* renderer)
 {
     SDL_Surface* sur= TTF_RenderText_Blended(Font_Map[id],text.c_str(),color);
@@ -64,3 +77,5 @@ SDL_Texture* ManageFont::createTex(std::string id,std::string text,SDL_Color col
     SDL_FreeSurface(sur);
     return tex;
 }
+
+

@@ -21,6 +21,7 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
+    void SetVel(Vector2D vec){p_vel=vec;}
 };
 
 #endif // _MenuButton_h_

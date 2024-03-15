@@ -15,6 +15,8 @@
 #include "ManageTexture.h"
 #include "ManageFont.h"
 #include "ManageSound.h"
+#include "GameData.h"
+#include "SpItem.h"
 
 class Player : public SDLGameObject
 {
@@ -46,8 +48,11 @@ public:
     void SetRightCan(int r){p_right_can=r;}
     void SetLeftCan(int l){p_left_can=l;}
 
-    void SetHP(int t){hp+=t;}
+    void SetHP(int t){hp=std::max(0,std::min(hp_max,hp+t));}
+    void SetMana(int t){mana=std::max(0,std::min(mana_max,mana+t));}
     int GetHP(){return hp;}
+    int GetDamage(){return damage;}
+    int GetSpeed(){return speed;}
 
     void SetDart(std::vector<GameObject*> Dart){p_Darts=Dart;}
     int GetTimeDie(){return timeDie;}
@@ -55,6 +60,8 @@ public:
 
     void push_hp_lose(int t){hp_lose.push_back(t);}
 
+    void SetGold(int g){gold+=g;}
+    void SetGem(int g){gem+=g;}
 private:
     bool p_IsJump=false;
     bool p_Jumped=false;
@@ -69,11 +76,25 @@ private:
     int p_left_can=15;
     int p_down_can=120;
 
-    int hp=1000;
-    int mana=200;
+    int hp_max;
+    int mana_max;
+    int hp;
+    int mana;
+    int damage;
+    int speed;
     int timeDie=0;
 
+    int gold=0;
+    int gem=0;
+    int hp_spell;
+    int mana_spell;
+    int damage_spell;
+    int hp_x2;
+    int mana_x2;
+    int speed_spell;
+
     std::vector<int> hp_lose;
+    std::vector<GameObject*>p_sp_item;
 };
 
 #endif // _Player_

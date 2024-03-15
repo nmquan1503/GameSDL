@@ -1,0 +1,19 @@
+<game_data>
+    <gold quantity="0"/>
+    <gem quantity="0"/>
+    <spells>
+        <spell type="hp" quantity="0"/>
+        <spell type="mana" quantity="0"/>
+        <spell type="damage" quantity="0"/>
+        <spell type="hp_x2" quantity="0"/>
+        <spell type="mana_x2" quantity="0"/>
+        <spell type="speed" quantity="0"/>
+    </spells>
+    <player>
+        <attribute type="hp" quantity="1000"/>
+        <attribute type="mana" quantity="200"/>
+        <attribute type="damage" quantity="40"/>
+        <attribute type="speed" quantity="15"/>
+        <attribute type="dart" quantity="1"/>
+    </player>
+</game_data>

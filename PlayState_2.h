@@ -35,7 +35,6 @@ public:
     {
         return p_Play2ID;
     }
-    void drawOnBoard(std::string id,std::string text);
 
 
 private:

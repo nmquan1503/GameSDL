@@ -40,6 +40,9 @@ void MenuButton::update()
         }
     }
     else p_Frame=MOUSE_OUT;
+    SDLGameObject::update();
+    p_vel.SetX(0);
+    p_vel.SetY(0);
 }
 
 void MenuButton::clean()

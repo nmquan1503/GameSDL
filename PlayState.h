@@ -17,6 +17,9 @@
 #include "PlayState_2.h"
 #include "ManageFont.h"
 #include "ManageSound.h"
+#include "Item.h"
+#include "GameData.h"
+
 
 class GameObject;
 
@@ -44,6 +47,7 @@ private:
     std::vector<GameObject*>p_grass_1;
     std::vector<GameObject*>p_grass_2;
     std::vector<GameObject*>p_grass_3;
+    std::vector<GameObject*>p_item;
 
     std::map<std::pair<int,int>,int> Pos_Map;
     int numSoldier=0;
