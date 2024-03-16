@@ -67,6 +67,14 @@ void ManageTexture::drawFull(std::string id,int x,int y,int w,int h,SDL_Renderer
     SDL_RenderCopy(renderer,TexMap[id],NULL,&dst);
 }
 
+void ManageTexture::clearFromTexMap(std::string TexID)
+{
+    if(TexMap[TexID]!=NULL)
+    {
+        TexMap.erase(TexID);
+    }
+}
+
 ManageTexture* ManageTexture::GetInstance()
 {
     if(Instance==NULL)

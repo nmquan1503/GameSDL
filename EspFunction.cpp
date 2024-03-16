@@ -89,6 +89,19 @@ static bool Collission(GameObject* p1,GameObject* p2)
     return true;
 }
 
+/*static int TypeCollission(GameObject* p1,GameObject* p2)
+{
+    if(!Collission(p1,p2))return 0;
+    int x1=static_cast<SDLGameObject*>(p1)->GetPos().GetX(),y1=static_cast<SDLGameObject*>(p1)->GetPos().GetY(),w1=static_cast<SDLGameObject*>(p1)->GetW(),h1=static_cast<SDLGameObject*>(p1)->GetH();
+    int x2=static_cast<SDLGameObject*>(p2)->GetPos().GetX(),y2=static_cast<SDLGameObject*>(p2)->GetPos().GetY(),w2=static_cast<SDLGameObject*>(p2)->GetW(),h2=static_cast<SDLGameObject*>(p2)->GetH();
+
+    if(y1+h1>y2&&y1<y2+h2&&x1<x2+w2&&x1+w1>x2)return 1; //up
+    if(x1<x2+w2&&x1+w2>x2+w2)return 2;//right
+    if(x1+w1>x2&&x1<x2)return 3;//left
+    return 4;//down
+
+}*/
+
 static int Pos_Map_1(int x,int y,int w,int h)
 {
     if(x+w>450&&x<900&&y+h<=550)return 12;

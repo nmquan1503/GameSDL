@@ -158,6 +158,18 @@ void PlayState2::update()
 
         for(GameObject* i:p_eskill_player)
             i->update();
+
+        for(int i=0;i<p_animation.size();i++)
+        {
+            if(static_cast<Animation*>(p_animation[i])->GetTime()>=4)
+            {
+                p_animation.erase(p_animation.begin()+i);
+                i--;
+            }
+        }
+
+        for(GameObject* i:p_animation)
+            i->update();
     }
 
 
@@ -195,6 +207,13 @@ void PlayState2::update()
         {
             if(Collission(p_darts[i],p_boss))
             {
+                if(GameData::GetInstance()->GetLevelDart()==3)
+                {
+                    Vector2D tmp=static_cast<SDLGameObject*>(p_boss)->GetPos();
+                    p_animation.push_back(new Animation(new LoaderParams(tmp.GetX()+30,tmp.GetY()+70,50,50,"big_bang"),4));
+                    ManageSound::GetInstance()->playSound("dart3",0);
+                }
+                else ManageSound::GetInstance()->playSound("atk2",0);
                 ManageSound::GetInstance()->playSound("atk2",0);
                 p_darts.erase(p_darts.begin()+i);
                 i--;
@@ -296,6 +315,9 @@ void PlayState2::render()
         i->draw();
     for(GameObject* i:p_eskill_boss)
         i->draw();
+
+    for(GameObject* i:p_animation)
+        i->draw();
     ManageTexture::GetInstance()->draw("pause1",955,10,60,65,Game::GetInstance()->GetRenderer(),true);
 
 
@@ -382,6 +404,7 @@ bool PlayState2::onEnter()
     ManageTexture::GetInstance()->load("Image/speed_spell.png","speed_spell",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/hp_x2.png","hp_x2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/mana_x2.png","mana_x2",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/big_bang.png","big_bang",Game::GetInstance()->GetRenderer());
 
 
 
@@ -398,6 +421,8 @@ bool PlayState2::onEnter()
     ManageSound::GetInstance()->load("Audio/atk2.mp3","atk2",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/eskill1.mp3","eskill1",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/SoundPlay2.mp3","soundplay2",SOUND_MUSIC);
+    ManageSound::GetInstance()->load("Audio/dart3.mp3","dart3",SOUND_SFX);
+
 
     ManageSound::GetInstance()->playMusic("soundplay2",-1);
 
@@ -502,6 +527,8 @@ bool PlayState2::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("hp_x2");
     ManageTexture::GetInstance()->clearFromTexMap("speed_spell");
 
+    ManageTexture::GetInstance()->clearFromTexMap("big_bang");
+
 
     ManageFont::GetInstance()->clearFromFontMap("font1");
     ManageFont::GetInstance()->clearFromFontMap("font2");
@@ -514,6 +541,7 @@ bool PlayState2::onExit()
     ManageSound::GetInstance()->clearFromSFXMap("atk2");
     ManageSound::GetInstance()->clearFromSFXMap("eskill1");
     ManageSound::GetInstance()->clearFromMusicMap("soundplay2");
+    ManageSound::GetInstance()->clearFromSFXMap("dart3");
 
     return true;
 }

@@ -19,6 +19,7 @@
 #include "ManageSound.h"
 #include "Item.h"
 #include "GameData.h"
+#include "Animation.h"
 
 
 class GameObject;
@@ -49,6 +50,7 @@ private:
     std::vector<GameObject*>p_grass_3;
     std::vector<GameObject*>p_item;
 
+    std::vector<GameObject*>p_animation;
 
     std::map<std::pair<int,int>,int> Pos_Map;
     int numSoldier=0;

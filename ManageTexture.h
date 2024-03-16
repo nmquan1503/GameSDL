@@ -21,7 +21,7 @@ public:
     void draw(std::string id,int x,int y,int w,int h,SDL_Renderer* renderer,bool flip);
     void drawFrame(std::string id,int x,int y,int w,int h,int Frame,SDL_Renderer* renderer,bool flip);
     void drawFull(std::string id,int x,int y,int w,int h,SDL_Renderer* renderer);
-    void clearFromTexMap(std::string TexID){TexMap.erase(TexID);}
+    void clearFromTexMap(std::string TexID);
 };
 
 #endif // _ManageTexture_

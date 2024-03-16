@@ -86,10 +86,6 @@ void PlayState::update()
 
 
 
-
-
-
-
     static_cast<Player*>(p_player)->SetDart(p_darts);
 
 
@@ -161,6 +157,16 @@ void PlayState::update()
         i->update();
 
 
+    for(int i=0; i<p_animation.size(); i++)
+    {
+        if(static_cast<Animation*>(p_animation[i])->GetTime()>=4)
+        {
+            p_animation.erase(p_animation.begin()+i);
+            i--;
+        }
+    }
+    for(GameObject* i:p_animation)
+        i->update();
     /* int t=Pos(static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapX());
      for(GameObject* i:p_soldiers)
      {
@@ -198,7 +204,8 @@ void PlayState::update()
     {
         if(static_cast<Soldier*>(p_soldiers[i])->GetHP()<=0)
         {
-
+            Vector2D tmp=static_cast<SDLGameObject*>(p_soldiers[i])->GetPos();
+            p_animation.push_back(new Animation(new LoaderParams(tmp.GetX()-5,tmp.GetY()+10,60,60,"smoke"),4));
             int t=rand()%100+1;
             if(t==1)p_item.push_back(new Item(new LoaderParams(static_cast<Soldier*>(p_soldiers[i])->GetPosInMapX(),static_cast<Soldier*>(p_soldiers[i])->GetPosInMapY(),35,44,"gem"),x_pl,y_pl,"gem"));
             else if(t>=2&&t<=100)p_item.push_back(new Item(new LoaderParams(static_cast<Soldier*>(p_soldiers[i])->GetPosInMapX(),static_cast<Soldier*>(p_soldiers[i])->GetPosInMapY(),35,38,"gold"),x_pl,y_pl,"gold"));
@@ -216,9 +223,15 @@ void PlayState::update()
     {
         for(int j=0; j<p_soldiers.size(); j++)
         {
-            if(Collission(p_darts[i],p_soldiers[j]) && static_cast<Soldier*>(p_soldiers[j])->GetHP()>0)
+            if(Collission(p_darts[i],p_soldiers[j])==true && static_cast<Soldier*>(p_soldiers[j])->GetHP()>0)
             {
-                ManageSound::GetInstance()->playSound("atk2",0);
+                if(GameData::GetInstance()->GetLevelDart()==3)
+                {
+                    Vector2D tmp=static_cast<SDLGameObject*>(p_soldiers[j])->GetPos();
+                    p_animation.push_back(new Animation(new LoaderParams(tmp.GetX(),tmp.GetY()+15,50,50,"big_bang"),4));
+                    ManageSound::GetInstance()->playSound("dart3",0);
+                }
+                else ManageSound::GetInstance()->playSound("atk2",0);
                 p_darts.erase(p_darts.begin()+i);
                 i--;
                 int t=rand()%10+95;
@@ -234,6 +247,7 @@ void PlayState::update()
     {
         for(int j=0; j<p_soldiers.size(); j++)
         {
+
             if(Collission(p_eskill[i],p_soldiers[j])&& static_cast<Soldier*>(p_soldiers[j])->GetHP()>0)
             {
                 int t=rand()%20+90;
@@ -243,17 +257,17 @@ void PlayState::update()
             }
         }
     }
-    for(int i=0; i<p_eskill.size(); i++)
+    /*for(int i=0; i<p_eskill.size(); i++)
     {
-        if(static_cast<Eskill*>(p_eskill[i])->GetTime()==8)
+        if(static_cast<Eskill*>(p_eskill[i])->GetTime()>=8)
         {
             p_eskill.erase(p_eskill.begin()+i);
             i--;
         }
-    }
+    }*/
 
 
-    for(int i=0;i<p_item.size();i++)
+    for(int i=0; i<p_item.size(); i++)
     {
         if(Collission(p_player,p_item[i]))
         {
@@ -292,6 +306,8 @@ void PlayState::update()
         static_cast<Item*>(i)->SetMap_Y(y_pl);
         i->update();
     }
+
+
 }
 
 void PlayState::render()
@@ -319,6 +335,9 @@ void PlayState::render()
         i->draw();
 
     for(GameObject* i:p_item)
+        i->draw();
+
+    for(GameObject* i:p_animation)
         i->draw();
 
     ManageTexture::GetInstance()->draw("pause1",955,10,60,65,Game::GetInstance()->GetRenderer(),true);
@@ -385,6 +404,10 @@ bool PlayState::onEnter()
     ManageTexture::GetInstance()->load("Image/mana1.png","mana1",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/mana2.png","mana2",Game::GetInstance()->GetRenderer());
 
+    //ManageTexture::GetInstance()->load("Image/fire_right.png","fire_right",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/big_bang.png","big_bang",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/smoke.png","smoke",Game::GetInstance()->GetRenderer());
+
     ManageTexture::GetInstance()->load("Image/gameover.png","gameover",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/pause_1.png","pause1",Game::GetInstance()->GetRenderer());
 
@@ -410,6 +433,7 @@ bool PlayState::onEnter()
     ManageSound::GetInstance()->load("Audio/atk1.mp3","atk1",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/atk2.mp3","atk2",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/eskill1.mp3","eskill1",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/dart3.mp3","dart3",SOUND_SFX);
 
 
 
@@ -489,6 +513,10 @@ bool PlayState::onExit()
         i->clean();
     p_item.clear();
 
+    for(GameObject* i:p_animation)
+        i->clean();
+    p_animation.clear();
+
     ManageTexture::GetInstance()->clearFromTexMap("backg");
     ManageTexture::GetInstance()->clearFromTexMap("run");
     ManageTexture::GetInstance()->clearFromTexMap("nor");
@@ -545,6 +573,8 @@ bool PlayState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("mana_x2");
     ManageTexture::GetInstance()->clearFromTexMap("hp_x2");
     ManageTexture::GetInstance()->clearFromTexMap("speed_spell");
+    ManageTexture::GetInstance()->clearFromTexMap("big_bang");
+    ManageTexture::GetInstance()->clearFromTexMap("smoke");
 
 
 
@@ -558,6 +588,7 @@ bool PlayState::onExit()
     ManageSound::GetInstance()->clearFromSFXMap("atk1");
     ManageSound::GetInstance()->clearFromSFXMap("atk2");
     ManageSound::GetInstance()->clearFromSFXMap("eskill1");
+    ManageSound::GetInstance()->clearFromSFXMap("dart3");
 
     //ManageSound::GetInstance()->
 

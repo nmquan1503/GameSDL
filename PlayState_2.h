@@ -18,6 +18,7 @@
 #include "Boss.h"
 #include "MenuButton.h"
 #include "LoaderParams.h"
+#include "Animation.h"
 
 class GameObject;
 //class NPC;
@@ -63,6 +64,7 @@ private:
     std::vector<GameObject*>p_grass_1;
     std::vector<GameObject*>p_grass_2;
     std::vector<GameObject*>p_grass_3;
+    std::vector<GameObject*>p_animation;
 
     std::map<std::pair<int,int>,int> Pos_Map;
     int numSoldier=0;

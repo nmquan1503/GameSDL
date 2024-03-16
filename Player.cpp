@@ -173,6 +173,10 @@ void Player::update()
         {
             if(static_cast<Dart*>(p_Darts[i])->GetTime()==8)p_Darts.erase(p_Darts.begin()+i);
         }
+        for(int i=0; i<p_Eskill.size(); i++)
+        {
+            if(static_cast<Dart*>(p_Eskill[i])->GetTime()==8)p_Eskill.erase(p_Eskill.begin()+i);
+        }
 
         SetMana(1);
     }

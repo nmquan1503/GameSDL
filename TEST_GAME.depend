@@ -1178,7 +1178,7 @@
 1708506078 c:\users\my pc\documents\github\gamesdl\vector2d.h
 	<math.h>
 
-1710488221 c:\users\my pc\documents\github\gamesdl\managetexture.h
+1710596315 c:\users\my pc\documents\github\gamesdl\managetexture.h
 	<iostream>
 	<map>
 	<SDL2/SDL.h>
@@ -1234,7 +1234,7 @@
 	<SDL2/SDL.h>
 	"Vector2D.h"
 
-1710521035 c:\users\my pc\documents\github\gamesdl\playstate.h
+1710594860 c:\users\my pc\documents\github\gamesdl\playstate.h
 	<vector>
 	<iostream>
 	<map>
@@ -1252,6 +1252,7 @@
 	"ManageSound.h"
 	"Item.h"
 	"GameData.h"
+	"Animation.h"
 
 1708601377 c:\users\my pc\documents\github\gamesdl\gamestate.h
 	<string>
@@ -1349,7 +1350,7 @@
 	<iostream>
 	<vector>
 
-1709971932 c:\users\my pc\documents\github\gamesdl\playstate_2.h
+1710606603 c:\users\my pc\documents\github\gamesdl\playstate_2.h
 	<vector>
 	<iostream>
 	<map>
@@ -1366,6 +1367,7 @@
 	"Boss.h"
 	"MenuButton.h"
 	"LoaderParams.h"
+	"Animation.h"
 
 1708766665 c:\users\my pc\documents\github\gamesdl\dart.h
 	"GameObject.h"
@@ -1400,7 +1402,7 @@
 1708778578 source:c:\users\my pc\documents\github\gamesdl\eskill.cpp
 	"Eskill.h"
 
-1710424834 source:c:\users\my pc\documents\github\gamesdl\game.cpp
+1710594523 source:c:\users\my pc\documents\github\gamesdl\game.cpp
 	"Game.h"
 
 1708440549 source:c:\users\my pc\documents\github\gamesdl\gameobject.cpp
@@ -1428,18 +1430,18 @@
 1708832754 source:c:\users\my pc\documents\github\gamesdl\loaderparams.cpp
 	"LoaderParams.h"
 
-1709972936 source:c:\users\my pc\documents\github\gamesdl\main.cpp
+1710594656 source:c:\users\my pc\documents\github\gamesdl\main.cpp
 	<SDL2/SDL.h>
 	<time.h>
 	"Game.h"
 
-1710488194 source:c:\users\my pc\documents\github\gamesdl\managetexture.cpp
+1710596315 source:c:\users\my pc\documents\github\gamesdl\managetexture.cpp
 	"ManageTexture.h"
 
 1709632310 source:c:\users\my pc\documents\github\gamesdl\menubg.cpp
 	"MenuBG.h"
 
-1710088441 source:c:\users\my pc\documents\github\gamesdl\menubutton.cpp
+1710522059 source:c:\users\my pc\documents\github\gamesdl\menubutton.cpp
 	"MenuButton.h"
 
 1710423168 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
@@ -1454,20 +1456,20 @@
 
 1709017145 source:c:\users\my pc\documents\github\gamesdl\playbg.cpp
 
-1710519456 source:c:\users\my pc\documents\github\gamesdl\player.cpp
+1710600523 source:c:\users\my pc\documents\github\gamesdl\player.cpp
 	"Player.h"
 	"SDL_GameObject.h"
 	"EspFunction.cpp"
 
-1710429082 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
+1710603005 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
 	"PlayState.h"
 	"EspFunction.cpp"
 
-1710429082 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
+1710606777 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
 	"PlayState_2.h"
 	"EspFunction.cpp"
 
-1708932945 source:c:\users\my pc\documents\github\gamesdl\sdl_gameobject.cpp
+1710595770 source:c:\users\my pc\documents\github\gamesdl\sdl_gameobject.cpp
 	"SDL_GameObject.h"
 	"ManageTexture.h"
 	"Game.h"
@@ -1572,7 +1574,7 @@
 1710428698 source:c:\users\my pc\documents\github\gamesdl\gamedata.cpp
 	"GameData.h"
 
-1710399913 source:c:\users\my pc\documents\github\gamesdl\espfunction.cpp
+1710594717 source:c:\users\my pc\documents\github\gamesdl\espfunction.cpp
 	<SDL2/SDL.h>
 	<iostream>
 	<vector>
@@ -1584,7 +1586,7 @@
 	"ManageTexture.h"
 	"SpItem.h"
 
-1710399913 c:\users\my pc\documents\github\gamesdl\espfunction.cpp
+1710594717 c:\users\my pc\documents\github\gamesdl\espfunction.cpp
 	<SDL2/SDL.h>
 	<iostream>
 	<vector>
@@ -1649,7 +1651,7 @@
 1710515096 source:c:\users\my pc\documents\github\gamesdl\note.cpp
 	"Note.h"
 
-1710520950 source:c:\users\my pc\documents\github\gamesdl\animation.cpp
+1710557410 source:c:\users\my pc\documents\github\gamesdl\animation.cpp
 	"Animation.h"
 
 1710520855 c:\users\my pc\documents\github\gamesdl\animation.h
