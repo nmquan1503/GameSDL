@@ -25,10 +25,14 @@ private:
     int speed_player;
     int dart_level;
 
+    int best_score;
+    int best_time;
+
     static GameData* Instance;
     GameData():gold(0),gem(0),hp_spell(0),mana_spell(0),damage_spell(0),
                 hp_x2_spell(0),mana_x2_spell(0),speed_spell(0),
-                hp_player(0),mana_player(0),damage_player(0),speed_player(0),dart_level(1){}
+                hp_player(0),mana_player(0),damage_player(0),speed_player(0),dart_level(1),
+                best_score(0),best_time(0){}
     ~GameData(){}
 
 public:
@@ -47,6 +51,8 @@ public:
     int GetManaX2(){return mana_x2_spell;}
     int GetSpeedSpell(){return speed_spell;}
     int GetLevelDart(){return dart_level;}
+    int GetBestScore(){return best_score;}
+    int GetBestTime(){return best_time;}
 
     void SetGold(int t){gold+=t;}
     void SetGem(int t){gem+=t;}
@@ -61,6 +67,8 @@ public:
     void SetManaX2(int t){mana_x2_spell+=t;}
     void SetSpeedSpell(int t){speed_spell+=t;}
     void SetLevelDart(int t){dart_level+=t;}
+    void SetBestScore(int t){best_score=t;}
+    void SetBestTime(int t){best_time=t;}
 
     void loadData(const char* fileName);
     void saveData(const char* fileName);

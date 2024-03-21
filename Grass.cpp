@@ -21,7 +21,11 @@ void Grass::update()
     p_vel.SetY(0);
     //handle();
 
-    p_Frame=(p_Frame+p_Fpls)%2;
+    if(p_Fpls==0)
+    {
+        p_Frame=0;
+    }
+    else p_Frame=(++p_Frame)%(p_Fpls+1);
     if(pos_in_map_x<=485)
     {
         p_pos.SetX(fir_x);
@@ -51,18 +55,7 @@ void Grass::update()
 
 }
 
-void Grass::handle()
+void Grass::clean()
 {
-   /* if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_LEFT) && p_pos.GetX()<fir_x)
-    {
-        p_vel.SetX(std::min(25,(int)(fir_x-p_pos.GetX())));
-    }
-    else if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_RIGHT) && p_pos.GetX()>fir_x-1020)
-    {
-        p_vel.SetX(std::min(-25,(int)(fir_x-p_pos.GetX())));
-    }
-    else if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_UP) && p_pos.GetY()<fir_y+600)
-    {
-        p_vel.SetY(25);
-    }*/
+    SDLGameObject::clean();
 }

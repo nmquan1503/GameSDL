@@ -29,12 +29,12 @@ void PlayerInfo::update()
             Game::GetInstance()->GetGameStateMachine()->popState();
         }
 
-        if((vec->GetX()>scr_pos.GetX()&&vec->GetX()<scr_pos.GetX()+21&&vec->GetY()>15&&vec->GetY()<585)||p_scrolling==true)
+        if((vec->GetX()>scr_pos.GetX()&&vec->GetX()<scr_pos.GetX()+21&&vec->GetY()>115&&vec->GetY()<585)||p_scrolling==true)
         {
 
 
         p_scrolling=true;
-        int y_new=std::max(15,std::min((int)(vec->GetY()-150),285));
+        int y_new=std::max(115,std::min((int)(vec->GetY()-150),285));
         static_cast<SDLGameObject*>(p_gameObjects[1])->SetPos(Vector2D(992,y_new));
         for(int i=0;i<p_gameObjects.size();i++)
         {
@@ -47,13 +47,15 @@ void PlayerInfo::update()
     else
         p_scrolling=false;
 
+    if(p_scrolling==true||(p_scrolling==false&&vec->GetY()>100))
+    {
     p_gameObjects[0]->update();
     p_gameObjects[1]->update();
     if(GameData::GetInstance()->GetLevelDart()<3)p_gameObjects[2]->update();
     if(GameData::GetInstance()->GetDamagePlayer()<400)p_gameObjects[3]->update();
     if(GameData::GetInstance()->GetHpPlayer()<10000)p_gameObjects[4]->update();
     if(GameData::GetInstance()->GetManaPlayer()<1000)p_gameObjects[5]->update();
-
+    }
     for(GameObject* i:p_gameObjects)
         static_cast<MenuButton*>(i)->SetVel(Vector2D(0,0));
 
@@ -160,7 +162,7 @@ void PlayerInfo::render()
                                                     335,v.GetY()+810,
                                                     Game::GetInstance()->GetRenderer());
 
-    ManageTexture::GetInstance()->draw("scroll1",990,13,25,574,Game::GetInstance()->GetRenderer(),true);
+    ManageTexture::GetInstance()->draw("scroll1",990,113,25,474,Game::GetInstance()->GetRenderer(),true);
 
     p_gameObjects[1]->draw();
     if(GameData::GetInstance()->GetLevelDart()<3)p_gameObjects[2]->draw();
@@ -168,13 +170,14 @@ void PlayerInfo::render()
     if(GameData::GetInstance()->GetHpPlayer()<10000)p_gameObjects[4]->draw();
     if(GameData::GetInstance()->GetManaPlayer()<1000)p_gameObjects[5]->draw();
 
-    ManageTexture::GetInstance()->draw("gold_data",770,50,150,50,Game::GetInstance()->GetRenderer(),true);
-    ManageTexture::GetInstance()->draw("gem_data",770,110,150,50,Game::GetInstance()->GetRenderer(),true);
-    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGold()),{255,255,0,255},820,60,Game::GetInstance()->GetRenderer());
-    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGem()),{255,255,0,255},820,120,Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->draw("gold_data",770,150,110,50,Game::GetInstance()->GetRenderer(),true);
+    ManageTexture::GetInstance()->draw("gem_data",770,210,110,50,Game::GetInstance()->GetRenderer(),true);
+    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGold()),{255,255,0,255},820,160,Game::GetInstance()->GetRenderer());
+    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGem()),{255,255,0,255},820,220,Game::GetInstance()->GetRenderer());
 
+
+    ManageTexture::GetInstance()->draw("upgrade2",0,0,1020,124,Game::GetInstance()->GetRenderer(),true);
     ManageTexture::GetInstance()->draw("return",0,0,60,60,Game::GetInstance()->GetRenderer(),true);
-    ManageTexture::GetInstance()->draw("menu_upgrade",100,0,200,124,Game::GetInstance()->GetRenderer(),true);
 
 
     for(Note* i:p_notes)
@@ -190,14 +193,15 @@ bool PlayerInfo::onEnter()
     ManageTexture::GetInstance()->load("Image/scroll2.png","scroll2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/gold_data.png","gold_data",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/gem_data.png","gem_data",Game::GetInstance()->GetRenderer());
-    ManageTexture::GetInstance()->load("Image/return.png","return",Game::GetInstance()->GetRenderer());
+    //ManageTexture::GetInstance()->load("Image/return.png","return",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/upgrade2.png","upgrade2",Game::GetInstance()->GetRenderer());
     //ManageTexture::GetInstance()->load("Image/menu_upgrade.png","menu_upgrade",Game::GetInstance()->GetRenderer());
 
     ManageFont::GetInstance()->load("Font/Fz-Futura-Maxi.ttf","font2",20);
     ManageFont::GetInstance()->load("Font/SuperSquadItalic.ttf","font1",25);
 
     p_gameObjects.push_back(new SDLGameObject(new LoaderParams(0,0,1020,1140,"upgrade")));
-    p_gameObjects.push_back(new SDLGameObject(new LoaderParams(992,15,21,300,"scroll2")));
+    p_gameObjects.push_back(new SDLGameObject(new LoaderParams(992,115,21,300,"scroll2")));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(585,202,145,45,"item_2gem"),p_upgradeDart));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(585,402,145,45,"item_2gem"),p_upgradeDmg));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(585,602,145,45,"item_100gold"),p_upgradeHP));
@@ -209,6 +213,21 @@ bool PlayerInfo::onEnter()
 
 bool PlayerInfo::onExit()
 {
+
+    for(GameObject* i:p_gameObjects)
+    {
+        i->clean();
+    }
+    p_gameObjects.clear();
+
+    for(Note* i: p_notes)
+    {
+        i->clean();
+        delete i;
+    }
+    p_notes.clear();
+
+
     ManageTexture::GetInstance()->clearFromTexMap("upgrade");
     ManageTexture::GetInstance()->clearFromTexMap("item_100gold");
     ManageTexture::GetInstance()->clearFromTexMap("item_2gem");
@@ -216,7 +235,8 @@ bool PlayerInfo::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("scroll2");
     ManageTexture::GetInstance()->clearFromTexMap("gold_data");
     ManageTexture::GetInstance()->clearFromTexMap("gem_data");
-    ManageTexture::GetInstance()->clearFromTexMap("return");
+    //ManageTexture::GetInstance()->clearFromTexMap("return");
+    ManageTexture::GetInstance()->clearFromTexMap("upgrade2");
     //ManageTexture::GetInstance()->clearFromTexMap("menu_upgrade");
 
     ManageFont::GetInstance()->clearFromFontMap("font2");

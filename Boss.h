@@ -17,12 +17,16 @@
 class Boss : public SDLGameObject
 {
 public:
-    Boss(const LoaderParams* Params,int x_pl,int y_pl);
+    Boss(const LoaderParams* Params,int x_pl,int y_pl,int ID);
     virtual void draw();
     virtual void update();
     virtual void clean();
 
     void update2();
+
+    int GetPosInMapX(){return p_pos_x;}
+    int GetPosInMapY(){return p_pos_y;}
+
     int GetPosMap(){return p_BossPos;}
     void SetBossPos(int s){p_BossPos=s;}
     void SetPlayerPos(int s){p_PlayerPos=s;}
@@ -39,6 +43,9 @@ public:
     void SetEskill(std::vector<GameObject*>es){p_eskill=es;}
     void push_hp_lose(int t){hp_lose.push_back(t);}
 private:
+
+    int Map_ID;
+
     int pos_in_map_x=0;
     int pos_in_map_y=0;
     int p_pos_x;

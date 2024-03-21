@@ -13,7 +13,7 @@ public:
     Grass(const LoaderParams* Params,int Fpls);
     virtual void draw();
     virtual void update();
-    virtual void clean(){}
+    virtual void clean();
     int GetFirX(){return fir_x;}
     int GetFirY(){return fir_y;}
     void SetMap_X(int x){pos_in_map_x=x;}
@@ -21,7 +21,6 @@ public:
 
     void SetTexID(std::string id){p_TexID=id;}
 private:
-    void handle();
     int fir_x;
     int fir_y;
     int pos_in_map_x=0;

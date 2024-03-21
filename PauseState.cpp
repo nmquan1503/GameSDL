@@ -2,10 +2,12 @@
 #include "PauseState.h"
 
 std::string PauseState::p_PauseID="PAUSE";
+int PauseState::Map_ID;
 
-PauseState::PauseState(SDL_Texture* tex):p_tex(tex)
+PauseState::PauseState(SDL_Texture* tex,int ID):p_tex(tex)
 {
     ManageTexture::GetInstance()->loadFromTex(p_tex,"blind",Game::GetInstance()->GetRenderer());
+    Map_ID=ID;
 }
 
 void PauseState::p_Pause()
@@ -27,7 +29,10 @@ void PauseState::p_pauseToHome()
 void PauseState::p_pauseToRestart()
 {
     Game::GetInstance()->GetGameStateMachine()->clearAllState();
-    Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState());
+    if(Map_ID==1)
+        Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState());
+    else if(Map_ID==3)
+        Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState3());
 }
 
 void PauseState::p_pauseToOptions()
@@ -67,8 +72,11 @@ bool PauseState::onEnter()
 
 bool PauseState::onExit()
 {
+    SDL_DestroyTexture(p_tex);
     for(GameObject* i:p_gameObjects)
+    {
         i->clean();
+    }
     p_gameObjects.clear();
     ManageTexture::GetInstance()->clearFromTexMap("instruction");
     ManageTexture::GetInstance()->clearFromTexMap("pause");

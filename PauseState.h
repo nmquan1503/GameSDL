@@ -33,8 +33,10 @@ private:
     std::vector<GameObject* >p_gameObjects;
 
     SDL_Texture* p_tex;
+
+    static int Map_ID;
 public:
-    PauseState(SDL_Texture* tex);
+    PauseState(SDL_Texture* tex,int ID);
 
     virtual void update();
     virtual void render();

@@ -22,6 +22,7 @@ private:
 
 
     std::string itemID;
+    int Map_ID;
 
     int timeSpell=0;
 public:
@@ -37,7 +38,7 @@ public:
     std::string GetID(){return itemID;}
     int GetTimeSpell(){return timeSpell;}
 
-    Item(const LoaderParams* Params,int p_x,int p_y,std::string type);
+    Item(const LoaderParams* Params,int p_x,int p_y,std::string type,int ID);
 };
 
 

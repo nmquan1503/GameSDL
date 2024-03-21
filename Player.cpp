@@ -16,8 +16,11 @@ Player::Player(const LoaderParams* p_Params):SDLGameObject(p_Params)
     mana_max=GameData::GetInstance()->GetManaPlayer();
     hp=hp_max;
     mana=mana_max;
-    damage=GameData::GetInstance()->GetDamagePlayer();
+    damage=GameData::GetInstance()->GetDamagePlayer()+15*GameData::GetInstance()->GetLevelDart()*GameData::GetInstance()->GetLevelDart()-15*GameData::GetInstance()->GetLevelDart()+10;
     speed=GameData::GetInstance()->GetSpeedPlayer();
+
+    pos_in_map_x=p_pos.GetX();
+    pos_in_map_y=p_pos.GetY();
 }
 
 void Player::turnLeft()
@@ -68,11 +71,11 @@ void Player::draw()
     ManageTexture::GetInstance()->draw("mana2",48,68,mana*150/mana_max,20,Game::GetInstance()->GetRenderer(),true);
     ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(mana)+"/"+std::to_string(mana_max),{255,255,0,255},80,60,Game::GetInstance()->GetRenderer());
 
-    ManageTexture::GetInstance()->draw("gold_data",350,10,150,50,Game::GetInstance()->GetRenderer(),true);
-    ManageTexture::GetInstance()->draw("gem_data",520,10,150,50,Game::GetInstance()->GetRenderer(),true);
+    ManageTexture::GetInstance()->draw("gold_data",300,10,110,50,Game::GetInstance()->GetRenderer(),true);
+    ManageTexture::GetInstance()->draw("gem_data",430,10,110,50,Game::GetInstance()->GetRenderer(),true);
 
-    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(gold),{255,255,0,255},400,20,Game::GetInstance()->GetRenderer());
-    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(gem),{255,255,0,255},570,20,Game::GetInstance()->GetRenderer());
+    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(gold),{255,255,0,255},350,20,Game::GetInstance()->GetRenderer());
+    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(gem),{255,255,0,255},480,20,Game::GetInstance()->GetRenderer());
 
     ManageTexture::GetInstance()->draw("hp_spell",960,80,55,55,Game::GetInstance()->GetRenderer(),true);
     ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(hp_spell),{255,255,0,255},982,110,Game::GetInstance()->GetRenderer());
@@ -120,12 +123,12 @@ void Player::update()
     }
 
     damage=GameData::GetInstance()->GetDamagePlayer();
-    if(checkItem(p_sp_item,"hp_x2")==false)
+    if(checkExistItem("hp_x2",p_sp_item)==false)
     {
         hp_max=GameData::GetInstance()->GetHpPlayer();
         hp=std::min(hp,hp_max);
     }
-    if(checkItem(p_sp_item,"mana_x2")==false)
+    if(checkExistItem("mana_x2",p_sp_item)==false)
     {
         mana_max=GameData::GetInstance()->GetManaPlayer();
         mana=std::min(mana,mana_max);
@@ -192,7 +195,7 @@ void Player::handle()
     Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
     if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>960&&vec->GetX()<1015&&vec->GetY()>80&&vec->GetY()<135)
     {
-        if(hp_spell>0)
+        if(hp_spell>0&&checkExistItem("hp",p_sp_item)==false)
         {
             int l=p_sp_item.size();
             p_sp_item.push_back(new SpItem(new LoaderParams(10+l*60,120,55,55,"hp_spell"),"hp"));
@@ -201,7 +204,7 @@ void Player::handle()
     }
     else if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>960&&vec->GetX()<1015&&vec->GetY()>145&&vec->GetY()<200)
     {
-        if(mana_spell>0)
+        if(mana_spell>0&&checkExistItem("mana",p_sp_item)==false)
         {
             int l=p_sp_item.size();
             p_sp_item.push_back(new SpItem(new LoaderParams(10+l*60,120,55,55,"mana_spell"),"mana"));
@@ -210,7 +213,7 @@ void Player::handle()
     }
     else if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>960&&vec->GetX()<1015&&vec->GetY()>210&&vec->GetY()<265)
     {
-        if(speed_spell>0)
+        if(speed_spell>0&&checkExistItem("speed",p_sp_item)==false)
         {
             int l=p_sp_item.size();
             p_sp_item.push_back(new SpItem(new LoaderParams(10+l*60,120,55,55,"speed_spell"),"speed"));
@@ -219,7 +222,7 @@ void Player::handle()
     }
     else if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>900&&vec->GetX()<955&&vec->GetY()>80&&vec->GetY()<135)
     {
-        if(hp_x2>0)
+        if(hp_x2>0&&checkExistItem("hp_x2",p_sp_item)==false)
         {
             int l=p_sp_item.size();
             p_sp_item.push_back(new SpItem(new LoaderParams(10+l*60,120,55,55,"hp_x2"),"hp_x2"));
@@ -230,18 +233,18 @@ void Player::handle()
     }
     else if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>900&&vec->GetX()<955&&vec->GetY()>145&&vec->GetY()<200)
     {
-        if(mana_x2>0)
+        if(mana_x2>0&&checkExistItem("mana_x2",p_sp_item)==false)
         {
             int l=p_sp_item.size();
             p_sp_item.push_back(new SpItem(new LoaderParams(10+l*60,120,55,55,"mana_x2"),"mana_x2"));
             mana_x2--;
-            mana_x2*=2;
+            mana_max*=2;
             mana*=2;
         }
     }
     else if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>900&&vec->GetX()<955&&vec->GetY()>210&&vec->GetY()<265)
     {
-        if(damage_spell>0)
+        if(damage_spell>0&&checkExistItem("damage",p_sp_item)==false)
         {
             int l=p_sp_item.size();
             p_sp_item.push_back(new SpItem(new LoaderParams(10+l*60,120,55,55,"damage_spell"),"damage"));

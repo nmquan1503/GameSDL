@@ -9,6 +9,8 @@ SDLGameObject::SDLGameObject(const LoaderParams* p_Params):GameObject(p_Params),
     p_h=p_Params->GetH();
     p_TexID=p_Params->GetTexID();
     p_Frame=0;
+
+    delete p_Params;
 }
 
 void SDLGameObject::draw()
@@ -29,5 +31,5 @@ void SDLGameObject::drawBG()
 
 void SDLGameObject::clean()
 {
-    ManageTexture::GetInstance()->clearFromTexMap(p_TexID);
+    //ManageTexture::GetInstance()->clearFromTexMap(p_TexID);
 }

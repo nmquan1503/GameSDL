@@ -21,5 +21,8 @@ bool InstructionState::onEnter()
 
 bool InstructionState::onExit()
 {
+    for(GameObject* i:p_gameObjects)
+        i->clean();
+    p_gameObjects.clear();
     return true;
 }

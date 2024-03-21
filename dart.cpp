@@ -21,5 +21,5 @@ void Dart::update()
 
 void Dart::clean()
 {
-    ;
+    SDLGameObject::clean();
 }

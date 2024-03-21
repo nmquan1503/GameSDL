@@ -92,43 +92,60 @@ void GameData::loadData(const char* filename)
             player=player->NextSiblingElement("attribute");
         }
     }
+    const tinyxml2::XMLElement* achieveElement=root->FirstChildElement("achievement");
+    if(achieveElement)
+    {
+        const tinyxml2::XMLElement* achieve=achieveElement->FirstChildElement("attribute");
+        while(achieve)
+        {
+            const char* type=achieve->Attribute("type");
+            if(type)
+            {
+                if(std::strcmp(type,"score")==0)
+                {
+                    best_score=achieve->IntAttribute("quantity",0);
+                }
+                else if(std::strcmp(type,"time")==0)
+                {
+                    best_time=achieve->IntAttribute("quantity",0);
+                }
+            }
+            achieve=achieve->NextSiblingElement("attribute");
+        }
+    }
 }
 
 void GameData::saveData(const char* filename)
 {
      tinyxml2::XMLDocument doc;
 
-    // Tạo phần tử game_data
     tinyxml2::XMLElement* root = doc.NewElement("game_data");
     doc.InsertFirstChild(root);
 
-    // Tạo và thêm phần tử gold
     tinyxml2::XMLElement* goldElement = doc.NewElement("gold");
     goldElement->SetAttribute("quantity", gold);
     root->InsertEndChild(goldElement);
 
-    // Tạo và thêm phần tử gem
     tinyxml2::XMLElement* gemElement = doc.NewElement("gem");
     gemElement->SetAttribute("quantity", gem);
     root->InsertEndChild(gemElement);
 
-    // Tạo và thêm phần tử spells
+
+
+
     tinyxml2::XMLElement* spellsElement = doc.NewElement("spells");
     root->InsertEndChild(spellsElement);
 
-    // Tạo và thêm phần tử spell hp
     tinyxml2::XMLElement* hpSpellElement = doc.NewElement("spell");
     hpSpellElement->SetAttribute("type", "hp");
     hpSpellElement->SetAttribute("quantity", hp_spell);
     spellsElement->InsertEndChild(hpSpellElement);
 
-    // Tạo và thêm phần tử spell mana
     tinyxml2::XMLElement* manaSpellElement = doc.NewElement("spell");
     manaSpellElement->SetAttribute("type", "mana");
     manaSpellElement->SetAttribute("quantity", mana_spell);
     spellsElement->InsertEndChild(manaSpellElement);
 
-    // Tạo và thêm phần tử spell damage
     tinyxml2::XMLElement* damageSpellElement = doc.NewElement("spell");
     damageSpellElement->SetAttribute("type", "damage");
     damageSpellElement->SetAttribute("quantity", damage_spell);
@@ -151,22 +168,21 @@ void GameData::saveData(const char* filename)
 
 
 
+
+
     tinyxml2::XMLElement* playerElement = doc.NewElement("player");
     root->InsertEndChild(playerElement);
 
-    // Tạo và thêm phần tử spell hp
     tinyxml2::XMLElement* hpElement = doc.NewElement("attribute");
     hpElement->SetAttribute("type", "hp");
     hpElement->SetAttribute("quantity", hp_player);
     playerElement->InsertEndChild(hpElement);
 
-    // Tạo và thêm phần tử spell mana
     tinyxml2::XMLElement* manaElement = doc.NewElement("attribute");
     manaElement->SetAttribute("type", "mana");
     manaElement->SetAttribute("quantity", mana_player);
     playerElement->InsertEndChild(manaElement);
 
-    // Tạo và thêm phần tử spell damage
     tinyxml2::XMLElement* damageElement = doc.NewElement("attribute");
     damageElement->SetAttribute("type", "damage");
     damageElement->SetAttribute("quantity", damage_player);
@@ -182,7 +198,22 @@ void GameData::saveData(const char* filename)
     dartElement->SetAttribute("quantity", dart_level);
     playerElement->InsertEndChild(dartElement);
 
-    // Lưu tệp XML
+
+
+    tinyxml2::XMLElement* achieveElement=doc.NewElement("achievement");
+    root->InsertEndChild(achieveElement);
+
+    tinyxml2::XMLElement* scoreElement=doc.NewElement("attribute");
+    scoreElement->SetAttribute("type","score");
+    scoreElement->SetAttribute("quantity",best_score);
+    achieveElement->InsertEndChild(scoreElement);
+
+    tinyxml2::XMLElement* timeElement=doc.NewElement("attribute");
+    timeElement->SetAttribute("type","time");
+    timeElement->SetAttribute("quantity",best_time);
+    achieveElement->InsertEndChild(timeElement);
+
+
     doc.SaveFile(filename);
 }
 

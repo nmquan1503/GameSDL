@@ -46,7 +46,7 @@ void PlayState::update()
 {
     if(static_cast<Player*>(p_player)->GetTimeDie()==20)
     {
-        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),-1,-1,1));
     }
 
 
@@ -59,7 +59,7 @@ void PlayState::update()
     if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_ESCAPE)||(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>955&&vec->GetX()<1015&&vec->GetY()>10&&vec->GetY()<70))
     {
 
-        Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer())));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer()),1));
     }
 
 
@@ -177,8 +177,8 @@ void PlayState::update()
     if(numSoldier<20&&p_soldiers.size()<20)
     {
         numSoldier++;
-        int k=rand()%2040+1;
-        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),x_pl,y_pl));
+        int k=rand()%1900+1;
+        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),x_pl,y_pl,1));
     }
     int t=Pos_Map_1(x_pl,y_pl,50,75);
 
@@ -207,8 +207,8 @@ void PlayState::update()
             Vector2D tmp=static_cast<SDLGameObject*>(p_soldiers[i])->GetPos();
             p_animation.push_back(new Animation(new LoaderParams(tmp.GetX()-5,tmp.GetY()+10,60,60,"smoke"),4));
             int t=rand()%100+1;
-            if(t==1)p_item.push_back(new Item(new LoaderParams(static_cast<Soldier*>(p_soldiers[i])->GetPosInMapX(),static_cast<Soldier*>(p_soldiers[i])->GetPosInMapY(),35,44,"gem"),x_pl,y_pl,"gem"));
-            else if(t>=2&&t<=100)p_item.push_back(new Item(new LoaderParams(static_cast<Soldier*>(p_soldiers[i])->GetPosInMapX(),static_cast<Soldier*>(p_soldiers[i])->GetPosInMapY(),35,38,"gold"),x_pl,y_pl,"gold"));
+            if(t==1)p_item.push_back(new Item(new LoaderParams(static_cast<Soldier*>(p_soldiers[i])->GetPosInMapX(),static_cast<Soldier*>(p_soldiers[i])->GetPosInMapY(),35,44,"gem"),x_pl,y_pl,"gem",1));
+            else if(t>=2&&t<=51)p_item.push_back(new Item(new LoaderParams(static_cast<Soldier*>(p_soldiers[i])->GetPosInMapX(),static_cast<Soldier*>(p_soldiers[i])->GetPosInMapY(),35,38,"gold"),x_pl,y_pl,"gold",1));
             p_soldiers.erase(p_soldiers.begin()+i);
             i--;
         }
@@ -355,6 +355,7 @@ bool PlayState::onEnter()
     {
         bfs_map(v,i,Pos_Map);
     }
+    v.clear();
     for(int i=1; i<=15; i++)Pos_Map[ {i,i}]=i;
 
 

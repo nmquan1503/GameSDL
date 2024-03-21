@@ -1,23 +1,60 @@
 
-
 #include "MenuState.h"
-#include "MenuBG.h"
 
 std::string MenuState::p_MenuID="MENU";
 std::vector<GameObject*> MenuState::p_gameObjects;
+bool MenuState::play;
+bool MenuState::quit;
 void MenuState::update()
 {
-    for(GameObject* i:p_gameObjects)
-        i->update();
+    if(play==true)
+    {
+        Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
+        if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()<=60&&vec->GetY()<=60)play=false;
+        else
+        {
+            p_gameObjects[0]->update();
+            p_gameObjects[7]->update();
+            p_gameObjects[8]->update();
+        }
+    }
+    else if(quit==true)
+    {
+        p_gameObjects[0]->update();
+        p_gameObjects[9]->update();
+        p_gameObjects[10]->update();
+    }
+    else
+    {
+        for(int i=0;i<=6;i++)
+            p_gameObjects[i]->update();
+    }
 }
 
 void MenuState::render()
 {
     p_gameObjects[0]->draw();
+    if(play==true)
+    {
+        p_gameObjects[7]->draw();
+        p_gameObjects[8]->draw();
+        ManageTexture::GetInstance()->draw("return",0,0,60,60,Game::GetInstance()->GetRenderer(),true);
+    }
+    else if(quit==true)
+    {
+        p_gameObjects[9]->draw();
+        p_gameObjects[10]->draw();
+        ManageTexture::GetInstance()->draw("sure",260,120,500,130,Game::GetInstance()->GetRenderer(),true);
+    }
+    else
+    {
+
     ManageTexture::GetInstance()->draw("menu",0,0,1020,600,Game::GetInstance()->GetRenderer(),true);
-    for(int i=1;i<p_gameObjects.size();i++)
+    ManageTexture::GetInstance()->draw("day2",770,0,200,171,Game::GetInstance()->GetRenderer(),true);
+    for(int i=1;i<=6;i++)
     {
         p_gameObjects[i]->draw();
+    }
     }
 }
 
@@ -31,6 +68,13 @@ bool MenuState::onEnter()
     ManageTexture::GetInstance()->load("Image/menu_instructions.png","instructions",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/menu_shop.png","shop_menu",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/menu_upgrade.png","menu_upgrade",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/typeplay1.png","typeplay1",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/typeplay2.png","typeplay2",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/return.png","return",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/sure.png","sure",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/yes.png","yes",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/no.png","no",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/day2.png","day2",Game::GetInstance()->GetRenderer());
 
 
     ManageSound::GetInstance()->load("Audio/SoundMenu.mp3","soundmenu",SOUND_MUSIC);
@@ -43,8 +87,16 @@ bool MenuState::onEnter()
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,340,250,60,"options"),p_menuToOptions));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,410,250,60,"instructions"),p_menuToInstruction));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,480,250,60,"quit"),p_exitFromMenu));
-    p_gameObjects.push_back(new MenuButton(new LoaderParams(770,0,200,130,"shop_menu"),p_menuToShop));
+    p_gameObjects.push_back(new MenuButton(new LoaderParams(770,35,200,95,"shop_menu"),p_menuToShop));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(770,170,200,124,"menu_upgrade"),p_menuToUpgrade));
+    p_gameObjects.push_back(new MenuButton(new LoaderParams(160,200,330,215,"typeplay1"),p_menuToMap1));
+    p_gameObjects.push_back(new MenuButton(new LoaderParams(530,200,330,215,"typeplay2"),p_menuToMap3));
+    p_gameObjects.push_back(new MenuButton(new LoaderParams(320,270,150,80,"yes"),p_quit));
+    p_gameObjects.push_back(new MenuButton(new LoaderParams(580,270,150,80,"no"),p_backMenu));
+
+
+    quit=false;
+    play=false;
     return true;
 }
 
@@ -66,6 +118,13 @@ bool MenuState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("instructions");
     ManageTexture::GetInstance()->clearFromTexMap("shop_menu");
     ManageTexture::GetInstance()->clearFromTexMap("menu_upgrade");
+    ManageTexture::GetInstance()->clearFromTexMap("typeplay1");
+    ManageTexture::GetInstance()->clearFromTexMap("typeplay2");
+    ManageTexture::GetInstance()->clearFromTexMap("return");
+    ManageTexture::GetInstance()->clearFromTexMap("sure");
+    ManageTexture::GetInstance()->clearFromTexMap("yes");
+    ManageTexture::GetInstance()->clearFromTexMap("no");
+    ManageTexture::GetInstance()->clearFromTexMap("day2");
 
 
     ManageSound::GetInstance()->clearFromMusicMap("soundmenu");
@@ -74,12 +133,12 @@ bool MenuState::onExit()
 
 void MenuState::p_menuToPlay()
 {
-    Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState());
+    play=true;
 }
 
 void MenuState::p_exitFromMenu()
 {
-    Game::GetInstance()->GetGameStateMachine()->changeState(new SureState());
+    quit=true;
 }
 
 void MenuState::p_menuToOptions()
@@ -101,4 +160,24 @@ void MenuState::p_menuToShop()
 void MenuState::p_menuToUpgrade()
 {
     Game::GetInstance()->GetGameStateMachine()->pushState(new PlayerInfo());
+}
+
+void MenuState::p_menuToMap1()
+{
+    Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState());
+}
+
+void MenuState::p_menuToMap3()
+{
+    Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState3());
+}
+
+void MenuState::p_quit()
+{
+    Game::GetInstance()->quit();
+}
+
+void MenuState::p_backMenu()
+{
+    quit=false;
 }

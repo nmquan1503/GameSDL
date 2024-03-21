@@ -14,7 +14,7 @@
 class Soldier : public SDLGameObject
 {
 public:
-    Soldier(const LoaderParams* Params,int x_pl,int y_pl);
+    Soldier(const LoaderParams* Params,int x_pl,int y_pl,int ID);
     virtual void draw();
     virtual void update();
     virtual void clean();
@@ -38,6 +38,8 @@ public:
     void push_hp_lose(int t){hp_lose.push_back(t);}
 
 private:
+    int Map_ID;
+
     int pos_in_map_x=0;
     int pos_in_map_y=0;
     int p_pos_x;

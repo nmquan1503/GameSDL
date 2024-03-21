@@ -7,13 +7,17 @@
 #include "Game.h"
 #include "MenuButton.h"
 #include "OptionsState.h"
-#include "SureState.h"
 #include "InstructionState.h"
 #include "ShopState.h"
 #include "PlayerInfo.h"
+#include "PlayState_3.h"
+#include "SDL_GameObject.h"
+#include "MenuBG.h"
 
 #include <vector>
 #include <iostream>
+
+class SDLGameObject;
 
 class MenuState : public GameState
 {
@@ -32,6 +36,13 @@ private:
     static void p_menuToInstruction();
     static void p_menuToShop();
     static void p_menuToUpgrade();
+    static void p_menuToMap1();
+    static void p_menuToMap3();
+    static void p_quit();
+    static void p_backMenu();
+
+    static bool play;
+    static bool quit;
 };
 
 

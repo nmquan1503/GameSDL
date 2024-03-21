@@ -20,7 +20,7 @@ class PlayerInfo : public GameState
 private:
 
     bool p_scrolling=false;
-    int y_scr=15;
+    int y_scr=115;
 
     static int hp_rate;
     static int mana_rate;

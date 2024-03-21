@@ -22,7 +22,7 @@ void PlayState2::update()
 {
     if(static_cast<Player*>(p_player)->GetTimeDie()==20)
     {
-        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),-1,-1,1));
     }
 
     Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
@@ -30,7 +30,7 @@ void PlayState2::update()
     if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_ESCAPE)||(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>955&&vec->GetX()<1015&&vec->GetY()>10&&vec->GetY()<70))
     {
 
-        Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer())));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer()),1));
     }
 
     if(p_start==false&&p_end==false)
@@ -76,7 +76,7 @@ void PlayState2::update()
     }
     if(timeWin==20)
     {
-        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"victory",600,145));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"victory",600,145,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),-1,-1,1));
     }
 
 
@@ -189,7 +189,7 @@ void PlayState2::update()
 
         int t=Pos_Map_2(x_pl,y_pl,50,75);
 
-        std::cout<<t<<std::endl;
+        //std::cout<<t<<std::endl;
 
         static_cast<Boss*>(p_boss)->SetEskill(p_eskill_boss);
         static_cast<Boss*>(p_boss)->SetPlayerPos(Pos_Map[ {static_cast<Boss*>(p_boss)->GetPosMap(),t}]);
@@ -440,7 +440,7 @@ bool PlayState2::onEnter()
     p_grass_3.push_back(new Grass(new LoaderParams(0,800,250,250,"mai2"),0));
 
 
-    p_boss=new Boss(new LoaderParams(900,900,110,150,"boss_nor"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY());
+    p_boss=new Boss(new LoaderParams(900,900,110,150,"boss_nor"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY(),2);
 
 //   p_npc=new NPC(new LoaderParams(50,945,50,105,"sugar1"),talk1,0,975);
 
@@ -497,6 +497,7 @@ bool PlayState2::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("hp2");
     ManageTexture::GetInstance()->clearFromTexMap("mana1");
     ManageTexture::GetInstance()->clearFromTexMap("mana2");
+    ManageTexture::GetInstance()->clearFromTexMap("boss_die");
     ManageTexture::GetInstance()->clearFromTexMap("boss_atk_eskill");
     ManageTexture::GetInstance()->clearFromTexMap("boss_atk_nor");
     ManageTexture::GetInstance()->clearFromTexMap("boss_jumpdown");

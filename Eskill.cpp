@@ -24,5 +24,5 @@ void Eskill::update()
 
 void Eskill::clean()
 {
-    ;
+    SDLGameObject::clean();
 }

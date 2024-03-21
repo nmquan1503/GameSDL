@@ -1,72 +1,19 @@
 
-
 #include "Boss.h"
+#include "EspFunction.cpp"
 
-void SetToaDo2(int t,int &x,int &y,int &w)
-{
-    if(t==1)
-    {
-        x=0;
-        y=1050;
-        w=750;
-    }
-    else if(t==7)
-    {
-        x=750;
-        y=1050;
-        w=490;
-    }
-    else if(t==2)
-    {
-        x=450;
-        y=920;
-        w=600;
-    }
-    else if(t==3)
-    {
-        x=1240;
-        y=950;
-        w=200;
-    }
-    else if(t==4)
-    {
-        x=1440;
-        y=850;
-        w=200;
-    }
-    else if(t==5)
-    {
-        x=1640;
-        y=750;
-        w=200;
-    }
-    else if(t==6)
-    {
-        x=1840;
-        y=650;
-        w=200;
-    }
-}
 
-int Posk2(int x,int y)
+Boss::Boss(const LoaderParams* Params,int x_pl,int y_pl,int ID):SDLGameObject(Params)
 {
-    //int x1=static_cast<Player*>(g)->GetPosInMapX(),y1=static_cast<Player*>(g)->GetPosInMapY();
-    if(x+110>450&&x<1050&&y+150<=920)return 2;
-    if(x+110>1840&&y+150<=650)return 6;
-    if(x+110>1640&&x<1840&&y+150<=750)return 5;
-    if(x+110>1440&&x<1640&&y+150<=850)return 4;
-    if(x+110>1240&&x<1440&&y+150<=950)return 3;
-    if(x+110>750&&x<1240&&y+150<=1050)return 7;
-    return 1;
-}
-
-Boss::Boss(const LoaderParams* Params,int x_pl,int y_pl):SDLGameObject(Params)
-{
+    Map_ID=ID;
     pos_in_map_x=x_pl;
     pos_in_map_y=y_pl;
     p_pos_x=Params->GetX();
     p_pos_y=Params->GetY();
-    p_BossPos=Posk2(p_pos_x,p_pos_y);
+    if(ID==2)
+        p_BossPos=Pos_Map_2(p_pos_x,p_pos_y,110,150);
+    else if(ID==3)
+        p_BossPos=Pos_Map_3(p_pos_x,p_pos_y,110,150);
     p_Frame=0;
 }
 
@@ -75,8 +22,6 @@ Boss::Boss(const LoaderParams* Params,int x_pl,int y_pl):SDLGameObject(Params)
 void Boss::draw()
 {
     SDLGameObject::draw();
-
-
 
     if(hp>0)
     {
@@ -93,13 +38,7 @@ void Boss::draw()
         dst= {tmp_x,tmp_y,std::max(0,hp*200)/10000,20};
         SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
 
-        /*if(hp_lose!=0)
-        {
-            std::string tmp=std::to_string(hp_lose);
-            SDL_Color myColor = {255, 255, 0, 255};
-            ManageFont::GetInstance()->drawTextBlended("font1",tmp,myColor,p_pos.GetX()+p_w/2-15,p_pos.Get,Game::GetInstance()->GetRenderer());
-            hp_lose=0;
-        }*/
+
 
         for(int i:hp_lose)
         {
@@ -151,8 +90,8 @@ void Boss::update2()
 void Boss::update()
 {
 
+    int speed=rand()%5+8;
 
-    std::cout<<p_BossPos<<" "<<p_PlayerPos<<std::endl;
 
     p_ATK_nor=false;
 
@@ -165,14 +104,28 @@ void Boss::update()
         }
     }
 
-    p_BossPos=Posk2(p_pos_x,p_pos_y);
+    if(Map_ID==2)
+        p_BossPos=Pos_Map_2(p_pos_x,p_pos_y,110,150);
+    else if(Map_ID==3)
+        p_BossPos=Pos_Map_3(p_pos_x,p_pos_y,110,150);
 
-    SetToaDo2(p_PlayerPos,p_grass_x2,p_grass_y2,p_grass_w2);
-    SetToaDo2(p_BossPos,p_grass_x1,p_grass_y1,p_grass_w1);
+    if(Map_ID==2)
+    {
+        SetToaDo2(p_PlayerPos,p_grass_x2,p_grass_y2,p_grass_w2);
+        SetToaDo2(p_BossPos,p_grass_x1,p_grass_y1,p_grass_w1);
+    }
+    else
+    {
+        SetToaDo3(p_PlayerPos,p_grass_x2,p_grass_y2,p_grass_w2);
+        SetToaDo3(p_BossPos,p_grass_x1,p_grass_y1,p_grass_w1);
+    }
 
 
     Vector2D vec=Vector2D(pos_in_map_x-p_pos_x,pos_in_map_y-p_pos_y);
     Vector2D vec2=Vector2D(pos_in_map_x,pos_in_map_y);
+
+
+    //attack = eskill
     if(mana>=100&&vec.length()<=600&&timeMove%100==0)
     {
         ManageSound::GetInstance()->playSound("eskill1",0);
@@ -191,6 +144,10 @@ void Boss::update()
         }
         mana-=100;
     }
+
+
+
+
     else if(p_down==true)
     {
         p_TexID="boss_jumpdown";
@@ -203,6 +160,10 @@ void Boss::update()
             p_down=false;
         }
     }
+
+
+
+    //move next grass
     else if(p_up==true)
     {
         p_TexID="boss_jumpup";
@@ -212,7 +173,6 @@ void Boss::update()
         if(p_pos_x==dst_x&&p_pos_y==dst_y)
         {
             p_up=false;
-            p_BossPos=p_PlayerPos;
         }
         else
         {
@@ -230,25 +190,29 @@ void Boss::update()
                 flip=false;
                 p_pos_x-=std::min(10,p_pos_x-dst_x);
             }
-            else p_pos_y+=std::min(10,dst_y-p_pos_y);
+            else
+            {
+                p_pos_y+=std::min(10,dst_y-p_pos_y);
+            }
         }
     }
     else if((timeMove%10<=10))
     {
+
+
+
+        //attack
         if(p_BossPos==p_PlayerPos)
         {
-            if(((vec.length()<100&&vec.GetX()>0)||(vec.length()<90&&vec.GetX()<=0))&&mana>=5)
+            if((Vector2D(p_pos_x+100,p_pos_y+115)-vec2).length()<=50&&mana>=5)
             {
 
                 p_TexID="boss_atk_nor";
                 p_Frame=(++p_Frame)%5;
                 p_w=250;
                 p_h=190;
-                if(vec.GetX()>=0)flip=true;
-                else flip=false;
-                // p_pos_x+=vec.GetX();
-                //if(vec.GetY()>=0)p_pos_y+=vec.GetY();
-                //if(p_pos_y+150>p_grass_y1)p_down=true;
+                if(p_pos_x+100>pos_in_map_x)flip=false;
+                else flip=true;
                 if(timeMove%5==0)
                 {
                     ManageSound::GetInstance()->playSound("boss_atk_nor",0);
@@ -263,51 +227,78 @@ void Boss::update()
                 p_w=150;
                 p_h=150;
                 p_Frame=(++p_Frame)%3;
-                if(pos_in_map_x-40>p_pos_x)
+                if(p_pos_x<pos_in_map_x-120)
                 {
-                    p_pos_x+=std::min(10,pos_in_map_x-40-p_pos_x);
+                    p_pos_x+=std::min(speed,pos_in_map_x-120-p_pos_x);
                     flip=true;
                 }
-                else if(p_pos_x-pos_in_map_x>=-10)
+                else if(p_pos_x>pos_in_map_x-70)
                 {
-                    p_pos_x+=std::max(-10,+pos_in_map_x-10-p_pos_x);
                     flip=false;
+                    p_pos_x-=std::min(speed,p_pos_x-(pos_in_map_x-70));
                 }
             }
         }
 
+
+
+        //move
         else
         {
             p_TexID="boss_run";
             p_w=150;
             p_h=150;
             p_Frame=(++p_Frame)%3;
+
             if(p_grass_y1>p_grass_y2)
             {
-                if(p_grass_x1<=p_grass_x2)
+                if(p_grass_x1<p_grass_x2&&p_grass_x1+p_grass_w1>p_grass_x2+p_grass_w2)
                 {
-                    int t=std::min(p_grass_x2-110,p_grass_x1+p_grass_w1-110);
-                    if(p_pos_x>=t)
+                    if(p_pos_x>=p_grass_x2-110&&p_pos_x<=p_grass_x2+p_grass_w2)
                     {
-                        dst_x=std::max(p_grass_x2,p_pos_x);
-                        dst_y=p_grass_y2-150;
                         p_up=true;
+                        dst_y=p_grass_y2-150;
+                        dst_x=std::min(std::max(p_pos_x,p_grass_x2),p_grass_x2+p_grass_w2-110);
                     }
-                    else p_pos_x+=std::min(10,t-p_pos_x);
+                    else if(p_pos_x<p_grass_x2-110)
+                    {
+                        p_pos_x+=std::min(speed,p_grass_x2-110-p_pos_x);
+                        flip=true;
+                    }
+                    else
+                    {
+                        p_pos_x-=std::min(speed,p_pos_x-p_grass_x2-p_grass_w2);
+                        flip=false;
+                    }
+                }
+                else if(p_grass_x1<p_grass_x2)
+                {
+                    if(p_pos_x>=std::min(p_grass_x1+p_grass_w1-110,p_grass_x2-110))
+                    {
+                        p_up=true;
+                        dst_y=p_grass_y2-150;
+                        dst_x=std::max(p_pos_x,p_grass_x2);
+                    }
+                    else
+                    {
+                        flip=true;
+                        p_pos_x+=std::min(speed,std::min(p_grass_x2,p_grass_x1+p_grass_w1)-110-p_pos_x);
+                    }
                 }
                 else
                 {
-                    int t=std::max(p_grass_x2+p_grass_w2,p_grass_x1);
-                    if(p_pos_x<=t)
+                    if(p_pos_x<=std::max(p_grass_x2+p_grass_w2,p_grass_x1))
                     {
                         p_up=true;
-                        dst_x=std::min(p_pos_x,p_grass_x2+p_grass_w2-110);
                         dst_y=p_grass_y2-150;
+                        dst_x=std::min(p_pos_x,p_grass_x2+p_grass_w2-110);
                     }
-                    else p_pos_x-=std::min(10,p_pos_x-t);
+                    else
+                    {
+                        flip=false;
+                        p_pos_x-=std::min(speed,std::max(p_grass_x2+p_grass_w2,p_grass_x1));
+                    }
                 }
-
-
             }
             else
             {
@@ -317,26 +308,30 @@ void Boss::update()
                     if(p_pos_x<=p_grass_x1)
                     {
                         p_up=true;
-                        dst_x=p_grass_x1-110;
+                        dst_x=std::min(p_grass_x1-110,p_grass_x2+p_grass_w2-110);
                         dst_y=p_grass_y2-150;
                     }
-                    else p_pos_x-=std::min(10,p_pos_x-p_grass_x1);
+                    else p_pos_x-=std::min(speed,p_pos_x-p_grass_x1);
                 }
                 else
                 {
                     flip=true;
-
                     if(p_pos_x>=p_grass_x1+p_grass_w1-110)
                     {
-                        dst_x=p_grass_x1+p_grass_w1;
+                        dst_x=std::max(p_grass_x1+p_grass_w1,p_grass_x2);
                         dst_y=p_grass_y2-150;
                         p_up=true;
                     }
-                    else p_pos_x+=std::min(10,p_grass_x1+p_grass_w1-110-p_pos_x);
+                    else p_pos_x+=std::min(speed,p_grass_x1+p_grass_w1-110-p_pos_x);
                 }
             }
+
+
         }
     }
+
+
+
     else
     {
         p_TexID="boss_nor";
@@ -350,6 +345,9 @@ void Boss::update()
     mana=std::min(++mana,200);
 
 
+
+
+    //render setting
     if(pos_in_map_x<=485)
     {
         p_pos.SetX(p_pos_x);
@@ -379,5 +377,10 @@ void Boss::update()
 
 void Boss::clean()
 {
-    ;
+    SDLGameObject::clean();
+    for(GameObject* i:p_eskill)
+        i->clean();
+    p_eskill.clear();
+
+    hp_lose.clear();
 }

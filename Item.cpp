@@ -1,5 +1,6 @@
 
 #include "Item.h"
+#include "EspFunction.cpp"
 
 int Item::Grass_map1()
 {
@@ -20,11 +21,23 @@ int Item::Grass_map1()
     return 1160;
 }
 
-Item::Item(const LoaderParams* Params,int p_x,int p_y,std::string type):SDLGameObject(Params),pos_in_map_x(p_x),pos_in_map_y(p_y),itemID(type)
+Item::Item(const LoaderParams* Params,int p_x,int p_y,std::string type,int ID):SDLGameObject(Params),pos_in_map_x(p_x),pos_in_map_y(p_y),itemID(type),Map_ID(ID)
 {
     pos_x=Params->GetX();
     pos_y=Params->GetY();
-    p_grass_y=Grass_map1();
+    int x,w;
+    if(Map_ID==1)
+    {
+        SetToaDo1(Pos_Map_1(pos_x,pos_y,p_w,p_h),x,p_grass_y,w);
+    }
+    else if(Map_ID==2)
+    {
+        SetToaDo2(Pos_Map_2(pos_x,pos_y,p_w,p_h),x,p_grass_y,w);
+    }
+    else if(Map_ID==3)
+    {
+        SetToaDo3(Pos_Map_3(pos_x,pos_y,p_w,p_h),x,p_grass_y,w);
+    }
 }
 
 void Item::update()

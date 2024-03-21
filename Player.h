@@ -62,6 +62,8 @@ public:
 
     void SetGold(int g){gold+=g;}
     void SetGem(int g){gem+=g;}
+    int GetGold(){return gold;}
+    int GetGem(){return gem;}
 private:
     bool p_IsJump=false;
     bool p_Jumped=false;

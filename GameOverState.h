@@ -9,6 +9,7 @@
 #include "LoaderParams.h"
 #include "MenuState.h"
 #include "PlayState.h"
+#include "ManageFont.h"
 
 #include<iostream>
 #include<vector>
@@ -27,8 +28,17 @@ private:
     std::string p_TexID;
     int p_w,p_h;
     SDL_Texture* p_tex;
+
+    int p_gold;
+    int p_gem;
+    int p_time;
+    int p_score;
+
+    static int Map_ID;
+
+    int t;
 public:
-    GameOverState(SDL_Texture* tex,std::string texID,int w,int h);
+    GameOverState(SDL_Texture* tex,std::string texID,int w,int h,int gold,int gem,int score,int time,int ID);
     virtual void update();
     virtual void render();
     virtual bool onEnter();

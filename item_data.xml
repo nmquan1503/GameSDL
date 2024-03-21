@@ -12,8 +12,12 @@
     <player>
         <attribute type="hp" quantity="1000"/>
         <attribute type="mana" quantity="200"/>
-        <attribute type="damage" quantity="40"/>
+        <attribute type="damage" quantity="400"/>
         <attribute type="speed" quantity="15"/>
-        <attribute type="dart" quantity="1"/>
+        <attribute type="dart" quantity="3"/>
     </player>
+    <achievement>
+        <attribute type="score" quantity="0"/>
+        <attribute type="time" quantity="0"/>
+    </achievement>
 </game_data>

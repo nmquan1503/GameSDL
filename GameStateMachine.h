@@ -16,6 +16,7 @@ public:
     void popState();
     void update();
     void render();
+//    std::string GetIDcurrentState(){re}
 };
 
 #endif // _GameStateMachine_h_

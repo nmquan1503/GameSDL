@@ -17,5 +17,5 @@ void MenuBG::update()
 
 void MenuBG::clean()
 {
-    ;
+    SDLGameObject::clean();
 }

@@ -30,7 +30,7 @@ private:
     static std::vector<GameObject*>p_gameObjects;
 
     bool p_scrolling=false;
-    int y_scr=15;
+    int y_scr=115;
 
     static void p_buyHP();
     static void p_buyMANA();
