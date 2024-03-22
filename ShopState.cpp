@@ -81,27 +81,27 @@ void ShopState::render()
 
     Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
     Vector2D tmp=static_cast<SDLGameObject*>(p_gameObjects[0])->GetPos();
-    if(vec->GetX()>=tmp.GetX()+217&&vec->GetX()<=tmp.GetX()+302&&vec->GetY()>=tmp.GetY()+230&&vec->GetY()<=tmp.GetY()+315&&p_scrolling==false)
+    if(vec->GetX()>=tmp.GetX()+217&&vec->GetX()<=tmp.GetX()+302&&vec->GetY()>=tmp.GetY()+230&&vec->GetY()<=tmp.GetY()+315&&p_scrolling==false&&vec->GetY()>100)
         ManageFont::GetInstance()->drawInfo("font2","Your HP will be doubled for 10 seconds\nOwned:"+std::to_string(GameData::GetInstance()->GetHpX2())
                                             , {255,255,0,255},
                                             vec->GetX(),vec->GetY(),200,Game::GetInstance()->GetRenderer());
-    else if(vec->GetX()>=tmp.GetX()+471&&vec->GetX()<=tmp.GetX()+556&&vec->GetY()>=tmp.GetY()+228&&vec->GetY()<=tmp.GetY()+313&&p_scrolling==false)
+    else if(vec->GetX()>=tmp.GetX()+471&&vec->GetX()<=tmp.GetX()+556&&vec->GetY()>=tmp.GetY()+228&&vec->GetY()<=tmp.GetY()+313&&p_scrolling==false&&vec->GetY()>100)
         ManageFont::GetInstance()->drawInfo("font2","Your Mana will be doubled for 10 seconds\nOwned:"+std::to_string(GameData::GetInstance()->GetManaX2())
                                             , {255,255,0,255},
                                             vec->GetX(),vec->GetY(),200,Game::GetInstance()->GetRenderer());
-    else if(vec->GetX()>=tmp.GetX()+723&&vec->GetX()<=tmp.GetX()+808&&vec->GetY()>=tmp.GetY()+228&&vec->GetY()<=tmp.GetY()+313&&p_scrolling==false)
+    else if(vec->GetX()>=tmp.GetX()+723&&vec->GetX()<=tmp.GetX()+808&&vec->GetY()>=tmp.GetY()+228&&vec->GetY()<=tmp.GetY()+313&&p_scrolling==false&&vec->GetY()>100)
         ManageFont::GetInstance()->drawInfo("font2","Your Damage will be doubled for 10 seconds\nOwned:"+std::to_string(GameData::GetInstance()->GetDamageSpell())
                                             , {255,255,0,255},
                                             vec->GetX(),vec->GetY(),200,Game::GetInstance()->GetRenderer());
-    else if(vec->GetX()>=tmp.GetX()+220&&vec->GetX()<=tmp.GetX()+305&&vec->GetY()>=tmp.GetY()+555&&vec->GetY()<=tmp.GetY()+640&&p_scrolling==false)
+    else if(vec->GetX()>=tmp.GetX()+220&&vec->GetX()<=tmp.GetX()+305&&vec->GetY()>=tmp.GetY()+555&&vec->GetY()<=tmp.GetY()+640&&p_scrolling==false&&vec->GetY()>100)
         ManageFont::GetInstance()->drawInfo("font2","You will heal 160 HP per second on average\nOwned:"+std::to_string(GameData::GetInstance()->GetHpSpell())
                                             , {255,255,0,255},
                                             vec->GetX(),vec->GetY(),200,Game::GetInstance()->GetRenderer());
-    else if(vec->GetX()>=tmp.GetX()+472&&vec->GetX()<=tmp.GetX()+557&&vec->GetY()>=tmp.GetY()+556&&vec->GetY()<=tmp.GetY()+641&&p_scrolling==false)
+    else if(vec->GetX()>=tmp.GetX()+472&&vec->GetX()<=tmp.GetX()+557&&vec->GetY()>=tmp.GetY()+556&&vec->GetY()<=tmp.GetY()+641&&p_scrolling==false&&vec->GetY()>100)
         ManageFont::GetInstance()->drawInfo("font2","You will heal 32 Mana per second on average\nOwned:"+std::to_string(GameData::GetInstance()->GetManaSpell())
                                             , {255,255,0,255},
                                             vec->GetX(),vec->GetY(),200,Game::GetInstance()->GetRenderer());
-    else if(vec->GetX()>=tmp.GetX()+722&&vec->GetX()<=tmp.GetX()+807&&vec->GetY()>=tmp.GetY()+553&&vec->GetY()<=tmp.GetY()+638&&p_scrolling==false)
+    else if(vec->GetX()>=tmp.GetX()+722&&vec->GetX()<=tmp.GetX()+807&&vec->GetY()>=tmp.GetY()+553&&vec->GetY()<=tmp.GetY()+638&&p_scrolling==false&&vec->GetY()>100)
         ManageFont::GetInstance()->drawInfo("font2","Your speed will be doubled for 10 seconds\nOwned:"+std::to_string(GameData::GetInstance()->GetSpeedSpell())
                                             , {255,255,0,255},
                                             vec->GetX(),vec->GetY(),200,Game::GetInstance()->GetRenderer());
@@ -123,6 +123,7 @@ bool ShopState::onEnter()
     //ManageTexture::GetInstance()->load("Image/return.png","return",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/bogoc2.png","bogoc2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/shop2.png","shop2",Game::GetInstance()->GetRenderer());
+
 
     ManageFont::GetInstance()->load("Font/Fz-Futura-Maxi.ttf","font2",20);
     ManageFont::GetInstance()->load("Font/SuperSquadItalic.ttf","font1",25);

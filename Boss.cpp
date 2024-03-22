@@ -3,9 +3,10 @@
 #include "EspFunction.cpp"
 
 
-Boss::Boss(const LoaderParams* Params,int x_pl,int y_pl,int ID):SDLGameObject(Params)
+Boss::Boss(const LoaderParams* Params,int x_pl,int y_pl,int hp_,int dmg_,int ID):SDLGameObject(Params),hp_max(hp_),dmg(dmg_)
 {
     Map_ID=ID;
+    hp=hp_max;
     pos_in_map_x=x_pl;
     pos_in_map_y=y_pl;
     p_pos_x=Params->GetX();
@@ -35,7 +36,7 @@ void Boss::draw()
         SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
 
         SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),255,0,0,255);
-        dst= {tmp_x,tmp_y,std::max(0,hp*200)/10000,20};
+        dst= {tmp_x,tmp_y,std::max(0,hp*200)/hp_max,20};
         SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
 
 

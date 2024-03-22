@@ -62,8 +62,15 @@ public:
 
     void SetGold(int g){gold+=g;}
     void SetGem(int g){gem+=g;}
+
     int GetGold(){return gold;}
     int GetGem(){return gem;}
+    int GetHpSpell(){return hp_spell;}
+    int GetManaSpell(){return mana_spell;}
+    int GetDmgSpell(){return damage_spell;}
+    int GetSpeedSpell(){return speed_spell;}
+    int GetHPX2(){return hp_x2;}
+    int GetManaX2(){return mana_x2;}
 private:
     bool p_IsJump=false;
     bool p_Jumped=false;

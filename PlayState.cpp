@@ -46,6 +46,17 @@ void PlayState::update()
 {
     if(static_cast<Player*>(p_player)->GetTimeDie()==20)
     {
+        GameData::GetInstance()->SetGold(static_cast<Player*>(p_player)->GetGold());
+        GameData::GetInstance()->SetGem(static_cast<Player*>(p_player)->GetGem());
+        GameData::GetInstance()->SetHpSpell(static_cast<Player*>(p_player)->GetHpSpell()-GameData::GetInstance()->GetHpSpell());
+        GameData::GetInstance()->SetManaSpell(static_cast<Player*>(p_player)->GetManaSpell()-GameData::GetInstance()->GetManaSpell());
+                GameData::GetInstance()->SetDamageSpell(static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell());
+                        GameData::GetInstance()->SetSpeedSpell(static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell());
+                GameData::GetInstance()->SetHpX2(static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2());
+                GameData::GetInstance()->SetManaX2(static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2());
+
+
+
         Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),-1,-1,1));
     }
 
@@ -69,7 +80,7 @@ void PlayState::update()
         static_cast<Player*>(p_player)->push_hp_lose(-1);
     }
 
-    if(numSoldier==20 && p_soldiers.size()==0)
+    if(numSoldier==200 && p_soldiers.size()==0)
     {
         p_grass_3.push_back(new Grass(new LoaderParams(1950,1000,50,20,"entrance"),1));
         win=true;
@@ -174,11 +185,11 @@ void PlayState::update()
      }*/
 
 
-    if(numSoldier<20&&p_soldiers.size()<20)
+    if(numSoldier<200&&p_soldiers.size()<20)
     {
         numSoldier++;
         int k=rand()%1900+1;
-        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),x_pl,y_pl,1));
+        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),x_pl,y_pl,300,5,1));
     }
     int t=Pos_Map_1(x_pl,y_pl,50,75);
 
@@ -192,11 +203,12 @@ void PlayState::update()
 
     for(GameObject* i:p_soldiers)
     {
-        if(Collission(i,p_player))
+        if(Collission(i,p_player)&&static_cast<Soldier*>(i)->GetATK())
         {
-            int t=rand()%2+2;
-            static_cast<Player*>(p_player)->SetHP(-t);
-            static_cast<Player*>(p_player)->push_hp_lose(-t);
+            int k=rand()%100+50;
+            int t=static_cast<Soldier*>(i)->GetDmg();
+            static_cast<Player*>(p_player)->SetHP(-t*k/100);
+            static_cast<Player*>(p_player)->push_hp_lose(-t*k/100);
         }
     }
 
@@ -272,9 +284,15 @@ void PlayState::update()
         if(Collission(p_player,p_item[i]))
         {
             if(static_cast<Item*>(p_item[i])->GetID()=="gold")
+            {
                 static_cast<Player*>(p_player)->SetGold(1);
+                ManageSound::GetInstance()->playSound("collect_gold",0);
+            }
             else if(static_cast<Item*>(p_item[i])->GetID()=="gem")
+            {
                 static_cast<Player*>(p_player)->SetGem(1);
+                ManageSound::GetInstance()->playSound("collect_gem",0);
+            }
 
             p_item.erase(p_item.begin()+i);
             i--;
@@ -435,6 +453,8 @@ bool PlayState::onEnter()
     ManageSound::GetInstance()->load("Audio/atk2.mp3","atk2",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/eskill1.mp3","eskill1",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/dart3.mp3","dart3",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/collect_gem.mp3","collect_gem",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/collect_gold.mp3","collect_gold",SOUND_SFX);
 
 
 
@@ -590,6 +610,8 @@ bool PlayState::onExit()
     ManageSound::GetInstance()->clearFromSFXMap("atk2");
     ManageSound::GetInstance()->clearFromSFXMap("eskill1");
     ManageSound::GetInstance()->clearFromSFXMap("dart3");
+    ManageSound::GetInstance()->clearFromSFXMap("collect_gold");
+    ManageSound::GetInstance()->clearFromSFXMap("collect_gem");
 
     //ManageSound::GetInstance()->
 

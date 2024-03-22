@@ -61,12 +61,14 @@ ManageSound::~ManageSound()
 
 void ManageSound::clearFromMusicMap(std::string id)
 {
-    Music_Map.erase(id);
+    if(Music_Map[id]!=NULL)
+        Music_Map.erase(id);
 }
 
 void ManageSound::clearFromSFXMap(std::string id)
 {
-    SFX_Map.erase(id);
+    if(SFX_Map[id]!=NULL)
+        SFX_Map.erase(id);
 }
 
 void ManageSound::fixVolumeMusic(int t)

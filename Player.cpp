@@ -92,7 +92,7 @@ void Player::draw()
 
     for(int i:hp_lose)
     {
-        int t1=rand()%20-10;
+        int t1=rand()%60-35;
         int t2=rand()%8-4;
         ManageFont::GetInstance()->drawTextBlended("font1",std::to_string(i),{255,255,0,255},p_pos.GetX()+p_w/2+t1,p_pos.GetY()-15+t2,Game::GetInstance()->GetRenderer());
     }
@@ -187,7 +187,28 @@ void Player::update()
 
 void Player::clean()
 {
-    ;
+    for(GameObject* i:p_Darts)
+    {
+        i->clean();
+    }
+    p_Darts.clear();
+
+    for(GameObject* i:p_Eskill)
+    {
+        i->clean();
+    }
+    p_Eskill.clear();
+
+    for(GameObject* i:p_sp_item)
+    {
+        i->clean();
+    }
+    p_sp_item.clear();
+
+    hp_lose.clear();
+
+    SDLGameObject::clean();
+
 }
 
 void Player::handle()

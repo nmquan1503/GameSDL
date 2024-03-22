@@ -4,6 +4,7 @@
 #include "SDL_GameObject.h"
 #include "HandleInput.h"
 #include "LoaderParams.h"
+#include "ManageSound.h"
 
 class MenuButton : public SDLGameObject
 {
@@ -16,6 +17,7 @@ private:
     };
     void(*p_callback)();
     bool p_Released;
+    bool p_sound;
 public:
     MenuButton(const LoaderParams* p_Params,void (*callback)());
     virtual void draw();

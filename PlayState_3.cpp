@@ -8,7 +8,20 @@ void PlayState3::update()
     if(static_cast<Player*>(p_player)->GetTimeDie()>=20)
     {
         runTime=false;
-        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),p_score,p_time,3));
+
+        GameData::GetInstance()->SetGold(static_cast<Player*>(p_player)->GetGold());
+        GameData::GetInstance()->SetGem(static_cast<Player*>(p_player)->GetGem());
+        GameData::GetInstance()->SetHpSpell(static_cast<Player*>(p_player)->GetHpSpell()-GameData::GetInstance()->GetHpSpell());
+        GameData::GetInstance()->SetManaSpell(static_cast<Player*>(p_player)->GetManaSpell()-GameData::GetInstance()->GetManaSpell());
+                GameData::GetInstance()->SetDamageSpell(static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell());
+                        GameData::GetInstance()->SetSpeedSpell(static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell());
+                GameData::GetInstance()->SetHpX2(static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2());
+                GameData::GetInstance()->SetManaX2(static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2());
+
+
+        if(p_score<GameData::GetInstance()->GetBestScore()||(p_score==GameData::GetInstance()->GetBestScore()&&p_time>=GameData::GetInstance()->GetBestTime()))
+            Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),p_score,p_time,3));
+        else Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"best_achievement",600,200,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),p_score,p_time,3));
     }
     else if(runTime==false)
     {
@@ -125,13 +138,13 @@ void PlayState3::update()
     if(p_boss.size()<count_boss_max)
     {
         int k=rand()%1800+50;
-        p_boss.push_back(new Boss(new LoaderParams(k,0,110,150,"boss_nor"),x_pl,y_pl,3));
+        p_boss.push_back(new Boss(new LoaderParams(k,0,110,150,"boss_nor"),x_pl,y_pl,10000,20,3));
 
     }
     if(p_soldiers.size()<30-count_boss_max)
     {
         int k=rand()%1900+50;
-        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),x_pl,y_pl,3));
+        p_soldiers.push_back(new Soldier(new LoaderParams(k,0,60,75,"fide1"),x_pl,y_pl,100,3,3));
     }
     int t=Pos_Map_3(x_pl,y_pl,50,75);
     int dmg_pl=static_cast<Player*>(p_player)->GetDamage();
@@ -150,11 +163,12 @@ void PlayState3::update()
     }
     for(GameObject* i:p_soldiers)
     {
-        if(Collission(i,p_player))
+        if(Collission(i,p_player)&&static_cast<Soldier*>(i)->GetATK())
         {
-            int t=rand()%2+2;
-            static_cast<Player*>(p_player)->SetHP(-t);
-            static_cast<Player*>(p_player)->push_hp_lose(-t);
+            int k=rand()%100+50;
+            int t=static_cast<Soldier*>(i)->GetDmg();
+            static_cast<Player*>(p_player)->SetHP(-t*k/100);
+            static_cast<Player*>(p_player)->push_hp_lose(-t*k/100);
         }
     }
     for(int i=0; i<p_soldiers.size(); i++)
@@ -263,15 +277,17 @@ void PlayState3::update()
         {
             if(Collission(p_eskill_boss[i][j],p_player))
             {
-                int t=rand()%10+50;
-                static_cast<Player*>(p_player)->SetHP(-t);
-                static_cast<Player*>(p_player)->push_hp_lose(-t);
+                int t=rand()%20+90;
+                int k=static_cast<Boss*>(p_boss[i])->GetDmg();
+                static_cast<Player*>(p_player)->SetHP(-k*t/20);
+                static_cast<Player*>(p_player)->push_hp_lose(-k*t/20);
             }
             if(Collission(p_boss[i],p_player)&&static_cast<Boss*>(p_boss[i])->GetATK())
             {
-                int t=rand()%4+10;
-                static_cast<Player*>(p_player)->SetHP(-t);
-                static_cast<Player*>(p_player)->push_hp_lose(-t);
+                int t=rand()%20+90;
+                int k=static_cast<Boss*>(p_boss[i])->GetDmg();
+            static_cast<Player*>(p_player)->SetHP(-k*t/100);
+            static_cast<Player*>(p_player)->push_hp_lose(-k*t/100);
             }
         }
         if(static_cast<Boss*>(p_boss[i])->GetHP()<=0)
@@ -316,9 +332,15 @@ void PlayState3::update()
         if(Collission(p_player,p_item[i]))
         {
             if(static_cast<Item*>(p_item[i])->GetID()=="gold")
+            {
+                ManageSound::GetInstance()->playSound("collect_gold",0);
                 static_cast<Player*>(p_player)->SetGold(1);
+            }
             else if(static_cast<Item*>(p_item[i])->GetID()=="gem")
+            {
+                ManageSound::GetInstance()->playSound("collect_gem",0);
                 static_cast<Player*>(p_player)->SetGem(1);
+            }
 
             p_item[i]->clean();
             p_item.erase(p_item.begin()+i);
@@ -472,6 +494,7 @@ bool PlayState3::onEnter()
 
     ManageTexture::GetInstance()->load("Image/gameover.png","gameover",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/pause_1.png","pause1",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/best_achievement.png","best_achievement",Game::GetInstance()->GetRenderer());
 
 
     ManageFont::GetInstance()->load("Font/SuperSquadItalic.ttf","font1",30);
@@ -485,6 +508,8 @@ bool PlayState3::onEnter()
     ManageSound::GetInstance()->load("Audio/atk2.mp3","atk2",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/eskill1.mp3","eskill1",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/dart3.mp3","dart3",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/collect_gold.mp3","collect_gold",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/collect_gem.mp3","collect_gem",SOUND_SFX);
 
 
     p_grass_1.push_back(new Grass(new LoaderParams(0,1100,2040,100,"rock1"),0));
@@ -658,6 +683,7 @@ bool PlayState3::onExit()
 
     ManageTexture::GetInstance()->clearFromTexMap("pause1");
     ManageTexture::GetInstance()->clearFromTexMap("gameover");
+    ManageTexture::GetInstance()->clearFromTexMap("best_achievement");
 
 
 
@@ -670,6 +696,8 @@ bool PlayState3::onExit()
     ManageSound::GetInstance()->clearFromSFXMap("atk2");
     ManageSound::GetInstance()->clearFromSFXMap("eskill1");
     ManageSound::GetInstance()->clearFromSFXMap("dart3");
+    ManageSound::GetInstance()->clearFromSFXMap("collect_gold");
+    ManageSound::GetInstance()->clearFromSFXMap("collect_gem");
 
     return true;
 }

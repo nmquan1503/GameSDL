@@ -62,6 +62,8 @@ bool PauseState::onEnter()
     ManageTexture::GetInstance()->load("Image/menu_home.png","home",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/menu_resume.png","resume",Game::GetInstance()->GetRenderer());
 
+    ManageSound::GetInstance()->load("Audio/button.mp3","button",SOUND_SFX);
+
 
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,270,250,60,"resume"),p_pauseToResume));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,340,250,60,"options"),p_pauseToOptions));
@@ -85,6 +87,9 @@ bool PauseState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("home");
     ManageTexture::GetInstance()->clearFromTexMap("resume");
     ManageTexture::GetInstance()->clearFromTexMap("blind");
+
+    ManageSound::GetInstance()->clearFromSFXMap("button");
+
     HandleInput::GetInstance()->reset();
     return true;
 }

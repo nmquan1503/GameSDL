@@ -22,6 +22,16 @@ void PlayState2::update()
 {
     if(static_cast<Player*>(p_player)->GetTimeDie()==20)
     {
+        GameData::GetInstance()->SetGold(static_cast<Player*>(p_player)->GetGold());
+        GameData::GetInstance()->SetGem(static_cast<Player*>(p_player)->GetGem());
+        GameData::GetInstance()->SetHpSpell(static_cast<Player*>(p_player)->GetHpSpell()-GameData::GetInstance()->GetHpSpell());
+        GameData::GetInstance()->SetManaSpell(static_cast<Player*>(p_player)->GetManaSpell()-GameData::GetInstance()->GetManaSpell());
+                GameData::GetInstance()->SetDamageSpell(static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell());
+                        GameData::GetInstance()->SetSpeedSpell(static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell());
+                GameData::GetInstance()->SetHpX2(static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2());
+                GameData::GetInstance()->SetManaX2(static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2());
+
+
         Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),-1,-1,1));
     }
 
@@ -86,6 +96,7 @@ void PlayState2::update()
 
     int x_pl=static_cast<Player*>(p_player)->GetPosInMapX();
     int y_pl=static_cast<Player*>(p_player)->GetPosInMapY();
+    int dmg_pl=static_cast<Player*>(p_player)->GetDamage();
 
 
     if(IsTalking1==false && IsTalking2==false)
@@ -217,9 +228,9 @@ void PlayState2::update()
                 ManageSound::GetInstance()->playSound("atk2",0);
                 p_darts.erase(p_darts.begin()+i);
                 i--;
-                int t=rand()%7+47;
-                static_cast<Boss*>(p_boss)->SetHP(-t);
-                static_cast<Boss*>(p_boss)->push_hp_lose(-t);
+                int k=rand()%20+90;
+                static_cast<Boss*>(p_boss)->SetHP(-dmg_pl*k/100);
+                static_cast<Boss*>(p_boss)->push_hp_lose(-dmg_pl*k/100);
             }
         }
 
@@ -227,9 +238,9 @@ void PlayState2::update()
         {
             if(Collission(p_eskill_player[i],p_boss))
             {
-                int t=rand()%100+500;
-                static_cast<Boss*>(p_boss)->SetHP(-t);
-                static_cast<Boss*>(p_boss)->push_hp_lose(-t);
+                int t=rand()%20+90;
+                static_cast<Boss*>(p_boss)->SetHP(-dmg_pl*t/10);
+                static_cast<Boss*>(p_boss)->push_hp_lose(-dmg_pl*t/10);
             }
         }
 
@@ -237,16 +248,18 @@ void PlayState2::update()
         {
             if(Collission(p_eskill_boss[i],p_player))
             {
-                int t=rand()%10+50;
-                static_cast<Player*>(p_player)->SetHP(-t);
-                static_cast<Player*>(p_player)->push_hp_lose(-t);
+                int t=rand()%20+90;
+                int k=static_cast<Boss*>(p_boss)->GetDmg();
+                static_cast<Player*>(p_player)->SetHP(-k*t/20);
+                static_cast<Player*>(p_player)->push_hp_lose(-k*t/20);
             }
         }
         if(Collission(p_boss,p_player)&&static_cast<Boss*>(p_boss)->GetATK())
         {
-            int t=rand()%4+10;
-            static_cast<Player*>(p_player)->SetHP(-t);
-            static_cast<Player*>(p_player)->push_hp_lose(-t);
+           int t=rand()%20+90;
+                int k=static_cast<Boss*>(p_boss)->GetDmg();
+            static_cast<Player*>(p_player)->SetHP(-k*t/100);
+            static_cast<Player*>(p_player)->push_hp_lose(-k*t/100);
         }
 
     }
@@ -422,6 +435,8 @@ bool PlayState2::onEnter()
     ManageSound::GetInstance()->load("Audio/eskill1.mp3","eskill1",SOUND_SFX);
     ManageSound::GetInstance()->load("Audio/SoundPlay2.mp3","soundplay2",SOUND_MUSIC);
     ManageSound::GetInstance()->load("Audio/dart3.mp3","dart3",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/collect_gold.mp3","collect_gold",SOUND_SFX);
+    ManageSound::GetInstance()->load("Audio/collect_gem.mp3","collect_gem",SOUND_SFX);
 
 
     ManageSound::GetInstance()->playMusic("soundplay2",-1);
@@ -440,7 +455,7 @@ bool PlayState2::onEnter()
     p_grass_3.push_back(new Grass(new LoaderParams(0,800,250,250,"mai2"),0));
 
 
-    p_boss=new Boss(new LoaderParams(900,900,110,150,"boss_nor"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY(),2);
+    p_boss=new Boss(new LoaderParams(900,900,110,150,"boss_nor"),static_cast<Player*>(p_player)->GetPosInMapX(),static_cast<Player*>(p_player)->GetPosInMapY(),1000000,100,2);
 
 //   p_npc=new NPC(new LoaderParams(50,945,50,105,"sugar1"),talk1,0,975);
 
@@ -543,6 +558,8 @@ bool PlayState2::onExit()
     ManageSound::GetInstance()->clearFromSFXMap("eskill1");
     ManageSound::GetInstance()->clearFromMusicMap("soundplay2");
     ManageSound::GetInstance()->clearFromSFXMap("dart3");
+    ManageSound::GetInstance()->clearFromSFXMap("collect_gold");
+    ManageSound::GetInstance()->clearFromSFXMap("collect_gem");
 
     return true;
 }

@@ -78,6 +78,7 @@ bool MenuState::onEnter()
 
 
     ManageSound::GetInstance()->load("Audio/SoundMenu.mp3","soundmenu",SOUND_MUSIC);
+    ManageSound::GetInstance()->load("Audio/button.mp3","button",SOUND_SFX);
 
 
     ManageSound::GetInstance()->playMusic("soundmenu",-1);
@@ -128,6 +129,7 @@ bool MenuState::onExit()
 
 
     ManageSound::GetInstance()->clearFromMusicMap("soundmenu");
+    ManageSound::GetInstance()->clearFromSFXMap("button");
     return true;
 }
 
@@ -149,7 +151,7 @@ void MenuState::p_menuToOptions()
 
 void MenuState::p_menuToInstruction()
 {
-    Game::GetInstance()->GetGameStateMachine()->changeState(new InstructionState());
+    Game::GetInstance()->GetGameStateMachine()->pushState(new InstructionState());
 }
 
 void MenuState::p_menuToShop()

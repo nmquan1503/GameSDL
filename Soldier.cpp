@@ -3,9 +3,10 @@
 #include "EspFunction.cpp"
 
 
-Soldier::Soldier(const LoaderParams* Params,int x_pl,int y_pl,int ID):SDLGameObject(Params)
+Soldier::Soldier(const LoaderParams* Params,int x_pl,int y_pl,int hp_,int dmg_,int ID):SDLGameObject(Params),hp_max(hp_),dmg(dmg_)
 {
     Map_ID=ID;
+    hp=hp_max;
 
     pos_in_map_x=x_pl;
     pos_in_map_y=y_pl;
@@ -31,7 +32,7 @@ void Soldier::draw()
     SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
 
     SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),255,0,0,255);
-    dst= {tmp_x,tmp_y,hp*80/100,10};
+    dst= {tmp_x,tmp_y,hp*80/hp_max,10};
     SDL_RenderFillRect(Game::GetInstance()->GetRenderer(),&dst);
 
 

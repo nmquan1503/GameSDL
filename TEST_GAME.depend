@@ -742,11 +742,11 @@
 	"GameOverState.h"
 	"Boss.h"
 
-1710941929 source:c:\users\my pc\documents\github\gamesdl\boss.cpp
+1711037062 source:c:\users\my pc\documents\github\gamesdl\boss.cpp
 	"Boss.h"
 	"EspFunction.cpp"
 
-1710956553 c:\users\my pc\documents\github\gamesdl\boss.h
+1711037273 c:\users\my pc\documents\github\gamesdl\boss.h
 	<vector>
 	<iostream>
 	<string.h>
@@ -1212,7 +1212,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1711014950 c:\users\my pc\documents\github\gamesdl\player.h
+1711039832 c:\users\my pc\documents\github\gamesdl\player.h
 	<iostream>
 	<vector>
 	"GameObject.h"
@@ -1275,10 +1275,11 @@
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 
-1710953240 c:\users\my pc\documents\github\gamesdl\menubutton.h
+1711042966 c:\users\my pc\documents\github\gamesdl\menubutton.h
 	"SDL_GameObject.h"
 	"HandleInput.h"
 	"LoaderParams.h"
+	"ManageSound.h"
 
 1711006603 c:\users\my pc\documents\github\gamesdl\menustate.h
 	"GameState.h"
@@ -1325,7 +1326,7 @@
 	"Vector2D.h"
 	"LoaderParams.h"
 
-1708698515 c:\users\my pc\documents\github\gamesdl\instructionstate.h
+1711090751 c:\users\my pc\documents\github\gamesdl\instructionstate.h
 	"GameState.h"
 	"GameObject.h"
 	"ManageTexture.h"
@@ -1341,7 +1342,7 @@
 	"Vector2D.h"
 	"PlayState.h"
 
-1711017097 c:\users\my pc\documents\github\gamesdl\gameoverstate.h
+1711039998 c:\users\my pc\documents\github\gamesdl\gameoverstate.h
 	"GameState.h"
 	"Game.h"
 	"ManageTexture.h"
@@ -1387,7 +1388,7 @@
 	"Vector2D.h"
 	"PlayState.h"
 
-1710786194 c:\users\my pc\documents\github\gamesdl\soldier.h
+1711037062 c:\users\my pc\documents\github\gamesdl\soldier.h
 	<iostream>
 	<vector>
 	"GameObject.h"
@@ -1411,7 +1412,7 @@
 
 1708440549 source:c:\users\my pc\documents\github\gamesdl\gameobject.cpp
 
-1711017097 source:c:\users\my pc\documents\github\gamesdl\gameoverstate.cpp
+1711040499 source:c:\users\my pc\documents\github\gamesdl\gameoverstate.cpp
 	"GameOverState.h"
 	"EspFunction.cpp"
 
@@ -1429,7 +1430,7 @@
 	"HandleInput.h"
 	"Game.h"
 
-1710734868 source:c:\users\my pc\documents\github\gamesdl\instructionstate.cpp
+1711090831 source:c:\users\my pc\documents\github\gamesdl\instructionstate.cpp
 	"InstructionState.h"
 
 1708832754 source:c:\users\my pc\documents\github\gamesdl\loaderparams.cpp
@@ -1446,30 +1447,30 @@
 1710734906 source:c:\users\my pc\documents\github\gamesdl\menubg.cpp
 	"MenuBG.h"
 
-1710955471 source:c:\users\my pc\documents\github\gamesdl\menubutton.cpp
+1711043229 source:c:\users\my pc\documents\github\gamesdl\menubutton.cpp
 	"MenuButton.h"
 
-1711011822 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
+1711090796 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
 	"MenuState.h"
 
 1711012427 source:c:\users\my pc\documents\github\gamesdl\optionsstate.cpp
 	"OptionsState.h"
 
-1711012760 source:c:\users\my pc\documents\github\gamesdl\pausestate.cpp
+1711042833 source:c:\users\my pc\documents\github\gamesdl\pausestate.cpp
 	"PauseState.h"
 
 1709017145 source:c:\users\my pc\documents\github\gamesdl\playbg.cpp
 
-1710959613 source:c:\users\my pc\documents\github\gamesdl\player.cpp
+1711039361 source:c:\users\my pc\documents\github\gamesdl\player.cpp
 	"Player.h"
 	"SDL_GameObject.h"
 	"EspFunction.cpp"
 
-1711017097 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
+1711042038 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
 	"PlayState.h"
 	"EspFunction.cpp"
 
-1711015127 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
+1711042205 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
 	"PlayState_2.h"
 	"EspFunction.cpp"
 
@@ -1479,7 +1480,7 @@
 	"Game.h"
 	"GameObject.h"
 
-1710941455 source:c:\users\my pc\documents\github\gamesdl\soldier.cpp
+1711037062 source:c:\users\my pc\documents\github\gamesdl\soldier.cpp
 	"Soldier.h"
 	"EspFunction.cpp"
 
@@ -1492,7 +1493,7 @@
 1709398580 source:c:\users\my pc\documents\github\gamesdl\npc.cpp
 	"NPC.h"
 
-1709643920 source:c:\users\my pc\documents\github\gamesdl\managesound.cpp
+1711042752 source:c:\users\my pc\documents\github\gamesdl\managesound.cpp
 	"ManageSound.h"
 
 1709643920 c:\users\my pc\documents\github\gamesdl\managesound.h
@@ -1571,7 +1572,7 @@
 	<cstddef>
 	<cstdarg>
 
-1710839294 c:\users\my pc\documents\github\gamesdl\gamedata.h
+1711040013 c:\users\my pc\documents\github\gamesdl\gamedata.h
 	<iostream>
 	<vector>
 	<map>
@@ -1628,7 +1629,7 @@
 	<vector>
 	<iostream>
 
-1711011822 source:c:\users\my pc\documents\github\gamesdl\shopstate.cpp
+1711043373 source:c:\users\my pc\documents\github\gamesdl\shopstate.cpp
 	"ShopState.h"
 
 1711011966 source:c:\users\my pc\documents\github\gamesdl\playerinfo.cpp
@@ -1664,7 +1665,7 @@
 	"SDL_GameObject.h"
 	"LoaderParams.h"
 
-1711017097 source:c:\users\my pc\documents\github\gamesdl\playstate_3.cpp
+1711042433 source:c:\users\my pc\documents\github\gamesdl\playstate_3.cpp
 	"PlayState_3.h"
 	"EspFunction.cpp"
 

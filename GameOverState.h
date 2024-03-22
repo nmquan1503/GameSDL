@@ -43,7 +43,10 @@ public:
     virtual void render();
     virtual bool onEnter();
     virtual bool onExit();
-    virtual std::string GetStateID() const {return p_GameOverID;}
+    virtual std::string GetStateID() const
+    {
+        return p_GameOverID;
+    }
 };
 
 

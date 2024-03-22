@@ -17,7 +17,7 @@
 class Boss : public SDLGameObject
 {
 public:
-    Boss(const LoaderParams* Params,int x_pl,int y_pl,int ID);
+    Boss(const LoaderParams* Params,int x_pl,int y_pl,int hp_,int dmg_,int ID);
     virtual void draw();
     virtual void update();
     virtual void clean();
@@ -38,6 +38,7 @@ public:
     void SetHP(int t){hp+=t;}
 
     int GetHP(){return hp;}
+    int GetDmg(){return dmg;}
 
     std::vector<GameObject*> GetEskill(){return p_eskill;}
     void SetEskill(std::vector<GameObject*>es){p_eskill=es;}
@@ -66,7 +67,9 @@ private:
     int dst_w=0;
     int timeMove=1;
 
-    int hp=10000;
+    int hp_max;
+    int hp;
+    int dmg;
     int mana=200;
 
 

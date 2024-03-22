@@ -14,7 +14,7 @@
 class Soldier : public SDLGameObject
 {
 public:
-    Soldier(const LoaderParams* Params,int x_pl,int y_pl,int ID);
+    Soldier(const LoaderParams* Params,int x_pl,int y_pl,int hp_,int dmg_,int ID);
     virtual void draw();
     virtual void update();
     virtual void clean();
@@ -29,9 +29,10 @@ public:
 
     bool GetATK(){return p_ATKING;}
 
-    void SetHP(int t){hp=std::max(0,std::min(100,hp+t));}
+    void SetHP(int t){hp=std::max(0,std::min(hp_max,hp+t));}
 
     int GetHP(){return hp;}
+    int GetDmg(){return dmg;}
 
     //Vector2D GetPos(){return p_pos;}
 
@@ -60,7 +61,9 @@ private:
     int dst_w=0;
     int timeMove=0;
 
-    int hp=100;
+    int hp_max;
+    int hp;
+    int dmg;
 
     bool p_ATKING=false;
 

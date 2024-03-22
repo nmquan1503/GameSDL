@@ -15,6 +15,9 @@ class InstructionState : public GameState
 private:
     static std::string p_InsID;
     std::vector<GameObject*>p_gameObjects;
+
+    bool p_scrolling=false;
+    int y_scr=115;
 public:
     virtual void update();
     virtual void render();
