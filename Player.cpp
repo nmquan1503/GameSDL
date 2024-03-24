@@ -122,7 +122,7 @@ void Player::update()
         }
     }
 
-    damage=GameData::GetInstance()->GetDamagePlayer();
+    damage=GameData::GetInstance()->GetDamagePlayer()+15*GameData::GetInstance()->GetLevelDart()*GameData::GetInstance()->GetLevelDart()-15*GameData::GetInstance()->GetLevelDart()+10;
     if(checkExistItem("hp_x2",p_sp_item)==false)
     {
         hp_max=GameData::GetInstance()->GetHpPlayer();
