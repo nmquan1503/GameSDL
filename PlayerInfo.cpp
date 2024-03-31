@@ -7,6 +7,8 @@ int PlayerInfo::dart_rate;
 int PlayerInfo::dmg_rate;
 int PlayerInfo::hp_rate;
 int PlayerInfo::mana_rate;
+std::vector<GameObject*> PlayerInfo::p_gameObjects;
+std::vector<GameObject*> PlayerInfo::p_animation;
 
 PlayerInfo::PlayerInfo()
 {
@@ -33,15 +35,17 @@ void PlayerInfo::update()
         {
 
 
-        p_scrolling=true;
-        int y_new=std::max(115,std::min((int)(vec->GetY()-150),285));
-        static_cast<SDLGameObject*>(p_gameObjects[1])->SetPos(Vector2D(992,y_new));
-        for(int i=0;i<p_gameObjects.size();i++)
-        {
-            if(i!=1)
-                static_cast<MenuButton*>(p_gameObjects[i])->SetVel(Vector2D(0,(-y_new+y_scr)*2));
-        }
-        y_scr=y_new;
+            p_scrolling=true;
+            int y_new=std::max(115,std::min((int)(vec->GetY()-150),285));
+            static_cast<SDLGameObject*>(p_gameObjects[1])->SetPos(Vector2D(992,y_new));
+            for(int i=0; i<p_gameObjects.size(); i++)
+            {
+                if(i!=1)
+                    static_cast<MenuButton*>(p_gameObjects[i])->SetVel(Vector2D(0,(-y_new+y_scr)*2));
+            }
+            for(GameObject* i:p_animation)
+                static_cast<MenuButton*>(i)->SetVel(Vector2D(0,(-y_new+y_scr)*2));
+            y_scr=y_new;
         }
     }
     else
@@ -49,17 +53,17 @@ void PlayerInfo::update()
 
     if(p_scrolling==true||(p_scrolling==false&&vec->GetY()>100))
     {
-    p_gameObjects[0]->update();
-    p_gameObjects[1]->update();
-    if(GameData::GetInstance()->GetLevelDart()<3)p_gameObjects[2]->update();
-    if(GameData::GetInstance()->GetDamagePlayer()<400)p_gameObjects[3]->update();
-    if(GameData::GetInstance()->GetHpPlayer()<10000)p_gameObjects[4]->update();
-    if(GameData::GetInstance()->GetManaPlayer()<1000)p_gameObjects[5]->update();
+        p_gameObjects[0]->update();
+        p_gameObjects[1]->update();
+        if(GameData::GetInstance()->GetLevelDart()<3)p_gameObjects[2]->update();
+        if(GameData::GetInstance()->GetDamagePlayer()<400)p_gameObjects[3]->update();
+        if(GameData::GetInstance()->GetHpPlayer()<10000)p_gameObjects[4]->update();
+        if(GameData::GetInstance()->GetManaPlayer()<1000)p_gameObjects[5]->update();
     }
     for(GameObject* i:p_gameObjects)
         static_cast<MenuButton*>(i)->SetVel(Vector2D(0,0));
 
-    for(int i=0;i<p_notes.size();i++)
+    for(int i=0; i<p_notes.size(); i++)
     {
         if(p_notes[i]->GetTime()>=12)
         {
@@ -69,6 +73,16 @@ void PlayerInfo::update()
         }
     }
     for(Note* i:p_notes)
+        i->update();
+    for(int i=0; i<p_animation.size(); i++)
+    {
+        if(static_cast<Animation*>(p_animation[i])->GetTime()>=5)
+        {
+            p_animation.erase(p_animation.begin()+i);
+            i--;
+        }
+    }
+    for(GameObject* i:p_animation)
         i->update();
 }
 
@@ -81,86 +95,86 @@ void PlayerInfo::render()
     if(GameData::GetInstance()->GetLevelDart()<3)
     {
         int tmp=GameData::GetInstance()->GetLevelDart();
-            ManageFont::GetInstance()->drawTextBlended("font2","Level: "+std::to_string(tmp)+" (Damage: "+std::to_string(15*tmp*tmp-15*tmp+10)+")"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+180,
-                                                       Game::GetInstance()->GetRenderer());
-            ManageFont::GetInstance()->drawTextBlended("font2","Upgrade:+1(Dmg:+"+std::to_string(30*tmp)+")"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+210,
-                                                       Game::GetInstance()->GetRenderer());
-            ManageFont::GetInstance()->drawTextBlended("font2","Rate: "+std::to_string(dart_rate)+"%"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+240,
-                                                       Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Level: "+std::to_string(tmp)+" (Damage: "+std::to_string(15*tmp*tmp-15*tmp+10)+")"
+                , {255,255,0,255},
+                335,v.GetY()+180,
+                Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Upgrade:+1(Dmg:+"+std::to_string(30*tmp)+")"
+                , {255,255,0,255},
+                335,v.GetY()+210,
+                Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Rate: "+std::to_string(dart_rate)+"%"
+                , {255,255,0,255},
+                335,v.GetY()+240,
+                Game::GetInstance()->GetRenderer());
     }
     else ManageFont::GetInstance()->drawTextBlended("font2","Level: Max(Damage:100)",
-                                                    {255,255,0,255},
-                                                    335,v.GetY()+210,
-                                                    Game::GetInstance()->GetRenderer());
+    {255,255,0,255},
+    335,v.GetY()+210,
+    Game::GetInstance()->GetRenderer());
 
     if(GameData::GetInstance()->GetDamagePlayer()<400)
     {
         int tmp=GameData::GetInstance()->GetDamagePlayer();
-            ManageFont::GetInstance()->drawTextBlended("font2","Damage: "+std::to_string(tmp)
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+380,
-                                                       Game::GetInstance()->GetRenderer());
-            ManageFont::GetInstance()->drawTextBlended("font2","Upgrade: +20"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+410,
-                                                       Game::GetInstance()->GetRenderer());
-            ManageFont::GetInstance()->drawTextBlended("font2","Rate: "+std::to_string(dmg_rate)+"%"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+440,
-                                                       Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Damage: "+std::to_string(tmp)
+                , {255,255,0,255},
+                335,v.GetY()+380,
+                Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Upgrade: +20"
+                , {255,255,0,255},
+                335,v.GetY()+410,
+                Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Rate: "+std::to_string(dmg_rate)+"%"
+                , {255,255,0,255},
+                335,v.GetY()+440,
+                Game::GetInstance()->GetRenderer());
     }
     else ManageFont::GetInstance()->drawTextBlended("font2","Level: Max(Damage:400)",
-                                                    {255,255,0,255},
-                                                    335,v.GetY()+410,
-                                                    Game::GetInstance()->GetRenderer());
+    {255,255,0,255},
+    335,v.GetY()+410,
+    Game::GetInstance()->GetRenderer());
 
     if(GameData::GetInstance()->GetHpPlayer()<10000)
     {
         int tmp=GameData::GetInstance()->GetHpPlayer();
-            ManageFont::GetInstance()->drawTextBlended("font2","HP: "+std::to_string(tmp)
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+580,
-                                                       Game::GetInstance()->GetRenderer());
-            ManageFont::GetInstance()->drawTextBlended("font2","Upgrade:+500"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+610,
-                                                       Game::GetInstance()->GetRenderer());
-            ManageFont::GetInstance()->drawTextBlended("font2","Rate: "+std::to_string(hp_rate)+"%"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+640,
-                                                       Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","HP: "+std::to_string(tmp)
+                , {255,255,0,255},
+                335,v.GetY()+580,
+                Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Upgrade:+500"
+                , {255,255,0,255},
+                335,v.GetY()+610,
+                Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Rate: "+std::to_string(hp_rate)+"%"
+                , {255,255,0,255},
+                335,v.GetY()+640,
+                Game::GetInstance()->GetRenderer());
     }
     else ManageFont::GetInstance()->drawTextBlended("font2","Level: Max(HP:10000)",
-                                                    {255,255,0,255},
-                                                    335,v.GetY()+610,
-                                                    Game::GetInstance()->GetRenderer());
+    {255,255,0,255},
+    335,v.GetY()+610,
+    Game::GetInstance()->GetRenderer());
 
     if(GameData::GetInstance()->GetManaPlayer()<1000)
     {
         int tmp=GameData::GetInstance()->GetManaPlayer();
-            ManageFont::GetInstance()->drawTextBlended("font2","Mana: "+std::to_string(tmp)
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+780,
-                                                       Game::GetInstance()->GetRenderer());
-            ManageFont::GetInstance()->drawTextBlended("font2","Upgrade:+50"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+810,
-                                                       Game::GetInstance()->GetRenderer());
-            ManageFont::GetInstance()->drawTextBlended("font2","Rate: "+std::to_string(mana_rate)+"%"
-                                                       ,{255,255,0,255},
-                                                       335,v.GetY()+840,
-                                                       Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Mana: "+std::to_string(tmp)
+                , {255,255,0,255},
+                335,v.GetY()+780,
+                Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Upgrade:+50"
+                , {255,255,0,255},
+                335,v.GetY()+810,
+                Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2","Rate: "+std::to_string(mana_rate)+"%"
+                , {255,255,0,255},
+                335,v.GetY()+840,
+                Game::GetInstance()->GetRenderer());
     }
     else ManageFont::GetInstance()->drawTextBlended("font2","Level: Max(Mana:1000)",
-                                                    {255,255,0,255},
-                                                    335,v.GetY()+810,
-                                                    Game::GetInstance()->GetRenderer());
+    {255,255,0,255},
+    335,v.GetY()+810,
+    Game::GetInstance()->GetRenderer());
 
     ManageTexture::GetInstance()->draw("scroll1",990,113,25,474,Game::GetInstance()->GetRenderer(),true);
 
@@ -172,9 +186,12 @@ void PlayerInfo::render()
 
     ManageTexture::GetInstance()->draw("gold_data",770,150,110,50,Game::GetInstance()->GetRenderer(),true);
     ManageTexture::GetInstance()->draw("gem_data",770,210,110,50,Game::GetInstance()->GetRenderer(),true);
-    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGold()),{255,255,0,255},820,160,Game::GetInstance()->GetRenderer());
-    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGem()),{255,255,0,255},820,220,Game::GetInstance()->GetRenderer());
+    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGold()), {255,255,0,255},820,160,Game::GetInstance()->GetRenderer());
+    ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGem()), {255,255,0,255},820,220,Game::GetInstance()->GetRenderer());
 
+
+    for(GameObject* i:p_animation)
+        i->draw();
 
     ManageTexture::GetInstance()->draw("upgrade2",0,0,1020,124,Game::GetInstance()->GetRenderer(),true);
     ManageTexture::GetInstance()->draw("return",0,0,60,60,Game::GetInstance()->GetRenderer(),true);
@@ -196,9 +213,12 @@ bool PlayerInfo::onEnter()
     //ManageTexture::GetInstance()->load("Image/return.png","return",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/upgrade2.png","upgrade2",Game::GetInstance()->GetRenderer());
     //ManageTexture::GetInstance()->load("Image/menu_upgrade.png","menu_upgrade",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/succeed_upgrade.png","succeed_upgrade",Game::GetInstance()->GetRenderer());
 
     ManageFont::GetInstance()->load("Font/Fz-Futura-Maxi.ttf","font2",20);
     ManageFont::GetInstance()->load("Font/SuperSquadItalic.ttf","font1",25);
+
+    ManageSound::GetInstance()->load("Audio/succeed_upgrade.mp3","succeed_upgrade",SOUND_SFX);
 
     p_gameObjects.push_back(new SDLGameObject(new LoaderParams(0,0,1020,1140,"upgrade")));
     p_gameObjects.push_back(new SDLGameObject(new LoaderParams(992,115,21,300,"scroll2")));
@@ -238,9 +258,12 @@ bool PlayerInfo::onExit()
     //ManageTexture::GetInstance()->clearFromTexMap("return");
     ManageTexture::GetInstance()->clearFromTexMap("upgrade2");
     //ManageTexture::GetInstance()->clearFromTexMap("menu_upgrade");
+    ManageTexture::GetInstance()->clearFromTexMap("succeed_upgrade");
 
     ManageFont::GetInstance()->clearFromFontMap("font2");
     ManageFont::GetInstance()->clearFromFontMap("font1");
+
+    ManageSound::GetInstance()->clearFromSFXMap("succeed_upgrade");
 
 
     return true;
@@ -255,16 +278,18 @@ void PlayerInfo::p_upgradeHP()
         {
             GameData::GetInstance()->SetHpPlayer(500);
             GameData::GetInstance()->SetGold(-100);
-            p_notes.push_back(new Note("font1","Upgrade successful!",510,150,800,{255,0,0,255}));
+            p_notes.push_back(new Note("font1","Upgrade successful!",510,150,800, {255,0,0,255}));
+            p_animation.push_back(new Animation(new LoaderParams(212,static_cast<SDLGameObject*>(p_gameObjects[0])->GetPos().GetY()+600,50,50,"succeed_upgrade"),6));
+            ManageSound::GetInstance()->playSound("succeed_upgrade",0);
             hp_rate-=5;
         }
         else
         {
             GameData::GetInstance()->SetGold(-100);
-            p_notes.push_back(new Note("font1","Failed.",510,150,800,{255,0,0,255}));
+            p_notes.push_back(new Note("font1","Failed.",510,150,800, {255,0,0,255}));
         }
     }
-    else p_notes.push_back(new Note("font1","You don't have enough money",510,150,800,{255,0,0,255}));
+    else p_notes.push_back(new Note("font1","You don't have enough money",510,150,800, {255,0,0,255}));
 }
 
 void PlayerInfo::p_upgradeMana()
@@ -276,16 +301,18 @@ void PlayerInfo::p_upgradeMana()
         {
             GameData::GetInstance()->SetManaPlayer(50);
             GameData::GetInstance()->SetGold(-100);
-            p_notes.push_back(new Note("font1","Upgrade successful!",510,150,800,{255,0,0,255}));
+            p_notes.push_back(new Note("font1","Upgrade successful!",510,150,800, {255,0,0,255}));
+            p_animation.push_back(new Animation(new LoaderParams(212,static_cast<SDLGameObject*>(p_gameObjects[0])->GetPos().GetY()+800,50,50,"succeed_upgrade"),6));
+            ManageSound::GetInstance()->playSound("succeed_upgrade",0);
             mana_rate-=5;
         }
         else
         {
             GameData::GetInstance()->SetGold(-100);
-            p_notes.push_back(new Note("font1","Failed.",510,150,800,{255,0,0,255}));
+            p_notes.push_back(new Note("font1","Failed.",510,150,800, {255,0,0,255}));
         }
     }
-    else p_notes.push_back(new Note("font1","You don't have enough money",510,150,800,{255,0,0,255}));
+    else p_notes.push_back(new Note("font1","You don't have enough money",510,150,800, {255,0,0,255}));
 }
 
 void PlayerInfo::p_upgradeDmg()
@@ -297,16 +324,18 @@ void PlayerInfo::p_upgradeDmg()
         {
             GameData::GetInstance()->SetDamagePlayer(20);
             GameData::GetInstance()->SetGem(-2);
-            p_notes.push_back(new Note("font1","Upgrade successful!",510,150,800,{255,0,0,255}));
+            p_notes.push_back(new Note("font1","Upgrade successful!",510,150,800, {255,0,0,255}));
+            p_animation.push_back(new Animation(new LoaderParams(210,static_cast<SDLGameObject*>(p_gameObjects[0])->GetPos().GetY()+400,50,50,"succeed_upgrade"),6));
+            ManageSound::GetInstance()->playSound("succeed_upgrade",0);
             dmg_rate-=5;
         }
         else
         {
             GameData::GetInstance()->SetGem(-2);
-            p_notes.push_back(new Note("font1","Failed.",510,150,800,{255,0,0,255}));
+            p_notes.push_back(new Note("font1","Failed.",510,150,800, {255,0,0,255}));
         }
     }
-    else p_notes.push_back(new Note("font1","You don't have enough money",510,150,800,{255,0,0,255}));
+    else p_notes.push_back(new Note("font1","You don't have enough money",510,150,800, {255,0,0,255}));
 }
 
 void PlayerInfo::p_upgradeDart()
@@ -318,14 +347,16 @@ void PlayerInfo::p_upgradeDart()
         {
             GameData::GetInstance()->SetLevelDart(1);
             GameData::GetInstance()->SetGem(-2);
-            p_notes.push_back(new Note("font1","Upgrade successful!",510,150,800,{255,0,0,255}));
+            p_notes.push_back(new Note("font1","Upgrade successful!",510,150,800, {255,0,0,255}));
+            p_animation.push_back(new Animation(new LoaderParams(210,static_cast<SDLGameObject*>(p_gameObjects[0])->GetPos().GetY()+200,50,50,"succeed_upgrade"),6));
+            ManageSound::GetInstance()->playSound("succeed_upgrade",0);
             dart_rate-=30;
         }
         else
         {
             GameData::GetInstance()->SetGem(-2);
-            p_notes.push_back(new Note("font1","Failed.",510,150,800,{255,0,0,255}));
+            p_notes.push_back(new Note("font1","Failed.",510,150,800, {255,0,0,255}));
         }
     }
-    else p_notes.push_back(new Note("font1","You don't have enough money",510,150,800,{255,0,0,255}));
+    else p_notes.push_back(new Note("font1","You don't have enough money",510,150,800, {255,0,0,255}));
 }

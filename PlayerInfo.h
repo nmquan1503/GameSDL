@@ -8,6 +8,8 @@
 #include "ManageTexture.h"
 #include "GameObject.h"
 #include "Note.h"
+#include "Animation.h"
+#include "ManageSound.h"
 
 #include <iostream>
 #include <string>
@@ -28,8 +30,9 @@ private:
     static int dart_rate;
 
     static std::string p_PlInfo;
-    std::vector<GameObject*> p_gameObjects;
+    static std::vector<GameObject*> p_gameObjects;
     static std::vector<Note*> p_notes;
+    static std::vector<GameObject*> p_animation;
 public:
     PlayerInfo();
 
