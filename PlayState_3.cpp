@@ -13,15 +13,15 @@ void PlayState3::update()
         GameData::GetInstance()->SetGem(static_cast<Player*>(p_player)->GetGem());
         GameData::GetInstance()->SetHpSpell(static_cast<Player*>(p_player)->GetHpSpell()-GameData::GetInstance()->GetHpSpell());
         GameData::GetInstance()->SetManaSpell(static_cast<Player*>(p_player)->GetManaSpell()-GameData::GetInstance()->GetManaSpell());
-                GameData::GetInstance()->SetDamageSpell(static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell());
-                        GameData::GetInstance()->SetSpeedSpell(static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell());
-                GameData::GetInstance()->SetHpX2(static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2());
-                GameData::GetInstance()->SetManaX2(static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2());
+        GameData::GetInstance()->SetDamageSpell(static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell());
+        GameData::GetInstance()->SetSpeedSpell(static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell());
+        GameData::GetInstance()->SetHpX2(static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2());
+        GameData::GetInstance()->SetManaX2(static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2());
 
 
         if(p_score<GameData::GetInstance()->GetBestScore()||(p_score==GameData::GetInstance()->GetBestScore()&&p_time>=GameData::GetInstance()->GetBestTime()))
-            Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),p_score,p_time,3));
-        else Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"best_achievement",600,200,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),p_score,p_time,3));
+            Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),p_score,p_time,3,DIE));
+        else Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"best_achievement",600,200,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),p_score,p_time,3,DIE));
     }
     else if(runTime==false)
     {
@@ -40,7 +40,17 @@ void PlayState3::update()
     if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_ESCAPE)||(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>955&&vec->GetX()<1015&&vec->GetY()>10&&vec->GetY()<70))
     {
         runTime=false;
-        Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer()),3));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer()),3,
+                static_cast<Player*>(p_player)->GetGold(),
+                static_cast<Player*>(p_player)->GetGem(),
+                p_time,p_score,
+                static_cast<Player*>(p_player)->GetHpSpell()-GameData::GetInstance()->GetHpSpell(),
+                static_cast<Player*>(p_player)->GetManaSpell()-GameData::GetInstance()->GetManaSpell(),
+                static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell(),
+                static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell(),
+                static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2(),
+                static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2()
+                                                                            ));
     }
 
     p_start_loop=SDL_GetTicks();
@@ -286,8 +296,8 @@ void PlayState3::update()
             {
                 int t=rand()%20+90;
                 int k=static_cast<Boss*>(p_boss[i])->GetDmg();
-            static_cast<Player*>(p_player)->SetHP(-k*t/100);
-            static_cast<Player*>(p_player)->push_hp_lose(-k*t/100);
+                static_cast<Player*>(p_player)->SetHP(-k*t/100);
+                static_cast<Player*>(p_player)->push_hp_lose(-k*t/100);
             }
         }
         if(static_cast<Boss*>(p_boss[i])->GetHP()<=0)

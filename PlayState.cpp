@@ -50,14 +50,14 @@ void PlayState::update()
         GameData::GetInstance()->SetGem(static_cast<Player*>(p_player)->GetGem());
         GameData::GetInstance()->SetHpSpell(static_cast<Player*>(p_player)->GetHpSpell()-GameData::GetInstance()->GetHpSpell());
         GameData::GetInstance()->SetManaSpell(static_cast<Player*>(p_player)->GetManaSpell()-GameData::GetInstance()->GetManaSpell());
-                GameData::GetInstance()->SetDamageSpell(static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell());
-                        GameData::GetInstance()->SetSpeedSpell(static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell());
-                GameData::GetInstance()->SetHpX2(static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2());
-                GameData::GetInstance()->SetManaX2(static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2());
+        GameData::GetInstance()->SetDamageSpell(static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell());
+        GameData::GetInstance()->SetSpeedSpell(static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell());
+        GameData::GetInstance()->SetHpX2(static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2());
+        GameData::GetInstance()->SetManaX2(static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2());
 
 
 
-        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),-1,-1,1));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(blindTex(Game::GetInstance()->GetRenderer()),"gameover",588,60,static_cast<Player*>(p_player)->GetGold(),static_cast<Player*>(p_player)->GetGem(),-1,-1,1,DIE));
     }
 
 
@@ -70,7 +70,17 @@ void PlayState::update()
     if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_ESCAPE)||(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()>955&&vec->GetX()<1015&&vec->GetY()>10&&vec->GetY()<70))
     {
 
-        Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer()),1));
+        Game::GetInstance()->GetGameStateMachine()->pushState(new PauseState(blindTex(Game::GetInstance()->GetRenderer()),1,
+                static_cast<Player*>(p_player)->GetGold(),
+                static_cast<Player*>(p_player)->GetGem(),
+                -1,-1,
+                static_cast<Player*>(p_player)->GetHpSpell()-GameData::GetInstance()->GetHpSpell(),
+                static_cast<Player*>(p_player)->GetManaSpell()-GameData::GetInstance()->GetManaSpell(),
+                static_cast<Player*>(p_player)->GetSpeedSpell()-GameData::GetInstance()->GetSpeedSpell(),
+                static_cast<Player*>(p_player)->GetDmgSpell()-GameData::GetInstance()->GetDamageSpell(),
+                static_cast<Player*>(p_player)->GetHPX2()-GameData::GetInstance()->GetHpX2(),
+                static_cast<Player*>(p_player)->GetManaX2()-GameData::GetInstance()->GetManaX2()
+                                                                            ));
     }
 
 

@@ -32,11 +32,24 @@ private:
 
     std::vector<GameObject* >p_gameObjects;
 
-    SDL_Texture* p_tex;
+    static SDL_Texture* p_tex;
 
     static int Map_ID;
+
+    static int p_gold;
+    static int p_gem;
+    static int p_time;
+    static int p_score;
+    static int p_hp_spell;
+    static int p_mana_spell;
+    static int p_speed_spell;
+    static int p_dmg_spell;
+    static int p_hp_x2;
+    static int p_mana_x2;
 public:
-    PauseState(SDL_Texture* tex,int ID);
+    PauseState(SDL_Texture* tex,int ID,int gold,int gem,int time,int score,
+                                int hp_spell,int mana_spell,int speed_spell,
+                                int dmg_spell,int hp_x2,int mana_x2);
 
     virtual void update();
     virtual void render();

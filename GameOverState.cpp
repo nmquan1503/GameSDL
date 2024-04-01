@@ -4,7 +4,7 @@
 std::string GameOverState::p_GameOverID="GAMEOVER";
 int GameOverState::Map_ID;
 
-GameOverState:: GameOverState(SDL_Texture* tex,std::string texID,int w,int h,int gold,int gem,int score,int time,int ID):p_tex(tex),p_TexID(texID),p_w(w),p_h(h),p_gold(gold),p_gem(gem),p_score(score),p_time(time)
+GameOverState:: GameOverState(SDL_Texture* tex,std::string texID,int w,int h,int gold,int gem,int score,int time,int ID,int type):p_tex(tex),p_TexID(texID),p_w(w),p_h(h),p_gold(gold),p_gem(gem),p_score(score),p_time(time),p_type(type)
 {
     t=0;
     Map_ID=ID;
@@ -81,16 +81,33 @@ bool GameOverState::onEnter()
     ManageFont::GetInstance()->load("Font/Fz-Futura-Maxi.ttf","font2",20);
     ManageFont::GetInstance()->load("Font/Lora-Bold.ttf","font3",20);
 
+    ManageSound::GetInstance()->load("Audio/button.mp3","button",SOUND_SFX);
 
-    if(p_score>=0)
+
+    if(p_type==HOME)
     {
-        p_gameObjects.push_back(new MenuButton(new LoaderParams(250,(600-p_h)/2-80+p_h+180,250,60,"restart"),p_toRestart));
-        p_gameObjects.push_back(new MenuButton(new LoaderParams(520,(600-p_h)/2-80+p_h+180,250,60,"home"),p_toHome));
+        if(p_score>=0)
+        {
+            p_gameObjects.push_back(new MenuButton(new LoaderParams(385,(600-p_h)/2-80+p_h+180,250,60,"home"),p_toHome));
+        }
+        else
+        {
+            p_gameObjects.push_back(new MenuButton(new LoaderParams(385,(600-p_h)/2-80+p_h+50,250,60,"home"),p_toHome));
+        }
     }
-    else
+    else if(p_type==DIE)
     {
-        p_gameObjects.push_back(new MenuButton(new LoaderParams(250,(600-p_h)/2-80+p_h+50,250,60,"restart"),p_toRestart));
-        p_gameObjects.push_back(new MenuButton(new LoaderParams(520,(600-p_h)/2-80+p_h+50,250,60,"home"),p_toHome));
+
+        if(p_score>=0)
+        {
+            p_gameObjects.push_back(new MenuButton(new LoaderParams(250,(600-p_h)/2-80+p_h+180,250,60,"restart"),p_toRestart));
+            p_gameObjects.push_back(new MenuButton(new LoaderParams(520,(600-p_h)/2-80+p_h+180,250,60,"home"),p_toHome));
+        }
+        else
+        {
+            p_gameObjects.push_back(new MenuButton(new LoaderParams(250,(600-p_h)/2-80+p_h+50,250,60,"restart"),p_toRestart));
+            p_gameObjects.push_back(new MenuButton(new LoaderParams(520,(600-p_h)/2-80+p_h+50,250,60,"home"),p_toHome));
+        }
     }
 
     return true;
@@ -110,6 +127,8 @@ bool GameOverState::onExit()
     ManageFont::GetInstance()->clearFromFontMap("font1");
     ManageFont::GetInstance()->clearFromFontMap("font2");
     ManageFont::GetInstance()->clearFromFontMap("font3");
+
+    ManageSound::GetInstance()->clearFromSFXMap("button");
 
     if(p_score>GameData::GetInstance()->GetBestScore()||(p_score==GameData::GetInstance()->GetBestScore()&&p_time<GameData::GetInstance()->GetBestTime()))
     {

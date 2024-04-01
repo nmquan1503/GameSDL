@@ -3,11 +3,35 @@
 
 std::string PauseState::p_PauseID="PAUSE";
 int PauseState::Map_ID;
+int PauseState::p_gold;
+int PauseState::p_gem;
+int PauseState::p_time;
+int PauseState::p_score;
+int PauseState::p_hp_spell;
+int PauseState::p_mana_spell;
+int PauseState::p_speed_spell;
+int PauseState::p_dmg_spell;
+int PauseState::p_hp_x2;
+int PauseState::p_mana_x2;
+SDL_Texture* PauseState::p_tex;
 
-PauseState::PauseState(SDL_Texture* tex,int ID):p_tex(tex)
+PauseState::PauseState(SDL_Texture* tex,int ID,int gold,int gem,int time,int score,
+                       int hp_spell,int mana_spell,int speed_spell,
+                       int dmg_spell,int hp_x2,int mana_x2)
 {
     ManageTexture::GetInstance()->loadFromTex(p_tex,"blind",Game::GetInstance()->GetRenderer());
     Map_ID=ID;
+    p_gold=gold;
+    p_gem=gem;
+    p_time=time;
+    p_score=score;
+    p_hp_spell=hp_spell;
+    p_mana_spell=mana_spell;
+    p_speed_spell=speed_spell;
+    p_dmg_spell=dmg_spell;
+    p_hp_x2=hp_x2;
+    p_mana_x2=mana_x2;
+    p_tex=tex;
 }
 
 void PauseState::p_Pause()
@@ -22,8 +46,29 @@ void PauseState::p_pauseToResume()
 
 void PauseState::p_pauseToHome()
 {
-    Game::GetInstance()->GetGameStateMachine()->clearAllState();
-    Game::GetInstance()->GetGameStateMachine()->changeState(new MenuState());
+    GameData::GetInstance()->SetGold(p_gold);
+    GameData::GetInstance()->SetGem(p_gem);
+    GameData::GetInstance()->SetHpSpell(p_hp_spell);
+    GameData::GetInstance()->SetManaSpell(p_mana_spell);
+    GameData::GetInstance()->SetSpeedSpell(p_speed_spell);
+    GameData::GetInstance()->SetDamageSpell(p_dmg_spell);
+    GameData::GetInstance()->SetHpX2(p_hp_x2);
+    GameData::GetInstance()->SetManaX2(p_mana_x2);
+
+    //Game::GetInstance()->GetGameStateMachine()->clearAllState();
+
+    if(Map_ID==3)
+    {
+
+        if(GameData::GetInstance()->GetBestScore()>p_score||(GameData::GetInstance()->GetBestScore()==p_score&&GameData::GetInstance()->GetBestTime()<p_time))
+            Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(p_tex,"gameover",588,60,p_gold,p_gem,p_score,p_time,3,HOME));
+        else Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(p_tex,"best_achievement",600,200,p_gold,p_gem,p_score,p_time,3,HOME));
+    }
+    else if(Map_ID==1)
+    {
+        Game::GetInstance()->GetGameStateMachine()->pushState(new GameOverState(p_tex,"gameover",588,60,p_gold,p_gem,p_score,p_time,1,HOME));
+    }
+
 }
 
 void PauseState::p_pauseToRestart()

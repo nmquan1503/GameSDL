@@ -16,6 +16,12 @@
 
 class GameObject;
 
+enum over_type
+{
+    HOME=0,
+    DIE=1
+};
+
 class GameOverState : public GameState
 {
 
@@ -29,6 +35,8 @@ private:
     int p_w,p_h;
     SDL_Texture* p_tex;
 
+    int p_type;
+
     int p_gold;
     int p_gem;
     int p_time;
@@ -38,7 +46,7 @@ private:
 
     int t;
 public:
-    GameOverState(SDL_Texture* tex,std::string texID,int w,int h,int gold,int gem,int score,int time,int ID);
+    GameOverState(SDL_Texture* tex,std::string texID,int w,int h,int gold,int gem,int score,int time,int ID,int type);
     virtual void update();
     virtual void render();
     virtual bool onEnter();
