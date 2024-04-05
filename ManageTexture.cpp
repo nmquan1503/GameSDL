@@ -19,7 +19,7 @@ bool ManageTexture::load(std::string file_name,std::string id,SDL_Renderer* rend
 
 bool ManageTexture::loadFromTex(SDL_Texture* tex,std::string id,SDL_Renderer* renderer)
 {
-    if(tex!=0)
+    if(tex!=NULL)
     {
         TexMap[id]=tex;
         return true;
@@ -73,6 +73,13 @@ void ManageTexture::clearFromTexMap(std::string TexID)
     {
         TexMap.erase(TexID);
     }
+}
+
+void ManageTexture::drawXPls(std::string id,int x,int y,int w,int h,int x_pls,SDL_Renderer* renderer)
+{
+    SDL_Rect scr={x_pls,0,w,h};
+    SDL_Rect dst={x,y,w,h};
+    SDL_RenderCopy(renderer,TexMap[id],&scr,&dst);
 }
 
 ManageTexture* ManageTexture::GetInstance()

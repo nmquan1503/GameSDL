@@ -1,6 +1,6 @@
 <game_data>
-    <gold quantity="9987508"/>
-    <gem quantity="999801"/>
+    <gold quantity="9986208"/>
+    <gem quantity="999795"/>
     <spells>
         <spell type="hp" quantity="0"/>
         <spell type="mana" quantity="0"/>
@@ -10,9 +10,9 @@
         <spell type="speed" quantity="0"/>
     </spells>
     <player>
-        <attribute type="hp" quantity="4500"/>
-        <attribute type="mana" quantity="750"/>
-        <attribute type="damage" quantity="400"/>
+        <attribute type="hp" quantity="5500"/>
+        <attribute type="mana" quantity="200"/>
+        <attribute type="damage" quantity="40"/>
         <attribute type="speed" quantity="15"/>
         <attribute type="dart" quantity="3"/>
     </player>

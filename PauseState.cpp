@@ -19,7 +19,6 @@ PauseState::PauseState(SDL_Texture* tex,int ID,int gold,int gem,int time,int sco
                        int hp_spell,int mana_spell,int speed_spell,
                        int dmg_spell,int hp_x2,int mana_x2)
 {
-    ManageTexture::GetInstance()->loadFromTex(p_tex,"blind",Game::GetInstance()->GetRenderer());
     Map_ID=ID;
     p_gold=gold;
     p_gem=gem;
@@ -32,6 +31,7 @@ PauseState::PauseState(SDL_Texture* tex,int ID,int gold,int gem,int time,int sco
     p_hp_x2=hp_x2;
     p_mana_x2=mana_x2;
     p_tex=tex;
+    ManageTexture::GetInstance()->loadFromTex(p_tex,"blind",Game::GetInstance()->GetRenderer());
 }
 
 void PauseState::p_Pause()
@@ -82,7 +82,7 @@ void PauseState::p_pauseToRestart()
 
 void PauseState::p_pauseToOptions()
 {
-    Game::GetInstance()->GetGameStateMachine()->pushState(new OptionsState(new MenuBG(new LoaderParams(0,0,1020,600,"blind"),0)));
+    Game::GetInstance()->GetGameStateMachine()->pushState(new OptionsState(new MenuBG(new LoaderParams(0,0,1020,600,"blind"),0,1020)));
 }
 
 void PauseState::update()

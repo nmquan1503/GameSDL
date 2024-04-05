@@ -83,7 +83,7 @@ bool MenuState::onEnter()
 
     ManageSound::GetInstance()->playMusic("soundmenu",-1);
 
-    p_gameObjects.push_back(new MenuBG(new LoaderParams(0,0,2040,600,"bgmenu"),-5));
+    p_gameObjects.push_back(new MenuBG(new LoaderParams(0,0,1020,600,"bgmenu"),5,2040));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,270,250,60,"play"),p_menuToPlay));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,340,250,60,"options"),p_menuToOptions));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,410,250,60,"instructions"),p_menuToInstruction));

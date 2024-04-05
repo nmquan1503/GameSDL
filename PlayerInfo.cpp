@@ -49,6 +49,7 @@ void PlayerInfo::update()
             row_player=1;
             frame_player=(++frame_player)%5;
         }
+        p_gameObjects[6]->update();
         p_gameObjects.back()->update();
     }
 
@@ -92,7 +93,7 @@ void PlayerInfo::update()
             if(GameData::GetInstance()->GetDamagePlayer()<400)p_gameObjects[3]->update();
             if(GameData::GetInstance()->GetHpPlayer()<10000)p_gameObjects[4]->update();
             if(GameData::GetInstance()->GetManaPlayer()<1000)p_gameObjects[5]->update();
-            p_gameObjects[6]->update();
+            p_gameObjects.back()->update();
         }
 
         for(int i=0; i<p_gameObjects.size(); i++)
@@ -128,19 +129,21 @@ void PlayerInfo::render()
     if(view==true)
     {
         SDL_RenderCopy(Game::GetInstance()->GetRenderer(),tex,NULL,NULL);
+        p_gameObjects[6]->draw();
+        ManageTexture::GetInstance()->drawFull("bogoc3",150,140,720,320,Game::GetInstance()->GetRenderer());
         if(GameData::GetInstance()->GetHpPlayer()<5000)
-            ManageTexture::GetInstance()->drawFrame("player1",300,200,50,75,frame_player,row_player,
+            ManageTexture::GetInstance()->drawFrame("player1",300,296,50,75,frame_player,row_player,
                                                     Game::GetInstance()->GetRenderer(),true);
-        else ManageTexture::GetInstance()->drawFrame("player2",300,200,50,75,frame_player,row_player,
+        else ManageTexture::GetInstance()->drawFrame("player2",300,296,50,75,frame_player,row_player,
                     Game::GetInstance()->GetRenderer(),true);
 
         if(GameData::GetInstance()->GetLevelDart()==1)
-            ManageTexture::GetInstance()->drawFrame("dart",360+distance_dart*20,230,25,25,distance_dart%2,
+            ManageTexture::GetInstance()->drawFrame("dart",360+distance_dart*20,325,25,25,distance_dart%2,
                                                     0,Game::GetInstance()->GetRenderer(),true);
         else if(GameData::GetInstance()->GetLevelDart()==2)
-            ManageTexture::GetInstance()->drawFrame("dart_2",360+distance_dart*20,230,25,25,distance_dart%2,
+            ManageTexture::GetInstance()->drawFrame("dart_2",360+distance_dart*20,325,25,25,distance_dart%2,
                                                     0,Game::GetInstance()->GetRenderer(),true);
-        else ManageTexture::GetInstance()->drawFrame("dart_3",360+distance_dart*20,230,35,35,distance_dart%2,
+        else ManageTexture::GetInstance()->drawFrame("dart_3",360+distance_dart*20,325,35,35,distance_dart%2,
                     0,Game::GetInstance()->GetRenderer(),true);
 
         p_gameObjects.back()->draw();
@@ -244,10 +247,10 @@ void PlayerInfo::render()
         if(GameData::GetInstance()->GetHpPlayer()<10000)p_gameObjects[4]->draw();
         if(GameData::GetInstance()->GetManaPlayer()<1000)p_gameObjects[5]->draw();
 
-        ManageTexture::GetInstance()->draw("gold_data",770,150,110,50,Game::GetInstance()->GetRenderer(),true);
-        ManageTexture::GetInstance()->draw("gem_data",770,210,110,50,Game::GetInstance()->GetRenderer(),true);
-        ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGold()), {255,255,0,255},820,160,Game::GetInstance()->GetRenderer());
-        ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGem()), {255,255,0,255},820,220,Game::GetInstance()->GetRenderer());
+        ManageTexture::GetInstance()->draw("gold_data",800,320,110,50,Game::GetInstance()->GetRenderer(),true);
+        ManageTexture::GetInstance()->draw("gem_data",800,380,110,50,Game::GetInstance()->GetRenderer(),true);
+        ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGold()), {255,255,0,255},850,330,Game::GetInstance()->GetRenderer());
+        ManageFont::GetInstance()->drawTextBlended("font2",std::to_string(GameData::GetInstance()->GetGem()), {255,255,0,255},850,390,Game::GetInstance()->GetRenderer());
 
 
         for(GameObject* i:p_animation)
@@ -281,6 +284,8 @@ bool PlayerInfo::onEnter()
     ManageTexture::GetInstance()->load("Image/dart_2.png","dart_2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/dart_3.png","dart_3",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/view.png","view",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/view2.png","view2",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/bogoc3.png","bogoc3",Game::GetInstance()->GetRenderer());
 
 
     ManageFont::GetInstance()->load("Font/Fz-Futura-Maxi.ttf","font2",20);
@@ -295,7 +300,8 @@ bool PlayerInfo::onEnter()
     p_gameObjects.push_back(new MenuButton(new LoaderParams(585,602,145,45,"item_100gold"),p_upgradeHP));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(585,802,145,45,"item_100gold"),p_upgradeMana));
 
-    p_gameObjects.push_back(new MenuButton(new LoaderParams(900,200,80,80,"view"),p_view));
+    p_gameObjects.push_back(new MenuBG(new LoaderParams(160,150,700,300,"view2"),10,1400));
+    p_gameObjects.push_back(new MenuButton(new LoaderParams(820,120,80,80,"view"),p_view));
 
 
     return true;
@@ -339,6 +345,8 @@ bool PlayerInfo::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("dart_2");
     ManageTexture::GetInstance()->clearFromTexMap("dart_3");
     ManageTexture::GetInstance()->clearFromTexMap("view");
+    ManageTexture::GetInstance()->clearFromTexMap("view2");
+    ManageTexture::GetInstance()->clearFromTexMap("bogoc3");
 
     ManageFont::GetInstance()->clearFromFontMap("font2");
     ManageFont::GetInstance()->clearFromFontMap("font1");
