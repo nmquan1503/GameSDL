@@ -28,6 +28,7 @@ protected:
     int p_w;
     int p_h;
     int p_Frame;
+    int p_Row;
     std::string p_TexID;
     bool flip=true;
 };

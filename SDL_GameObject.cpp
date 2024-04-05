@@ -9,13 +9,13 @@ SDLGameObject::SDLGameObject(const LoaderParams* p_Params):GameObject(p_Params),
     p_h=p_Params->GetH();
     p_TexID=p_Params->GetTexID();
     p_Frame=0;
-
+    p_Row=0;
     delete p_Params;
 }
 
 void SDLGameObject::draw()
 {
-    ManageTexture::GetInstance()->drawFrame(p_TexID,(int)p_pos.GetX(),(int)p_pos.GetY(),p_w,p_h,p_Frame,Game::GetInstance()->GetRenderer(),flip);
+    ManageTexture::GetInstance()->drawFrame(p_TexID,(int)p_pos.GetX(),(int)p_pos.GetY(),p_w,p_h,p_Frame,p_Row,Game::GetInstance()->GetRenderer(),flip);
 }
 
 void SDLGameObject::update()

@@ -387,6 +387,9 @@ bool PlayState::onEnter()
     for(int i=1; i<=15; i++)Pos_Map[ {i,i}]=i;
 
 
+    ManageTexture::GetInstance()->load("Image/player1.png","player1",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/player2.png","player2",Game::GetInstance()->GetRenderer());
+
     ManageTexture::GetInstance()->load("Image/backg.png","backg",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/run.png","run",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/die.png","die",Game::GetInstance()->GetRenderer());
@@ -497,7 +500,9 @@ bool PlayState::onEnter()
 
 
     //p_gameObjects.push_back(new Soldier(new LoaderParams(900,500,40,65,"soldier1")));
-    p_player=new Player(new LoaderParams(0,0,50,75,"nor"));
+    if(GameData::GetInstance()->GetHpPlayer()<5000)
+        p_player=new Player(new LoaderParams(0,0,50,75,"player1"));
+    else p_player=new Player(new LoaderParams(0,0,50,75,"player2"));
 
     return true;
 }
@@ -547,6 +552,10 @@ bool PlayState::onExit()
     for(GameObject* i:p_animation)
         i->clean();
     p_animation.clear();
+
+
+    ManageTexture::GetInstance()->clearFromTexMap("player1");
+    ManageTexture::GetInstance()->clearFromTexMap("player2");
 
     ManageTexture::GetInstance()->clearFromTexMap("backg");
     ManageTexture::GetInstance()->clearFromTexMap("run");

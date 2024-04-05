@@ -159,6 +159,7 @@ void Player::update()
             p_Frame=4;
         timeDie++;
         p_TexID="die";
+        p_Row=0;
     }
     else
     {
@@ -277,10 +278,11 @@ void Player::handle()
 
     if(HandleInput::GetInstance()->GetMouse(0)&&mana>=3&&(vec->GetX()<=900||vec->GetY()>=265))
     {
-        if(vec->GetX()>960&&vec->GetX()<1015&&vec->GetY())
+        //if(vec->GetX()>960&&vec->GetX()<1015&&vec->GetY())
         p_w=60;
         p_Frame=0;
-        p_TexID="atk";
+        //p_TexID="atk";
+        p_Row=2;
         mana-=3;
         if((*vec-p_pos).GetX()>0)flip=true;
         else flip=false;
@@ -296,7 +298,8 @@ void Player::handle()
         mana-=150;
         p_Frame=0;
         p_w=60;
-        p_TexID="atk";
+        //p_TexID="atk";
+        p_Row=2;
         int xp=0;
         if((*vec-p_pos).GetX()>0)
         {
@@ -316,7 +319,8 @@ void Player::handle()
         if(p_IsJump)
         {
             p_Frame=0;
-            p_TexID="jumpup";
+            //p_TexID="jumpup";
+            p_Row=3;
             goUp();
             timeJump--;
             p_w=60;
@@ -337,7 +341,9 @@ void Player::handle()
         }
         else if(timeJump<-3)
         {
-            p_TexID="santo";
+            p_w=60;
+            //p_TexID="santo";
+            p_Row=4;
             p_Frame=(++p_Frame)%2;
             timeJump--;
             if(timeJump==-6)
@@ -357,8 +363,10 @@ void Player::handle()
         }
         else if(p_Jumped)
         {
+            p_w=60;
             p_Frame=0;
-            p_TexID="jumpdown";
+            //p_TexID="jumpdown";
+            p_Row=5;
             timeJump++;
             goDown();
             if(p_down_can==0)
@@ -380,12 +388,14 @@ void Player::handle()
             if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_RIGHT))
             {
                 p_w=50;
-                p_TexID="run";
+                //p_TexID="run";
+                p_Row=1;
                 turnRight();
                 p_Frame=(++p_Frame)%5;
                 if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_UP))
                 {
-                    p_TexID="jumpup";
+                    //p_TexID="jumpup";
+                    p_Row=3;
                     p_w=60;
                     p_IsJump=true;
                 }
@@ -393,14 +403,16 @@ void Player::handle()
             else if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_LEFT))
             {
                 p_w=50;
-                p_TexID="run";
+                //p_TexID="run";
+                p_Row=1;
                 turnLeft();
 
                 p_Frame=(++p_Frame)%5;
                 if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_UP))
                 {
                     p_Frame=0;
-                    p_TexID="jumpup";
+                    //p_TexID="jumpup";
+                    p_Row=3;
                     p_w=60;
                     p_IsJump=true;
                 }
@@ -408,14 +420,16 @@ void Player::handle()
             else if(HandleInput::GetInstance()->IsKeyDown(SDL_SCANCODE_UP))
             {
                 p_Frame=0;
-                p_TexID="jumpup";
+                //p_TexID="jumpup";
+                p_Row=3;
                 p_w=60;
                 p_IsJump=true;
             }
             else
             {
                 p_w=50;
-                p_TexID="nor";
+                //p_TexID="nor";
+                p_Row=0;
                 p_Frame=(++p_Frame)%2;
             }
         }

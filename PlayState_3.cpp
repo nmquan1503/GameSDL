@@ -457,13 +457,12 @@ bool PlayState3::onEnter()
     ManageTexture::GetInstance()->load("Image/rock.png","rock",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/lava.png","lava",Game::GetInstance()->GetRenderer());
 
-    ManageTexture::GetInstance()->load("Image/run.png","run",Game::GetInstance()->GetRenderer());
+
+    ManageTexture::GetInstance()->load("Image/player1.png","player1",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/player2.png","player2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/die.png","die",Game::GetInstance()->GetRenderer());
-    ManageTexture::GetInstance()->load("Image/nor.png","nor",Game::GetInstance()->GetRenderer());
-    ManageTexture::GetInstance()->load("Image/jumpup.png","jumpup",Game::GetInstance()->GetRenderer());
-    ManageTexture::GetInstance()->load("Image/jumpdown.png","jumpdown",Game::GetInstance()->GetRenderer());
-    ManageTexture::GetInstance()->load("Image/santo.png","santo",Game::GetInstance()->GetRenderer());
-    ManageTexture::GetInstance()->load("Image/atk.png","atk",Game::GetInstance()->GetRenderer());
+
+
     ManageTexture::GetInstance()->load("Image/dart.png","dart",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/dart_2.png","dart_2",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/dart_3.png","dart_3",Game::GetInstance()->GetRenderer());
@@ -554,7 +553,9 @@ bool PlayState3::onEnter()
 
     p_grass_3.push_back(new Grass(new LoaderParams(0,1075,2040,25,"lava"),2));
 
-    p_player=new Player(new LoaderParams(190,200,50,75,"nor"));
+    if(GameData::GetInstance()->GetHpPlayer()<5000)
+        p_player=new Player(new LoaderParams(0,0,50,75,"player1"));
+    else p_player=new Player(new LoaderParams(0,0,50,75,"player2"));
 
     std::vector<GameObject*>tmp;
     for(int i=0; i<30; i++)
@@ -647,13 +648,10 @@ bool PlayState3::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("rock");
     ManageTexture::GetInstance()->clearFromTexMap("lava");
 
-    ManageTexture::GetInstance()->clearFromTexMap("run");
+    ManageTexture::GetInstance()->clearFromTexMap("player1");
+    ManageTexture::GetInstance()->clearFromTexMap("player2");
     ManageTexture::GetInstance()->clearFromTexMap("die");
-    ManageTexture::GetInstance()->clearFromTexMap("nor");
-    ManageTexture::GetInstance()->clearFromTexMap("jumpup");
-    ManageTexture::GetInstance()->clearFromTexMap("jumpdown");
-    ManageTexture::GetInstance()->clearFromTexMap("santo");
-    ManageTexture::GetInstance()->clearFromTexMap("atk");
+
     ManageTexture::GetInstance()->clearFromTexMap("dart");
     ManageTexture::GetInstance()->clearFromTexMap("dart_2");
     ManageTexture::GetInstance()->clearFromTexMap("dart_3");

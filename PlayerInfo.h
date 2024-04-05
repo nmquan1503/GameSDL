@@ -33,6 +33,12 @@ private:
     static std::vector<GameObject*> p_gameObjects;
     static std::vector<Note*> p_notes;
     static std::vector<GameObject*> p_animation;
+
+    static bool view;
+    static SDL_Texture* tex;
+    static int frame_player;
+    static int row_player;
+    static int distance_dart;
 public:
     PlayerInfo();
 
@@ -40,6 +46,8 @@ public:
     static void p_upgradeMana();
     static void p_upgradeDmg();
     static void p_upgradeDart();
+
+    static void p_view();
 
     virtual void update();
     virtual void render();

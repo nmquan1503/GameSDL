@@ -1168,7 +1168,7 @@
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
 
-1711864050 c:\users\my pc\documents\github\gamesdl\sdl_gameobject.h
+1712314951 c:\users\my pc\documents\github\gamesdl\sdl_gameobject.h
 	<iostream>
 	<SDL2/SDL.h>
 	<SDL2/SDL_image.h>
@@ -1179,7 +1179,7 @@
 1708506078 c:\users\my pc\documents\github\gamesdl\vector2d.h
 	<math.h>
 
-1711864050 c:\users\my pc\documents\github\gamesdl\managetexture.h
+1712314951 c:\users\my pc\documents\github\gamesdl\managetexture.h
 	<iostream>
 	<map>
 	<SDL2/SDL.h>
@@ -1407,18 +1407,18 @@
 1711012104 source:c:\users\my pc\documents\github\gamesdl\eskill.cpp
 	"Eskill.h"
 
-1710594523 source:c:\users\my pc\documents\github\gamesdl\game.cpp
+1712336256 source:c:\users\my pc\documents\github\gamesdl\game.cpp
 	"Game.h"
 
 1708440549 source:c:\users\my pc\documents\github\gamesdl\gameobject.cpp
 
-1711866201 source:c:\users\my pc\documents\github\gamesdl\gameoverstate.cpp
+1711871739 source:c:\users\my pc\documents\github\gamesdl\gameoverstate.cpp
 	"GameOverState.h"
 	"EspFunction.cpp"
 
 1708596152 source:c:\users\my pc\documents\github\gamesdl\gamestate.cpp
 
-1711005841 source:c:\users\my pc\documents\github\gamesdl\gamestatemachine.cpp
+1712336037 source:c:\users\my pc\documents\github\gamesdl\gamestatemachine.cpp
 	"GameStateMachine.h"
 
 1711012300 source:c:\users\my pc\documents\github\gamesdl\grass.cpp
@@ -1441,7 +1441,7 @@
 	<time.h>
 	"Game.h"
 
-1710596315 source:c:\users\my pc\documents\github\gamesdl\managetexture.cpp
+1712314951 source:c:\users\my pc\documents\github\gamesdl\managetexture.cpp
 	"ManageTexture.h"
 
 1710734906 source:c:\users\my pc\documents\github\gamesdl\menubg.cpp
@@ -1450,31 +1450,31 @@
 1711043229 source:c:\users\my pc\documents\github\gamesdl\menubutton.cpp
 	"MenuButton.h"
 
-1711737776 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
+1712335848 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
 	"MenuState.h"
 
 1711012427 source:c:\users\my pc\documents\github\gamesdl\optionsstate.cpp
 	"OptionsState.h"
 
-1711870736 source:c:\users\my pc\documents\github\gamesdl\pausestate.cpp
+1711871732 source:c:\users\my pc\documents\github\gamesdl\pausestate.cpp
 	"PauseState.h"
 
 1709017145 source:c:\users\my pc\documents\github\gamesdl\playbg.cpp
 
-1711304621 source:c:\users\my pc\documents\github\gamesdl\player.cpp
+1712318556 source:c:\users\my pc\documents\github\gamesdl\player.cpp
 	"Player.h"
 	"SDL_GameObject.h"
 	"EspFunction.cpp"
 
-1711868231 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
+1712315617 source:c:\users\my pc\documents\github\gamesdl\playstate.cpp
 	"PlayState.h"
 	"EspFunction.cpp"
 
-1711868231 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
+1712318959 source:c:\users\my pc\documents\github\gamesdl\playstate_2.cpp
 	"PlayState_2.h"
 	"EspFunction.cpp"
 
-1711864050 source:c:\users\my pc\documents\github\gamesdl\sdl_gameobject.cpp
+1712314951 source:c:\users\my pc\documents\github\gamesdl\sdl_gameobject.cpp
 	"SDL_GameObject.h"
 	"ManageTexture.h"
 	"Game.h"
@@ -1632,10 +1632,11 @@
 1711043373 source:c:\users\my pc\documents\github\gamesdl\shopstate.cpp
 	"ShopState.h"
 
-1711825189 source:c:\users\my pc\documents\github\gamesdl\playerinfo.cpp
+1712337208 source:c:\users\my pc\documents\github\gamesdl\playerinfo.cpp
 	"PlayerInfo.h"
+	"EspFunction.cpp"
 
-1711825063 c:\users\my pc\documents\github\gamesdl\playerinfo.h
+1712336658 c:\users\my pc\documents\github\gamesdl\playerinfo.h
 	"GameData.h"
 	"MenuButton.h"
 	"GameState.h"
@@ -1667,7 +1668,7 @@
 	"SDL_GameObject.h"
 	"LoaderParams.h"
 
-1711868231 source:c:\users\my pc\documents\github\gamesdl\playstate_3.cpp
+1712318961 source:c:\users\my pc\documents\github\gamesdl\playstate_3.cpp
 	"PlayState_3.h"
 	"EspFunction.cpp"
 

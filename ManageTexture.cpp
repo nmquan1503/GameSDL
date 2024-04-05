@@ -44,12 +44,12 @@ void ManageTexture::draw(std::string id,int x,int y,int w,int h,SDL_Renderer* re
     else SDL_RenderCopyEx(renderer,TexMap[id],&scr,&dst,0,0,SDL_FLIP_HORIZONTAL);
 }
 
-void ManageTexture:: drawFrame(std::string id,int x,int y,int w,int h,int Frame,SDL_Renderer* renderer,bool flip)
+void ManageTexture:: drawFrame(std::string id,int x,int y,int w,int h,int Frame,int Row,SDL_Renderer* renderer,bool flip)
 {
     SDL_Rect scr;
     SDL_Rect dst;
     scr.x=w*Frame;
-    scr.y=0;
+    scr.y=Row*h;
     scr.w=dst.w=w;
     scr.h=dst.h=h;
     dst.x=x;
