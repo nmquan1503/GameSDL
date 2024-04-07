@@ -142,7 +142,7 @@ bool GameOverState::onExit()
 void GameOverState::p_toHome()
 {
     Game::GetInstance()->GetGameStateMachine()->clearAllState();
-    Game::GetInstance()->GetGameStateMachine()->changeState(new MenuState());
+    Game::GetInstance()->GetGameStateMachine()->pushState(new MenuState());
 }
 void GameOverState::p_toRestart()
 {

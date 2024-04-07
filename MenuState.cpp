@@ -5,56 +5,81 @@ std::string MenuState::p_MenuID="MENU";
 std::vector<GameObject*> MenuState::p_gameObjects;
 bool MenuState::play;
 bool MenuState::quit;
+bool MenuState::loading;
+int MenuState::map_next;
+
+
+
 void MenuState::update()
 {
-    if(play==true)
+    if(loading==false)
     {
-        Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
-        if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()<=60&&vec->GetY()<=60)play=false;
-        else
+        if(play==true)
+        {
+            Vector2D* vec=HandleInput::GetInstance()->GetMousePos();
+            if(HandleInput::GetInstance()->GetMouse(0)&&vec->GetX()<=60&&vec->GetY()<=60)play=false;
+            else
+            {
+                p_gameObjects[0]->update();
+                p_gameObjects[7]->update();
+                p_gameObjects[8]->update();
+            }
+        }
+        else if(quit==true)
         {
             p_gameObjects[0]->update();
-            p_gameObjects[7]->update();
-            p_gameObjects[8]->update();
+            p_gameObjects[9]->update();
+            p_gameObjects[10]->update();
         }
-    }
-    else if(quit==true)
-    {
-        p_gameObjects[0]->update();
-        p_gameObjects[9]->update();
-        p_gameObjects[10]->update();
+        else
+        {
+            for(int i=0; i<=6; i++)
+                p_gameObjects[i]->update();
+        }
     }
     else
     {
-        for(int i=0;i<=6;i++)
-            p_gameObjects[i]->update();
+        load->update();
+        if(static_cast<Wait*>(load)->GetTime()>3100)
+        {
+            if(map_next==1)Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState());
+            else Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState3());
+        }
     }
 }
 
 void MenuState::render()
 {
-    p_gameObjects[0]->draw();
-    if(play==true)
+    SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(),0,0,0,255);
+    if(loading==false)
     {
-        p_gameObjects[7]->draw();
-        p_gameObjects[8]->draw();
-        ManageTexture::GetInstance()->draw("return",0,0,60,60,Game::GetInstance()->GetRenderer(),true);
-    }
-    else if(quit==true)
-    {
-        p_gameObjects[9]->draw();
-        p_gameObjects[10]->draw();
-        ManageTexture::GetInstance()->draw("sure",260,120,500,130,Game::GetInstance()->GetRenderer(),true);
+        p_gameObjects[0]->draw();
+        if(play==true)
+        {
+            p_gameObjects[7]->draw();
+            p_gameObjects[8]->draw();
+            ManageTexture::GetInstance()->draw("return",0,0,60,60,Game::GetInstance()->GetRenderer(),true);
+        }
+        else if(quit==true)
+        {
+            p_gameObjects[9]->draw();
+            p_gameObjects[10]->draw();
+            ManageTexture::GetInstance()->draw("sure",260,120,500,130,Game::GetInstance()->GetRenderer(),true);
+        }
+        else
+        {
+
+            ManageTexture::GetInstance()->draw("menu",0,0,1020,600,Game::GetInstance()->GetRenderer(),true);
+            ManageTexture::GetInstance()->draw("day2",770,0,200,171,Game::GetInstance()->GetRenderer(),true);
+            for(int i=1; i<=6; i++)
+            {
+                p_gameObjects[i]->draw();
+            }
+        }
     }
     else
     {
-
-    ManageTexture::GetInstance()->draw("menu",0,0,1020,600,Game::GetInstance()->GetRenderer(),true);
-    ManageTexture::GetInstance()->draw("day2",770,0,200,171,Game::GetInstance()->GetRenderer(),true);
-    for(int i=1;i<=6;i++)
-    {
-        p_gameObjects[i]->draw();
-    }
+        load->draw();
     }
 }
 
@@ -75,6 +100,7 @@ bool MenuState::onEnter()
     ManageTexture::GetInstance()->load("Image/yes.png","yes",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/no.png","no",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/day2.png","day2",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/loading1.png","loading1",Game::GetInstance()->GetRenderer());
 
 
     ManageSound::GetInstance()->load("Audio/SoundMenu.mp3","soundmenu",SOUND_MUSIC);
@@ -98,6 +124,10 @@ bool MenuState::onEnter()
 
     quit=false;
     play=false;
+    loading=false;
+    load=new Wait(new LoaderParams(255,260,500,70,"loading1"),2);
+
+
     return true;
 }
 
@@ -108,6 +138,8 @@ bool MenuState::onExit()
         i->clean();
     }
     p_gameObjects.clear();
+
+    load->clean();
 
     ManageSound::GetInstance()->stopMusic();
 
@@ -126,6 +158,7 @@ bool MenuState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("yes");
     ManageTexture::GetInstance()->clearFromTexMap("no");
     ManageTexture::GetInstance()->clearFromTexMap("day2");
+    ManageTexture::GetInstance()->clearFromTexMap("loading1");
 
 
     ManageSound::GetInstance()->clearFromMusicMap("soundmenu");
@@ -166,12 +199,14 @@ void MenuState::p_menuToUpgrade()
 
 void MenuState::p_menuToMap1()
 {
-    Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState());
+    loading=true;
+    map_next=1;
 }
 
 void MenuState::p_menuToMap3()
 {
-    Game::GetInstance()->GetGameStateMachine()->changeState(new PlayState3());
+    loading=true;
+    map_next=3;
 }
 
 void MenuState::p_quit()

@@ -13,6 +13,7 @@
 #include "PlayState_3.h"
 #include "SDL_GameObject.h"
 #include "MenuBG.h"
+#include "Wait.h"
 
 #include <vector>
 #include <iostream>
@@ -43,6 +44,10 @@ private:
 
     static bool play;
     static bool quit;
+    static bool loading;
+    static int map_next;
+
+    GameObject* load;
 };
 
 

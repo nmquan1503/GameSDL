@@ -14,6 +14,7 @@ int PauseState::p_dmg_spell;
 int PauseState::p_hp_x2;
 int PauseState::p_mana_x2;
 SDL_Texture* PauseState::p_tex;
+bool PauseState::loading;
 
 PauseState::PauseState(SDL_Texture* tex,int ID,int gold,int gem,int time,int score,
                        int hp_spell,int mana_spell,int speed_spell,
@@ -32,16 +33,13 @@ PauseState::PauseState(SDL_Texture* tex,int ID,int gold,int gem,int time,int sco
     p_mana_x2=mana_x2;
     p_tex=tex;
     ManageTexture::GetInstance()->loadFromTex(p_tex,"blind",Game::GetInstance()->GetRenderer());
+    loading=false;
 }
 
-void PauseState::p_Pause()
-{
-    Game::GetInstance()->GetGameStateMachine()->changeState(new MenuState());
-}
 
 void PauseState::p_pauseToResume()
 {
-    Game::GetInstance()->GetGameStateMachine()->popState();
+    loading=true;
 }
 
 void PauseState::p_pauseToHome()
@@ -87,16 +85,31 @@ void PauseState::p_pauseToOptions()
 
 void PauseState::update()
 {
-    for(GameObject* i:p_gameObjects)
-        i->update();
+    if(loading==false)
+    {
+
+        for(GameObject* i:p_gameObjects)
+            i->update();
+    }
+    else
+    {
+        load->update();
+        if(static_cast<Wait*>(load)->GetTime()>=4000)
+            Game::GetInstance()->GetGameStateMachine()->popState();
+    }
 }
 
 void PauseState::render()
 {
     SDL_RenderCopy(Game::GetInstance()->GetRenderer(),p_tex,NULL,NULL);
-    ManageTexture::GetInstance()->draw("pause",0,0,1020,600,Game::GetInstance()->GetRenderer(),true);
-    for(GameObject* i:p_gameObjects)
-        i->draw();
+    if(loading==false)
+    {
+
+        ManageTexture::GetInstance()->draw("pause",0,0,1020,600,Game::GetInstance()->GetRenderer(),true);
+        for(GameObject* i:p_gameObjects)
+            i->draw();
+    }
+    else load->draw();
 }
 
 bool PauseState::onEnter()
@@ -106,6 +119,7 @@ bool PauseState::onEnter()
     ManageTexture::GetInstance()->load("Image/menu_options.png","options",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/menu_home.png","home",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/menu_resume.png","resume",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/loading2.png","loading2",Game::GetInstance()->GetRenderer());
 
     ManageSound::GetInstance()->load("Audio/button.mp3","button",SOUND_SFX);
 
@@ -114,6 +128,10 @@ bool PauseState::onEnter()
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,340,250,60,"options"),p_pauseToOptions));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,410,250,60,"restart"),p_pauseToRestart));
     p_gameObjects.push_back(new MenuButton(new LoaderParams(385,480,250,60,"home"),p_pauseToHome));
+
+
+    load=new Wait(new LoaderParams(410,200,200,200,"loading2"),1);
+
     return true;
 }
 
@@ -125,6 +143,8 @@ bool PauseState::onExit()
         i->clean();
     }
     p_gameObjects.clear();
+    load->clean();
+
     ManageTexture::GetInstance()->clearFromTexMap("instruction");
     ManageTexture::GetInstance()->clearFromTexMap("pause");
     ManageTexture::GetInstance()->clearFromTexMap("restart");
@@ -132,6 +152,7 @@ bool PauseState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("home");
     ManageTexture::GetInstance()->clearFromTexMap("resume");
     ManageTexture::GetInstance()->clearFromTexMap("blind");
+    ManageTexture::GetInstance()->clearFromTexMap("loading2");
 
     ManageSound::GetInstance()->clearFromSFXMap("button");
 

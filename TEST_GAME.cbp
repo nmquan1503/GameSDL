@@ -122,6 +122,8 @@
 		<Unit filename="SpItem.h" />
 		<Unit filename="Vector2D.cpp" />
 		<Unit filename="Vector2D.h" />
+		<Unit filename="Wait.cpp" />
+		<Unit filename="Wait.h" />
 		<Unit filename="dart.cpp" />
 		<Unit filename="dart.h" />
 		<Unit filename="item_data.xml" />

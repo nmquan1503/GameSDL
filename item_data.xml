@@ -1,12 +1,12 @@
 <game_data>
-    <gold quantity="9986208"/>
-    <gem quantity="999795"/>
+    <gold quantity="9986272"/>
+    <gem quantity="999790"/>
     <spells>
         <spell type="hp" quantity="0"/>
         <spell type="mana" quantity="0"/>
-        <spell type="damage" quantity="3"/>
-        <spell type="hp_x2" quantity="21"/>
-        <spell type="mana_x2" quantity="7"/>
+        <spell type="damage" quantity="7"/>
+        <spell type="hp_x2" quantity="22"/>
+        <spell type="mana_x2" quantity="8"/>
         <spell type="speed" quantity="0"/>
     </spells>
     <player>

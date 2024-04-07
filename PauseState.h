@@ -24,7 +24,6 @@ class PauseState : public GameState
 {
 private:
     static std::string p_PauseID;
-    static void p_Pause();
     static void p_pauseToResume();
     static void p_pauseToHome();
     static void p_pauseToRestart();
@@ -46,6 +45,10 @@ private:
     static int p_dmg_spell;
     static int p_hp_x2;
     static int p_mana_x2;
+
+    static bool loading;
+    GameObject* load;
+
 public:
     PauseState(SDL_Texture* tex,int ID,int gold,int gem,int time,int score,
                                 int hp_spell,int mana_spell,int speed_spell,

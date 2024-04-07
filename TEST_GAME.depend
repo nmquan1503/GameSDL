@@ -1259,7 +1259,7 @@
 	<string>
 	<iostream>
 
-1711870038 c:\users\my pc\documents\github\gamesdl\pausestate.h
+1712481208 c:\users\my pc\documents\github\gamesdl\pausestate.h
 	"GameObject.h"
 	"GameState.h"
 	"Game.h"
@@ -1281,7 +1281,7 @@
 	"LoaderParams.h"
 	"ManageSound.h"
 
-1711006603 c:\users\my pc\documents\github\gamesdl\menustate.h
+1712477062 c:\users\my pc\documents\github\gamesdl\menustate.h
 	"GameState.h"
 	"GameObject.h"
 	"ManageTexture.h"
@@ -1294,6 +1294,7 @@
 	"PlayState_3.h"
 	"SDL_GameObject.h"
 	"MenuBG.h"
+	"Wait.h"
 	<vector>
 	<iostream>
 
@@ -1414,7 +1415,7 @@
 
 1708440549 source:c:\users\my pc\documents\github\gamesdl\gameobject.cpp
 
-1711871739 source:c:\users\my pc\documents\github\gamesdl\gameoverstate.cpp
+1712347222 source:c:\users\my pc\documents\github\gamesdl\gameoverstate.cpp
 	"GameOverState.h"
 	"EspFunction.cpp"
 
@@ -1432,7 +1433,7 @@
 	"HandleInput.h"
 	"Game.h"
 
-1711090831 source:c:\users\my pc\documents\github\gamesdl\instructionstate.cpp
+1712348263 source:c:\users\my pc\documents\github\gamesdl\instructionstate.cpp
 	"InstructionState.h"
 
 1708832754 source:c:\users\my pc\documents\github\gamesdl\loaderparams.cpp
@@ -1443,22 +1444,22 @@
 	<time.h>
 	"Game.h"
 
-1712345295 source:c:\users\my pc\documents\github\gamesdl\managetexture.cpp
+1712345917 source:c:\users\my pc\documents\github\gamesdl\managetexture.cpp
 	"ManageTexture.h"
 
-1712341039 source:c:\users\my pc\documents\github\gamesdl\menubg.cpp
+1712348263 source:c:\users\my pc\documents\github\gamesdl\menubg.cpp
 	"MenuBG.h"
 
 1711043229 source:c:\users\my pc\documents\github\gamesdl\menubutton.cpp
 	"MenuButton.h"
 
-1712340941 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
+1712478326 source:c:\users\my pc\documents\github\gamesdl\menustate.cpp
 	"MenuState.h"
 
 1711012427 source:c:\users\my pc\documents\github\gamesdl\optionsstate.cpp
 	"OptionsState.h"
 
-1712341004 source:c:\users\my pc\documents\github\gamesdl\pausestate.cpp
+1712480564 source:c:\users\my pc\documents\github\gamesdl\pausestate.cpp
 	"PauseState.h"
 
 1709017145 source:c:\users\my pc\documents\github\gamesdl\playbg.cpp
@@ -1476,7 +1477,7 @@
 	"PlayState_2.h"
 	"EspFunction.cpp"
 
-1712314951 source:c:\users\my pc\documents\github\gamesdl\sdl_gameobject.cpp
+1712347548 source:c:\users\my pc\documents\github\gamesdl\sdl_gameobject.cpp
 	"SDL_GameObject.h"
 	"ManageTexture.h"
 	"Game.h"
@@ -1694,4 +1695,10 @@
 	"Item.h"
 	"GameData.h"
 	"Animation.h"
+
+1712480666 c:\users\my pc\documents\github\gamesdl\wait.h
+	"SDL_GameObject.h"
+
+1712480633 source:c:\users\my pc\documents\github\gamesdl\wait.cpp
+	"Wait.h"
 

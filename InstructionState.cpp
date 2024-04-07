@@ -34,8 +34,16 @@ void InstructionState::update()
         p_scrolling=false;
 
 
+    if(p_scrolling==true||(p_scrolling==false&&vec->GetY()>100))
+    {
+
+        for(GameObject* i:p_gameObjects)
+        {
+            i->update();
+        }
+    }
     for(GameObject* i:p_gameObjects)
-        i->update();
+        static_cast<MenuButton*>(i)->SetVel(Vector2D(0,0));
 }
 
 void InstructionState::render()
@@ -44,9 +52,10 @@ void InstructionState::render()
 
     ManageTexture::GetInstance()->draw("scroll1",990,113,25,474,Game::GetInstance()->GetRenderer(),true);
 
-    for(int i=1;i<p_gameObjects.size();i++)
+    for(int i=1; i<p_gameObjects.size(); i++)
         p_gameObjects[i]->draw();
 
+    ManageTexture::GetInstance()->draw("instruction2",0,0,1020,150,Game::GetInstance()->GetRenderer(),true);
 
     ManageTexture::GetInstance()->draw("return",0,0,60,60,Game::GetInstance()->GetRenderer(),true);
 
@@ -57,6 +66,7 @@ bool InstructionState::onEnter()
     ManageTexture::GetInstance()->load("Image/instruction.png","instruction",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/scroll1.png","scroll1",Game::GetInstance()->GetRenderer());
     ManageTexture::GetInstance()->load("Image/scroll2.png","scroll2",Game::GetInstance()->GetRenderer());
+    ManageTexture::GetInstance()->load("Image/instruction2.png","instruction2",Game::GetInstance()->GetRenderer());
 
     p_gameObjects.push_back(new SDLGameObject(new LoaderParams(0,0,1020,940,"instruction")));
     p_gameObjects.push_back(new SDLGameObject(new LoaderParams(992,115,21,300,"scroll2")));
@@ -70,6 +80,7 @@ bool InstructionState::onExit()
     ManageTexture::GetInstance()->clearFromTexMap("instruction");
     ManageTexture::GetInstance()->clearFromTexMap("scroll1");
     ManageTexture::GetInstance()->clearFromTexMap("scroll2");
+    ManageTexture::GetInstance()->clearFromTexMap("instruction2");
 
     for(GameObject* i:p_gameObjects)
         i->clean();
