@@ -15,30 +15,24 @@ void GameData::loadData(const char* filename)
 {
     tinyxml2::XMLDocument doc;
 
-    // Kiểm tra việc mở file
     if (doc.LoadFile(filename) != tinyxml2::XML_SUCCESS) {
-        // Xử lý lỗi nếu cần
         return;
     }
 
     const tinyxml2::XMLElement* root = doc.FirstChildElement("game_data");
     if (!root) {
-        // Xử lý lỗi nếu không có phần tử "game_data"
         return;
     }
 
-    // Đọc và gán giá trị cho các trường dữ liệu gold và gem
     gold = root->FirstChildElement("gold") ? root->FirstChildElement("gold")->IntAttribute("quantity", 0) : 0;
     gem = root->FirstChildElement("gem") ? root->FirstChildElement("gem")->IntAttribute("quantity", 0) : 0;
 
     const tinyxml2::XMLElement* spellsElement = root->FirstChildElement("spells");
     if (spellsElement) {
-        // Duyệt qua tất cả các phần tử con của "spells"
         const tinyxml2::XMLElement* spellElement = spellsElement->FirstChildElement("spell");
         while (spellElement) {
             const char* spellType = spellElement->Attribute("type");
             if (spellType) {
-                // Kiểm tra và gán giá trị cho các loại spell tương ứng
                 if (std::strcmp(spellType, "hp") == 0) {
                     hp_spell = spellElement->IntAttribute("quantity", 0);
                 } else if (std::strcmp(spellType, "mana") == 0) {
