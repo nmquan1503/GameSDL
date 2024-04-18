@@ -2,7 +2,7 @@
 ## Giới Thiệu
 - Họ và tên: Nguyễn Minh Quân
 - MSSV: 23020141
-Giải Cứu Sugar Tank là một trò chơi hành động đầy thách thức, nơi người chơi sẽ nhập vai vào một anh hùng dũng cảm, chiến đấu để giải cứu người bạn thân thiết Sugar Tank khỏi sự bắt cóc của lực lượng hắc ám.
+- Giải Cứu Sugar Tank là một trò chơi hành động đầy thách thức, nơi người chơi sẽ nhập vai vào một anh hùng dũng cảm, chiến đấu để giải cứu người bạn thân thiết Sugar Tank khỏi sự bắt cóc của lực lượng hắc ám.
 ## Chi tiết
 ### Gameplay
 ### Control
