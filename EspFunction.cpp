@@ -23,17 +23,11 @@ static SDL_Texture* blindTex(SDL_Renderer* renderer)
     for (int i = 0; i < pixelCount; ++i)
     {
         Uint8* pixel = reinterpret_cast<Uint8*>(&pixels[i]);
-
-        // Lấy giá trị RGBA của pixel
         Uint8 r, g, b, a;
         SDL_GetRGBA(pixels[i], screenSurface->format, &r, &g, &b, &a);
-
-        // Giảm độ sáng (ví dụ giảm 50%)
         r = static_cast<Uint8>(r * 0.5);
         g = static_cast<Uint8>(g * 0.5);
         b = static_cast<Uint8>(b * 0.5);
-
-        // Tạo giá trị RGBA mới
         pixels[i] = SDL_MapRGBA(screenSurface->format, r, g, b, a);
     }
     SDL_Texture* tex=SDL_CreateTextureFromSurface(renderer,screenSurface);
