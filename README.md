@@ -5,7 +5,7 @@
 - Giải Cứu Sugar Tank là một trò chơi hành động đầy thách thức, nơi người chơi sẽ nhập vai vào một anh hùng dũng cảm, chiến đấu để giải cứu người bạn thân thiết Sugar Tank khỏi sự bắt cóc của lực lượng hắc ám.
 ## Chi tiết
 ### Video Game
-- Bạn có thể xem video chơi game 
+- Bạn có thể xem video chơi game ![Tại đây](https://youtu.be/cFwCvJD0i0E)
 ### Control
 1. Dùng 4 phím mũi tên để di chuyển nhân vật
 2. Dùng chuột trái để định hướng tấn công, chuột phải để định hướng skill đặc biệt( hãy dùng khéo, vì nó tốn nhiều năng lượng và càng gần sát thương tụ càng nhiều)
