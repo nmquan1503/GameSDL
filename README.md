@@ -34,5 +34,5 @@
 - OOP
 - Sound, Texture, Font của SDL2
 - Đọc, lưu dữ liệu
-## Tự đánh giá
+## Điểm mong muốn
 10
