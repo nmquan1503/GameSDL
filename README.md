@@ -19,6 +19,7 @@
 - ![](anh4.png)
 - Hãy di chuyển khéo, vì bọn quái vật rất đông và không ngừng đuổi theo để hạ bạn
 - Đôi khi hãy để ý hướng dẫn trên màn hình nếu chúng xuất hiện
+- Hỗ trợ các tính năng cần thiết để người chơi có trải nghiệm tốt nhất
 
 ### Vật phẩm hỗ trợ
 - Bạn có thể tìm mua chúng trong shop(Nhớ mang đủ tiền)
@@ -34,5 +35,11 @@
 - OOP
 - Sound, Texture, Font của SDL2
 - Đọc, lưu dữ liệu
-## Điểm mong muốn
-10
+## Conclusion
+### Điều tâm đắc
+- Trong dự án của mình, em có tích hợp thuật toán BFS để xác định đường đi của quái vật tới nhân vật chính trong trò chơi. Điều này giúp tạo nên 1 hệ thống di chuyển thông minh cho quái vật.
+- Em cũng đã cố gắng chau chuốt đồ họa của trò chơi đến mức tinh tế nhất bằng cách tìm các nguồn ảnh kết hợp design bằng Paint 3D.
+- Ngoài việc tham khảo các lệnh SDL, dự án tự tay em làm lên và không tham khảo bất kì nguồn code nào
+### Điểm mong muốn
+Với những gì em đã làm, em mong em sẽ lọt top 10% của lớp
+# Em căm ơn thầy cô bạn bè và đã giúp em hoàn thành được project đầu tiên của mình
