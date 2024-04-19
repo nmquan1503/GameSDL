@@ -45,4 +45,4 @@
 - Ngoài việc tham khảo các lệnh SDL, dự án tự tay em làm lên và không tham khảo bất kì nguồn code nào
 ### Điểm mong muốn
 Với những gì em đã làm, em mong em sẽ lọt top 10% của lớp
-# Em cảm ơn thầy cô bạn bè và đã giúp em hoàn thành được project đầu tiên của mình
+# Em cảm ơn thầy cô bạn bè đã giúp em hoàn thành được project đầu tiên của mình
