@@ -36,3 +36,4 @@ int main(int argc,char* argv[])
     Game::GetInstance()->clean();
     return 0;
 }
+

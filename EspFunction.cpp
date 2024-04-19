@@ -22,7 +22,6 @@ static SDL_Texture* blindTex(SDL_Renderer* renderer)
 
     for (int i = 0; i < pixelCount; ++i)
     {
-        Uint8* pixel = reinterpret_cast<Uint8*>(&pixels[i]);
         Uint8 r, g, b, a;
         SDL_GetRGBA(pixels[i], screenSurface->format, &r, &g, &b, &a);
         r = static_cast<Uint8>(r * 0.5);
