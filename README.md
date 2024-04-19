@@ -20,6 +20,9 @@
 - Hãy di chuyển khéo, vì bọn quái vật rất đông và không ngừng đuổi theo để hạ bạn
 - Đôi khi hãy để ý hướng dẫn trên màn hình nếu chúng xuất hiện
 - Hỗ trợ các tính năng cần thiết để người chơi có trải nghiệm tốt nhất
+- ![](anh5.png)
+- ![](anh6.png)
+- ![](anh7.png)
 
 ### Vật phẩm hỗ trợ
 - Bạn có thể tìm mua chúng trong shop(Nhớ mang đủ tiền)
