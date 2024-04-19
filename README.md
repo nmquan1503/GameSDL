@@ -19,6 +19,7 @@
 ### Nhân vật
 #### Vật phẩm hỗ trợ
 - Bạn có thể tìm mua chúng trong shop(Nhớ mang đủ tiền)
+![](anh1.png)
 #### Thăng cấp sức mạnh
 - Dùng số tiền tích lũy được từ việc train quái để tiến hành nâng cấp các chỉ số
 - Mỗi chỉ số mỗi level khi nâng cấp sẽ có tỉ lệ thành công nhất định
