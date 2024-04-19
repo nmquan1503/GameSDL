@@ -13,9 +13,12 @@
 ### Game
 - Có 2 chế độ Campaign và Scoring
 - Campaign sẽ là map chính mà bạn phải lên đường giải cứu Sugar Tank, nơi mà quái và boss sẽ mạnh và nếu không được trang bị đầy đủ, bạn sẽ rất khó vượt qua
+- [Campaign](anh3.png)
 - Scoring sẽ có quái yếu hơn, phù hợp để bạn tập luyện và kiếm tài nguyên phục vụ cho việc thăng cấp sức mạnh và mua vật phẩm hỗ trợ, và đây là chế độ có tính điểm và phù hợp với người thích leo thành tích
+- [Scoring](anh4.png)
 - Hãy di chuyển khéo, vì bọn quái vật rất đông và không ngừng đuổi theo để hạ bạn
 - Đôi khi hãy để ý hướng dẫn trên màn hình nếu chúng xuất hiện
+
 ### Nhân vật
 #### Vật phẩm hỗ trợ
 - Bạn có thể tìm mua chúng trong shop(Nhớ mang đủ tiền)
@@ -25,6 +28,7 @@
 - Mỗi chỉ số mỗi level khi nâng cấp sẽ có tỉ lệ thành công nhất định
 - Ngoài ra, thăng level phi tiêu và hp đến 1 ngưỡng nhất định nào đó sẽ được thay đổi phi tiêu và trang phục nhân vật
 - Có thể xem tổng thể ngoại hình của nhân vật ngay tại menu Upgrade
+- [](anh2.png)
 ## Một số kĩ thuật
 - Thuật toán BFS
 - OOP
