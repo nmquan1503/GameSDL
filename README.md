@@ -33,5 +33,6 @@
 - Thuật toán BFS
 - OOP
 - Sound, Texture, Font của SDL2
+- Đọc, lưu dữ liệu
 ## Tự đánh giá
 10
