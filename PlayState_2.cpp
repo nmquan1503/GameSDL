@@ -107,6 +107,7 @@ void PlayState2::update()
     int x_pl=static_cast<Player*>(p_player)->GetPosInMapX();
     int y_pl=static_cast<Player*>(p_player)->GetPosInMapY();
     int dmg_pl=static_cast<Player*>(p_player)->GetDamage();
+    int speed_pl=static_cast<Player*>(p_player)->GetSpeed();
 
 
     if(IsTalking1==false && IsTalking2==false)
@@ -116,7 +117,7 @@ void PlayState2::update()
         static_cast<Player*>(p_player)->SetDart(p_darts);
         //static_cast<Boss*>(p_boss)->SetEskill(p_eskill_boss);
 
-        int t_l=15,t_r=15;
+        int t_l=speed_pl,t_r=speed_pl;
         for(GameObject* i:p_grass_1)
         {
             int x2=static_cast<Grass*>(i)->GetFirX(),w2=static_cast<Grass*>(i)->GetW();
